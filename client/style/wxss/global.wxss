@@ -1,0 +1,21 @@
+.btn { font-size: 32rpx; margin: 0; }
+
+page { --primary-color: #4980F9; background-color: #F6F6F6; font-family: Source Han Sans CN; overflow-y: auto; }
+
+page image { width: 100%; height: 100%; vertical-align: middle; }
+
+page view, page input { box-sizing: border-box; }
+
+page button { padding: 0; }
+
+page .container { min-height: 100vh; box-sizing: border-box; line-height: 1; }
+
+page .none { display: none; }
+
+page .hide { visibility: hidden; opacity: 0; }
+
+page .hide-scrollbar::-webkit-scrollbar { display: none; width: 0; height: 0; color: transparent; }
+
+page .one-txt-cut { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+page .txt-cut { overflow: hidden; text-overflow: ellipsis; display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }

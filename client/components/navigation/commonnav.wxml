@@ -1,0 +1,31 @@
+<!--components/navigation/commonnav.wxml-->
+<!-- <text>components/navigation/commonnav.wxml</text> -->
+<view class="navigation-wrapper {{transition?'transition':''}}" style="height:{{navHeight}}px;background:{{bgColor}}">
+	<view class="navigation" bindtap="navigateBackHandle"
+		style="top:{{navTop}}px;height:{{menuButtonHeight}}px;line-height:{{menuButtonHeight}}px">
+		<!-- icon房子 -->
+		<image wx:if="{{status==='isEntryWithShare'}}" class="icon-home" style="top:{{menuButtonHeight/2-14}}px;"
+			mode="aspectFill" src="/assets/images/listcar_icon_home.png" data-el="home"></image>
+		<!-- icon空 -->
+		<view wx:elif="{{status==='isEmpty'}}"></view>
+		<!-- 地址 -->
+		<view class="box-location" wx:elif="{{status==='location'}}">
+			<image class="icon-location" src="/assets/images/home_nav_local.png" mode="aspectFill"></image>
+			<view class="text one-txt-cut" data-el="location">
+				<!-- {{location.formatted_addresses.recommend?location.formatted_addresses.recommend:'定位中...'}} -->
+				{{location.address}}
+			</view>
+			<view class="triangle"></view>
+		</view>
+		<view class="box-category input-box" wx:elif="{{status==='category'}}">
+			<input class="search" placeholder="请输入商品类型、商品名称" placeholder-class="search-placeholder" disabled="true"
+				data-el="category" />
+		</view>
+		<!-- icon返回箭头 -->
+		<view wx:else style="height:100%;width:100rpx;position:absolute;" data-el="leftarrow">
+			<view class="left-arrow" data-el="leftarrow"
+				style="border-top-color:{{color}};top:{{menuButtonHeight/2-7}}px;border-left-color:{{color}}"></view>
+		</view>
+		<text class="title-text" style="color:{{color}};">{{navigationBarTitleText}}</text>
+	</view>
+</view>

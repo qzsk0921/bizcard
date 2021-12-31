@@ -1,0 +1,20 @@
+{
+  "name": "bizcard",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "node watcher.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chokidar": "^3.5.2",
+    "node-sass": "^6.0.1"
+  },
+  "dependencies": {
+    "@vant/weapp": "^1.6.9",
+    "animate.css": "^4.1.1"
+  }
+}

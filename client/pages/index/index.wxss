@@ -1,0 +1,129 @@
+/* 无名片信息 */
+.container-welcome {
+
+}
+
+.compatibleIphoneXEl {
+  padding-top: env(safe-area-inset-bottom);
+  background-color: #3c79ff;
+}
+
+.container-welcome .section1 {
+
+}
+
+.container-welcome .section1 image {
+  width: 100vw;
+  height: 987rpx;
+}
+
+.container-welcome .section1 .card {
+  margin-top: env(safe-area-inset-bottom);
+  position: absolute;
+  top: 283rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 630rpx;
+  height: 704rpx;
+  /* background: rgba(255, 255, 255, 0.39); */
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0rpx 10rpx 16rpx rgba(75, 75, 75, 0.07);
+  border-radius: 10rpx;
+}
+
+.container-welcome .section1 .card .l1 {
+  margin-top: 30rpx;
+  text-align: center;
+}
+
+.container-welcome .section1 .card .l1 view {
+  font-size: 33rpx;
+  font-weight: 500;
+  color: #555555;
+  letter-spacing: 2rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-welcome .section1 .card .l1 view::after,
+.container-welcome .section1 .card .l1 view::before {
+  content: '';
+  width: 14rpx;
+  height: 12rpx;
+  /* background: rgba(73, 128, 249, 0.39); */
+  background: #4980F9;
+}
+
+.container-welcome .section1 .card .l1 view::after {
+  margin-left: 15rpx;
+}
+
+.container-welcome .section1 .card .l1 view::before {
+  margin-right: 15rpx;
+}
+
+.container-welcome .section1 .card .l2 {
+  text-align: center;
+  margin-top: 18rpx;
+  font-size: 22rpx;
+  color: #9F9F9F;
+  letter-spacing: 2rpx;
+}
+
+.container-welcome .section1 .card .l3 swiper {
+  margin: 22rpx auto 0;
+  width: 570rpx;
+  height: 549rpx;
+  background: rgba(242, 242, 242, 0.39);
+  opacity: 1;
+  border-radius: 8rpx;
+}
+
+.container-welcome .section2 {
+  margin-top: 44rpx;
+}
+
+.container-welcome .section2 .btn-create {
+  margin: 0 auto;
+  width: 694rpx;
+  height: 86rpx;
+  /* background: rgba(73, 128, 249, 0.39); */
+  background: var(--primary-color);
+  box-shadow: 0rpx 6rpx 24rpx rgba(0, 57, 181, 0.3);
+  opacity: 1;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 86rpx;
+  color: #FFFFFF;
+  letter-spacing: 2rpx;
+  text-align: center;
+}
+
+.container-welcome .section3 {
+  margin-top: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 57rpx;
+}
+
+.container-welcome .section3 .radio {
+  width: 32rpx;
+  height: 32rpx;
+  background: rgba(255, 255, 255, 0.39);
+  border: 1rpx solid #707070;
+  border-radius: 50%;
+}
+
+.container-welcome .section3 .agree {
+  margin-left: 20rpx;
+  font-size: 26rpx;
+  color: #CCCCCC;
+}
+
+.container-welcome .section3 .agree .agreement {
+  font-size: 26rpx;
+  color: #A0A0A0;
+}

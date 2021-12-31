@@ -1,0 +1,53 @@
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : 0 + n
+}
+module.exports = {
+  formatTime: function (date, mode) {
+    var date = getDate(date)
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hour = date.getHours()
+    var minute = date.getMinutes()
+    var second = date.getSeconds()
+    if (mode === 'yy-mm-dd') {
+      return [year, month, day].map(formatNumber).join('-')
+    }
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  },
+  //保留两位
+  toFixed2: function (x) {
+    x = parseInt(x / 100) / 100 //转万
+    console.log(x)
+    return x
+  },
+  parseMeter: function (x) {
+    // 千米转为公里并保留一位小数
+    var strX = x + '',
+      res
+
+    if (strX.length > 3) {
+      var kilometers = strX / 1000
+      var len = kilometers + ''.split('.').length
+      if (len > 1) {
+        // 保留一位小数
+        res = kilometers.toFixed(1) + '公里'
+      } else {
+        res = kilometers + '公里'
+      }
+    } else {
+      res = strX + '米'
+    }
+
+    // console.log(res)
+    return res
+  },
+  parseAddress: function (addr, province, city) {
+    // 地址解析 删除省市
+    var reg = getRegExp(province+city)
+    var newstr = addr.replace(reg, "");
+
+    return newstr
+  }
+}

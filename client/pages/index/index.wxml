@@ -1,0 +1,60 @@
+<!--pages/index/index.wxml-->
+<!-- <text>pages/index/index.wxml</text> -->
+
+<!-- 无铭牌信息页面 -->
+<view wx:if="isCardEmpty" class="container container-welcome">
+  <view wx:if="{{compatibleInfo.systemInfo.safeArea}}" class="compatibleIphoneXEl"></view>
+  <view class="section1">
+    <image src="/assets/images/home_bk.png" mode="aspectFill"></image>
+    <view class="card">
+      <view class="l1">
+        <view>便捷发放星片</view>
+      </view>
+      <view class="l2">转发直接发送给微信好友</view>
+      <view class="l3">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="{{rgba(255, 255, 255, .6)}}" indicator-active-color="{{indicatorActiveColor}}" circular="true">
+          <block wx:for="{{background}}" wx:key="*this">
+            <swiper-item>
+              <!-- <view class="swiper-item {{item.image_url}}"></view> -->
+              <image class="swiper-item icon-banner" src="{{item}}" mode="aspectFill"></image>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
+  <view class="section2">
+    <view class="btn btn-create">创建我的数字星片</view>
+  </view>
+  <view class="section3">
+    <view class="radio"></view>
+    <view class="agree">同意
+      <text class="agreement">
+        <text>《用户协议》</text>和<text>《隐私协议》</text>
+      </text>
+    </view>
+  </view>
+</view>
+
+<!-- 我的名片 -->
+<view wx:else class="container container-index">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="#FF723A" />
+  </view>
+  <view class="content">
+    <view class="section1 card">
+
+    </view>
+    <!-- 浏览和赞 -->
+    <view class="section2"></view>
+    <!-- 推荐和联系等按钮 -->
+    <view class="section3"></view>
+    <!-- 电话 邮箱 地址... -->
+    <view class="section4"></view>
+    <!-- ta的简介，ta的产品... -->
+    <view class="section5"></view>
+    <view class="section6"></view>
+    <view class="section7"></view>
+    <view class="section8"></view>
+  </view>
+</view>

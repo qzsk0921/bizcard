@@ -1,0 +1,65 @@
+@import "var";
+@import "common";
+
+page {
+  // color: $primaryColor;
+  --primary-color: #4980F9;
+
+  background-color: #F6F6F6;
+  font-family: Source Han Sans CN;
+
+  image {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  view,
+  input {
+    box-sizing: border-box;
+  }
+
+  button {
+    padding: 0;
+  }
+
+  .container {
+    min-height: 100vh;
+    box-sizing: border-box;
+    line-height: 1;
+    // display: flex;
+    // justify-content: center;
+  }
+
+  .none {
+    display: none;
+  }
+
+  .hide {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  overflow-y: auto;
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    color: transparent;
+  }
+
+  .one-txt-cut {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .txt-cut {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
