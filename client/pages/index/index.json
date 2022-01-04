@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "top-navigation": "/components/navigation/commonnav"
+    "top-navigation": "/components/navigation/commonnav",
+    "dropdown-telephone": "/components/DropdownMenu/telephone"
   },
   "navigationStyle": "custom",
   "disableScroll": true

@@ -1,0 +1,16 @@
+<!--components/DropdownMenu/telephone.wxml-->
+<!-- <text>components/DropdownMenu/telephone.wxml</text> -->
+<!-- Ta的名片-点击电话 -->
+<view class="dropdown-item-down {{opened?'opened':''}}">
+  <view class="mask" bindtap="mask"></view>
+  <view class="dropdown-item-down__content" style="{{opened?'transform:translateY('+(-height)+'px)':''}}" catchtap="dropdownItemTapHandle">
+    <view class="l1 l">{{telephoneObj.title}} {{telephoneObj.content}}</view>
+    <view class="l2 l" data-type="copy">复制</view>
+    <view class="l3 l" data-type="call">拨打</view>
+    <view class="l4 l" data-type="create">创建通讯录新联系人</view>
+    <view class="l5 l" data-type="add">添加到通讯录现有联系人</view>
+    <view class="l6 l" data-type="cancel">取消</view>
+    <!-- <view class="l2 l" data-type="call">呼叫</view>
+    <view class="l3 l" data-type="cancel">取消</view> -->
+  </view>
+</view>
