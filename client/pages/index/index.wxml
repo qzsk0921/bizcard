@@ -1,7 +1,9 @@
 <!--pages/index/index.wxml-->
 <!-- <text>pages/index/index.wxml</text> -->
-<dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephoneObj}}" />
-
+<dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.telephone.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephone.telephoneObj}}" />
+<dropdown-auth bindtap="dropdownAuthMaskTap" opened="{{dialog.auth.opened}}" />
+<dropdown-diy bindtap="dropdownDiyMaskTap" opened="{{dialog.diy.opened}}" />
+<dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" />
 <!-- 无铭牌信息页面 -->
 <view wx:if="{{isCardEmpty}}" class="container container-welcome">
   <view wx:if="{{compatibleInfo.systemInfo.safeArea}}" class="compatibleIphoneXEl"></view>
@@ -48,16 +50,13 @@
   <image class="image_bg" src="https://img.zcool.cn/community/015db95541a311000001a64b0e9026.jpg@1280w_1l_2o_100sh.jpg" mode="aspectFill"></image>
   <view class="content">
     <view class="section1 card">
-
+      <card />
     </view>
     <!-- 浏览和赞 -->
     <view class="section2">
       <view class="left">
         <view class="avatar_box">
-          <image class="avatar" src="/assets/images/home_n.png"></image>
-          <image class="avatar" src="/assets/images/home_n.png"></image>
-          <image class="avatar" src="/assets/images/home_n.png"></image>
-          <image class="avatar" src="/assets/images/home_n.png"></image>
+          <image wx:for="{{cardData.avatars}}" class="avatar" src="{{item}}"></image>
         </view>
         <view class="text">524人浏览</view>
       </view>
@@ -92,7 +91,25 @@
     </view>
     <!-- </scroll-view> -->
     <!-- ta的简介，ta的产品... -->
-    <view class="section5"></view>
+    <view class="section5">
+      <view class="tabs-nav" bindtap='changeTab'>
+        <view wx:for="{{tabbar}}" wx:key="unique" data-index="{{index}}" class="tab {{tabIndex==index?'active':''}}">
+          <view calss="text" data-index="{{index}}">{{item}}</view>
+        </view>
+        <view class="tabs-line" style="transform:translateX({{tabWidth*tabIndex+tabWidth/2+'px'}})translateX(-50%)">
+        </view>
+      </view>
+      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.isIphoneX?compatibleInfo.systemInfo.screenHeight-(32+listTop)+'px':compatibleInfo.systemInfo.screenHeight-(listTop)+'px'}}">
+        <view class="no-data" wx:if="{{tadeOptions[tabIndex].cache.length==0}}">
+          <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
+          <view class="text">这里是空的</view>
+        </view>
+        <view class='ta' wx:elif="{{tadeOptions[tabIndex].cache.length}}">
+          <view class="card" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}" bindtap="toOrderHandle">
+          </view>
+        </view>
+      </view>
+    </view>
     <view class="section6"></view>
     <view class="section7"></view>
     <view class="section8"></view>

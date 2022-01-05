@@ -8,26 +8,26 @@ export default {
     list: [{
         "pagePath": "pages/index/index",
         "text": "我的星片",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "iconPath": "/assets/images/btn_my_card_f.png",
+        "selectedIconPath": "/assets/images/btn_my_card_n.png"
       },
       {
         "pagePath": "pages/index/index",
         "text": "星片雷达",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "iconPath": "/assets/images/btn_data_f.png",
+        "selectedIconPath": "/assets/images/btn_data_n.png"
       },
       {
         "pagePath": "pages/index/index",
         "text": "星片夹",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "iconPath": "/assets/images/btn_card_holder_f.png",
+        "selectedIconPath": "/assets/images/btn_card_holder_n.png"
       },
       {
         "pagePath": "pages/index/index",
         "text": "专属商城",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "iconPath": "/assets/images/btn_shop_f.png",
+        "selectedIconPath": "/assets/images/btn_shop_n.png"
       }
     ]
   }

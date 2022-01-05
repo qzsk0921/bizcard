@@ -54,7 +54,7 @@
   line-height: 112rpx;
 }
 
-.dropdown-item-down__content .l6 {
+.dropdown-item-down__content .l5 {
   color: #999999;
   background: rgba(255, 255, 255, 0.39);
 }

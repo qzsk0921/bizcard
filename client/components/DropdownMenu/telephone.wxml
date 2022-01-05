@@ -7,9 +7,8 @@
     <view class="l1 l">{{telephoneObj.title}} {{telephoneObj.content}}</view>
     <view class="l2 l" data-type="copy">复制</view>
     <view class="l3 l" data-type="call">拨打</view>
-    <view class="l4 l" data-type="create">创建通讯录新联系人</view>
-    <view class="l5 l" data-type="add">添加到通讯录现有联系人</view>
-    <view class="l6 l" data-type="cancel">取消</view>
+    <view class="l4 l" data-type="create">存入通讯录</view>
+    <view class="l5 l" data-type="cancel">取消</view>
     <!-- <view class="l2 l" data-type="call">呼叫</view>
     <view class="l3 l" data-type="cancel">取消</view> -->
   </view>

@@ -18,29 +18,30 @@
     "selectedColor": "#4980F9",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "text": "我的星片",
+        "iconPath": "/assets/images/btn_my_card_f.png",
+        "selectedIconPath": "/assets/images/btn_my_card_n.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "分类",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "text": "星片雷达",
+        "iconPath": "/assets/images/btn_data_f.png",
+        "selectedIconPath": "/assets/images/btn_data_n.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "购物车",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "text": "星片雷达",
+        "iconPath": "/assets/images/btn_data_f.png",
+        "selectedIconPath": "/assets/images/btn_data_n.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "个人中心",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "text": "星片夹",
+        "iconPath": "/assets/images/btn_card_holder_f.png",
+        "selectedIconPath": "/assets/images/btn_card_holder_n.png"
       }
     ]
   },

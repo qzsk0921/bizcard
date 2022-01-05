@@ -32,6 +32,17 @@ create(store, {
     autoplay: true,
     duration: 500,
     indicatorActiveColor: '#4980F9',
+
+    // 数据
+    cardData: {
+      avatars: ['/assets/images/home_n.png', '/assets/images/home_n.png', '/assets/images/home_n.png', '/assets/images/home_n.png']
+    },
+
+    // 简介 产品 企业 评价
+    tabbar: ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价'],
+    tabIndex: 0, //'TA的简介', 'TA的产品', 'TA的企业', 'TA的评价'
+    tabWidth: null,
+
     section4: [{
       id: 1,
       img: '/assets/images/card_phone.png',
@@ -57,8 +68,60 @@ create(store, {
       content: '0592-5923912'
     }],
     dialog: {
-      opened: 0,
-      telephoneObj: ''
+      // 电话弹窗
+      telephone: {
+        opened: 0,
+        telephoneObj: ''
+      },
+      // 授权弹窗
+      auth: {
+        opened: 0,
+      },
+      // 制作名片弹窗
+      diy: {
+        opened: 0
+      },
+      // 禁用弹窗
+      forbidden: {
+        opened: 0
+      }
+    },
+    tadeOptions: [
+      // 简介
+      {
+        cache: [],
+        count: 1,
+        total_page: 1
+      },
+      // 产品
+      {
+        cache: [],
+        count: 1,
+        total_page: 1
+      },
+      // 企业
+      {
+        cache: [],
+        count: 1,
+        total_page: 1
+      },
+      // 评价
+      {
+        cache: [],
+        count: 1,
+        total_page: 1
+      }
+    ]
+  },
+  watch: {
+    tabIndex: {
+      handler(nv, ov, obj) {
+        console.log(nv)
+        // this.getOrderList({
+        //   status: this.parseStatus(nv)
+        // })
+      },
+      // immediate: true
     }
   },
   // 选择阅读协议
@@ -70,13 +133,23 @@ create(store, {
   // 关闭购物车弹窗
   dropdownTelephoneMaskTap() {
     this.setData({
-      'dialog.opened': 0
+      'dialog.telephone.opened': 0
+    })
+  },
+  // 关闭授权弹窗
+  dropdownAuthMaskTap() {
+    this.setData({
+      'dialog.auth.opened': 0
+    })
+  },
+  dropdownDiyMaskTap() {
+    this.setData({
+      'dialog.diy.opened': 0
     })
   },
   // 电话 邮箱 地址 座机
   itemHandle(e) {
     const item = e.currentTarget.dataset.item
-
     if (item.toast) {
       // 邮箱 地址
       this.copyHandle(item.content, item.toast)
@@ -85,17 +158,6 @@ create(store, {
         // 地址
         setTimeout(() => {
           // wx.chooseLocation({
-          //   success: res => {
-          //     that.getValueMap(res)
-          //   },
-          //   fail: res => {
-          //     console.log('打开地图选择位置取消', res)
-          //   },
-          //   complete: res => {
-          //     // 接口调用结束的回调函数（调用成功、失败都会执行）
-          //     console.log('chooseLocation complete')
-          //     console.log(res)
-          //   }
           // })
           wx.openLocation({
             latitude: 24.44579,
@@ -114,8 +176,11 @@ create(store, {
       // }
 
       this.setData({
-        'dialog.telephoneObj': item,
-        'dialog.opened': 1
+        'dialog.telephone.telephoneObj': item,
+        'dialog.telephone.opened': 1,
+        'dialog.auth.opened': 1,
+        'dialog.diy.opened': 1,
+        'dialog.forbidden.opened': 1,
       })
     }
   },
@@ -135,6 +200,16 @@ create(store, {
         })
       },
     })
+  },
+  changeTab(e) {
+    console.log(e)
+    const index = e.target.dataset.index
+
+    let objData = {
+      tabIndex: index,
+    }
+
+    this.setData(objData)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -168,6 +243,15 @@ create(store, {
     } else {
       setTabBar.call(this)
     }
+
+    const that = this;
+    const query = wx.createSelectorQuery();
+
+    query.select('.tab').boundingClientRect(function (rect) {
+      that.setData({
+        tabWidth: rect.width,
+      })
+    }).exec();
   },
 
   /**

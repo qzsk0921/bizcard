@@ -1,0 +1,56 @@
+/* components/Dialog/forbidden.wxss */
+.dialog-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 10000;
+  text-align: center;
+  transition: all .4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fadeout {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.mask {
+  /* transition: all .4s; */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 51, 51, .5);
+}
+
+.dialog {
+  position: relative;
+  width: 610rpx;
+  /* height: 300rpx; */
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.dialog image {
+  width: 366rpx;
+  height: 276rpx;
+}
+
+.dialog .tit {
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.dialog .tit {
+  margin-top: 40rpx;
+  font-size: 26rpx;
+  color: #999999;
+}

@@ -1,7 +1,11 @@
 {
   "usingComponents": {
     "top-navigation": "/components/navigation/commonnav",
-    "dropdown-telephone": "/components/DropdownMenu/telephone"
+    "dropdown-telephone": "/components/DropdownMenu/telephone",
+    "dropdown-auth": "/components/DropdownMenu/auth",
+    "dropdown-diy": "/components/DropdownMenu/diy",
+    "dialog-forbidden": "/components/Dialog/forbidden",
+    "card": "/components/cardFormat/format"
   },
   "navigationStyle": "custom",
   "disableScroll": true

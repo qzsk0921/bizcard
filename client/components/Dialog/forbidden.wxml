@@ -1,0 +1,11 @@
+<!--components/Dialog/forbidden.wxml-->
+<!-- <text>components/Dialog/forbidden.wxml</text> -->
+<view class="dialog-wrap {{dialogVisible?'':'fadeout'}}">
+  <view class="mask" bindtap="dialogTapHandle"></view>
+  <view class="dialog">
+    <image src="/assets/images/popup_disable.png" mode="aspectFill"></image>
+    <text class="tit">您已被停用使用xx数字星片</text>
+    <text class="help">详情请联系客服：0592-5239124</text>
+    <view class="btn btn-confirm">确定</view>
+  </view>
+</view>
