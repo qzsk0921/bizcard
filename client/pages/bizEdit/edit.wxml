@@ -1,0 +1,9 @@
+<!--pages/bizEdit/edit.wxml-->
+<!-- <text>pages/bizEdit/edit.wxml</text> -->
+<!-- 名片编辑 -->
+<view class="container container-edit">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="" />
+  </view>
+  <view class="content"></view>
+</view>

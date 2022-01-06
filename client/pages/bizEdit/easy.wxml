@@ -1,0 +1,36 @@
+<!--pages/bizEdit/easy.wxml-->
+<!-- <text>pages/bizEdit/easy.wxml</text> -->
+<!-- 名片极简编辑 -->
+<view class="container container-easy-edit">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="" />
+  </view>
+  <view class="content">
+    <card />
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="form-section">
+        <view class="form-item form-item-shopname">
+          <label>姓名</label>
+          <input name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{certificationInfo.name}}" bindblur="handleInputChange" disabled="{{generateOrderSuccess}}" />
+        </view>
+        <view class="form-item form-item-shoptype arrow">
+          <label>电话</label>
+          <input class="one-txt-cut" name="shop_type_str" placeholder="请输入您的联系电话" placeholder-class="input-placeholder" value="{{type}}" bindtap="chooseShopTypeHandle" disabled="true" />
+        </view>
+        <view class="form-item form-item-leader_name">
+          <label>公司</label>
+          <input name="leader_name" placeholder="厦门第三方库积分看公司" placeholder-class="input-placeholder" value="{{certificationInfo.leader_name}}" />
+        </view>
+        <view class="form-item form-item-phone">
+          <label>职位</label>
+          <input type="digit" name="phone" placeholder="程序员" placeholder-class="input-placeholder" name="leader_phone" value="{{certificationInfo.phone}}" bindblur="handleInputChange" disabled="{{generateOrderSuccess}}" maxlength="11" />
+        </view>
+        <view class="form-item form-item-address arrow">
+          <label>名片样式</label>
+          <input type="digit" name="address_id" placeholder="请填写收货地址" placeholder-class="input-placeholder" value="{{shop_address_str}}" disabled="true" bindtap="addressHandle" />
+        </view>
+      </view>
+      <button class="btn-submit btn" form-type="submit">保存</button>
+    </form>
+  </view>
+</view>

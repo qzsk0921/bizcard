@@ -1,0 +1,86 @@
+/* pages/ta/evaluate/list.wxss */
+.container-ta-evaluate {}
+
+.content {
+  padding: 0 35rpx;
+}
+
+.content .item {
+  padding: 43rpx 0 40rpx;
+  border-bottom: 2rpx solid #EBECEF;
+}
+
+.content .item .row1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content .item .row1 .col1 {
+  display: flex;
+}
+
+.content .item .row1 .col1 .avatar {
+  width: 88rpx;
+  height: 88rpx;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+}
+
+.content .item .row1 .col1 .col1-l {
+  margin-left: 20rpx;
+  padding: 11rpx 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.content .item .row1 .col1 .col1-l .name {
+  font-size: 28rpx;
+  color: #747888;
+}
+
+.content .item .row1 .col1 .col1-l .start {}
+
+.content .item .row1 .col1 .col1-l .start .van-rate__item {
+  padding: 0;
+}
+
+.content .item .row1 .col1 .col1-l .start .van-rate__item:not(:first-child) {
+  padding-left: 12rpx;
+}
+
+.content .item .row1 .col1 .col1-l .start .van-rate__item .van-rate__icon {
+  font-size: 24rpx;
+}
+
+.content .item .row2 {
+  margin-top: 21rpx;
+  font-size: 24rpx;
+  line-height: 42rpx;
+  color: #333333;
+}
+
+.content .item .row3 {
+  margin-top: 21rpx;
+  font-size: 22rpx;
+  color: #ABAEB6;
+}
+
+.content .item .row1 .col2 {}
+
+.content .item .row1 .col2 .thumb-box {
+  display: flex;
+  align-items: flex-end;
+}
+
+.content .item .row1 .col2 .thumb-box image {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.content .item .row1 .col2 .thumb-box .num {
+  margin-left: 10rpx;
+  font-size: 24rpx;
+  color: #FFB70F;
+}

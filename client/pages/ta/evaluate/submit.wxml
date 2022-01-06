@@ -1,0 +1,20 @@
+<!--pages/ta/evaluate/submit.wxml-->
+<!-- <text>pages/ta/evaluate/submit.wxml</text> -->
+<view class="container container-ta-evaluate-submit">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="#FFFFFF" />
+  </view>
+  <view class="content">
+    <view class="section1 textarea-box">
+      <text class="tip">{{currentCount}}/300</text>
+      <view class="row1">
+        <text>对Ta的印象如何，打个分吧</text>
+      </view>
+      <view class="row2">
+        <van-rate value="{{starNum}}" count="5" color="#FFB70F" bind:change="onChange" />
+      </view>
+      <textarea placeholder-class="placeholder-style" placeholder="请填写您对Ta的评价……" value="{{content}}" name="content" bindinput="inputHandle" maxlength="300" />
+    </view>
+  </view>
+  <view class="btn btn-submit">评价</view>
+</view>

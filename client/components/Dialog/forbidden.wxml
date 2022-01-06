@@ -4,8 +4,8 @@
   <view class="mask" bindtap="dialogTapHandle"></view>
   <view class="dialog">
     <image src="/assets/images/popup_disable.png" mode="aspectFill"></image>
-    <text class="tit">您已被停用使用xx数字星片</text>
-    <text class="help">详情请联系客服：0592-5239124</text>
-    <view class="btn btn-confirm">确定</view>
+    <view class="tit">您已被停用使用xx数字星片</view>
+    <view class="help">详情请联系客服：0592-5239124</view>
+    <navigator class="btn btn-confirm" open-type="exit" target="miniProgram">确定</navigator>
   </view>
 </view>

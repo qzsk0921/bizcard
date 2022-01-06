@@ -1,0 +1,4 @@
+/* pages/bizEdit/easy.wxss */
+.content {
+  padding: 20rpx 28rpx 0;
+}

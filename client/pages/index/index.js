@@ -81,6 +81,10 @@ create(store, {
       diy: {
         opened: 0
       },
+      // 分享好友 名片码
+      share: {
+        opened: 0
+      },
       // 禁用弹窗
       forbidden: {
         opened: 0
@@ -147,6 +151,11 @@ create(store, {
       'dialog.diy.opened': 0
     })
   },
+  dropdownShareMaskTap() {
+    this.setData({
+      'dialog.share.opened': 0
+    })
+  },
   // 电话 邮箱 地址 座机
   itemHandle(e) {
     const item = e.currentTarget.dataset.item
@@ -180,6 +189,7 @@ create(store, {
         'dialog.telephone.opened': 1,
         'dialog.auth.opened': 1,
         'dialog.diy.opened': 1,
+        'dialog.share.opened': 1,
         'dialog.forbidden.opened': 1,
       })
     }

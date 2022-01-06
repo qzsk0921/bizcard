@@ -1,0 +1,36 @@
+<!--pages/ta/evaluate/list.wxml-->
+<!-- <text>pages/ta/evaluate/list.wxml</text> -->
+<view class="container container-ta-evaluate">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="#FFFFFF" />
+  </view>
+  <scroll-view class="scroll-box item-box" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height:{{compatibleInfo.isIphoneX?compatibleInfo.systemInfo.screenHeight-(fixed+32)+'px':compatibleInfo.systemInfo.screenHeight-(fixed)+'px'}};">
+    <!--这里是下拉显示的效果-->
+    <!-- <view slot="refresher" class="refresh-container disf faic" style="display:block;width: 100%; height: 80px;  display: flex; align-items:center;justify-content:center;box-sizing: border-box;border-bottom:1px solid #f5f5f5"></view> -->
+    <view class="content">
+      <view class="item {{item.status===2?'mask-box':item.is_stock?'':'mask-box'}}" wx:for="{{evaluateData.cache}}" wx:key="unique" data-id="{{item.id}}" bindtap="itemHandle" data-disabled="{{item.status===2?0:item.is_stock?1:0}}">
+        <view class="row1">
+          <view class="col1">
+            <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+            <view class="col1-l">
+              <view class="name">{{item.name}}</view>
+              <view class="start">
+                <van-rate readonly value="{{ item.starNum }}" count="{{ item.starNum }}" color="#FFB70F" bind:change="onChange" />
+              </view>
+            </view>
+          </view>
+          <view class="col2">
+            <view class="thumb-box">
+              <image src="/assets/images/card_evaluate_like.png" mode="aspectFill"></image>
+              <view class="num">8</view>
+            </view>
+          </view>
+        </view>
+        <view class="row2">
+          {{item.content}}
+        </view>
+        <view class="row3">{{item.date}}</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

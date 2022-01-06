@@ -1,0 +1,26 @@
+<!--pages/returnbiz/returnbiz.wxml-->
+<!-- <text>pages/returnbiz/returnbiz.wxml</text> -->
+<!-- 回递名片 -->
+<view class="container container-returnbiz">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="#FFFFFF" />
+  </view>
+  <view class="content">
+    <view class="section1">
+      <image class="l avatar" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+      <view class="r">
+        <view class="row1">用户昵称</view>
+        <view class="row2">产品经理</view>
+        <view class="row3">厦门星辰追梦科技有限公司</view>
+      </view>
+    </view>
+    <view class="section2 textarea-box">
+      <view class="row1">
+        <text>打个招呼吧</text>
+        <text>{{currentCount}}/100</text>
+      </view>
+      <textarea placeholder-class="placeholder-style" placeholder="很高兴认识您，这是我的名片，请惠存~" value="{{content}}" name="content" bindinput="inputHandle" maxlength="100" />
+    </view>
+    <view class="btn btn-returnbiz">回递名片</view>
+  </view>
+</view>

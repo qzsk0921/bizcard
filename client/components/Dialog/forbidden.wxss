@@ -30,11 +30,10 @@
 
 .dialog {
   position: relative;
-  width: 610rpx;
-  /* height: 300rpx; */
+  width: 636rpx;
   background: #FFFFFF;
-  border-radius: 16rpx;
   overflow: hidden;
+  padding: 56rpx 0 60rpx;
 }
 
 .dialog image {
@@ -49,8 +48,20 @@
   color: #333333;
 }
 
-.dialog .tit {
+.dialog .help {
   margin-top: 40rpx;
   font-size: 26rpx;
   color: #999999;
+}
+
+.dialog .btn-confirm {
+  margin: 40rpx auto 0;
+  width: 556rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  background: #4283FB;
+  border: 1rpx solid #0F5EEE;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  color: #FFFFFF;
 }

@@ -1,0 +1,19 @@
+<!--pages/bizcode/bizcode.wxml-->
+<!-- <text>pages/bizcode/bizcode.wxml</text> -->
+<!-- 名片码 -->
+<view class="container container-bizcode">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="" />
+  </view>
+  <view class="content">
+    <view class="section1">
+      <view class="row1">厦门星辰追梦网络科技有限公司</view>
+      <view class="row2">用户昵称</view>
+      <view class="row3">产品经理</view>
+      <image src="/assets/images/card_share_popup_scan.png" mode="aspectFill"></image>
+    </view>
+    <view class="section2">
+      请惠存~
+    </view>
+  </view>
+</view>

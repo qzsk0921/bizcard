@@ -1,14 +1,23 @@
 {
-  "pages":[
+  "usingComponents": {
+    "van-rate": "@vant/weapp/rate/index"
+  },
+  "pages": [
     "pages/index/index",
     "pages/welcome/welcome",
+    "pages/returnbiz/returnbiz",
+    "pages/ta/evaluate/list",
+    "pages/ta/evaluate/submit",
+    "pages/bizcode/bizcode",
+    "pages/bizEdit/easy",
+    "pages/bizEdit/edit",
     "pages/logs/logs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
@@ -18,8 +27,7 @@
     "selectedColor": "#4980F9",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/index/index",
         "text": "我的星片",
         "iconPath": "/assets/images/btn_my_card_f.png",

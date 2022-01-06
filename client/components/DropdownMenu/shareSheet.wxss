@@ -1,0 +1,80 @@
+/* components/DropdownMenu/shareSheet.wxss */
+.dropdown-item-down {
+  transition: all .2s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+}
+
+.opened.dropdown-item-down {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mask {
+  transition: all .2s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(51, 51, 51, .5);
+}
+
+.dropdown-item-down__content {
+  padding-top: 40rpx;
+  width: 100%;
+  text-align: center;
+  transition: all .2s;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  border-radius: 20rpx 20rpx 0rpx 0rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+
+.dropdown-item-down__content .tit {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.dropdown-item-down__content .l {}
+
+.dropdown-item-down__content .l1 {
+  margin-top: 48rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 58rpx;
+}
+
+.dropdown-item-down__content .l1 .share-sheet__option:not(:first-child) {
+  margin-left: 244rpx;
+}
+
+.dropdown-item-down__content .l1 .share-sheet__icon {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.dropdown-item-down__content .l1 .share-sheet__name {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.dropdown-item-down__content .l2 {
+  height: 104rpx;
+  line-height: 104rpx;
+  font-size: 34rpx;
+  color: #999999;
+  background: #F7F8FA;
+}

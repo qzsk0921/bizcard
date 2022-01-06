@@ -4,6 +4,7 @@
     "dropdown-telephone": "/components/DropdownMenu/telephone",
     "dropdown-auth": "/components/DropdownMenu/auth",
     "dropdown-diy": "/components/DropdownMenu/diy",
+    "dropdown-share": "/components/DropdownMenu/shareSheet",
     "dialog-forbidden": "/components/Dialog/forbidden",
     "card": "/components/cardFormat/format"
   },

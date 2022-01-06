@@ -3,7 +3,8 @@
 <dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.telephone.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephone.telephoneObj}}" />
 <dropdown-auth bindtap="dropdownAuthMaskTap" opened="{{dialog.auth.opened}}" />
 <dropdown-diy bindtap="dropdownDiyMaskTap" opened="{{dialog.diy.opened}}" />
-<dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" />
+<dropdown-share bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
+<!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
 <!-- 无铭牌信息页面 -->
 <view wx:if="{{isCardEmpty}}" class="container container-welcome">
   <view wx:if="{{compatibleInfo.systemInfo.safeArea}}" class="compatibleIphoneXEl"></view>

@@ -56,7 +56,6 @@ const debounce = (func, wait, immediate) => {
   }
 
   return function (...args) {
-
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout

@@ -1,0 +1,55 @@
+/* pages/bizcode/bizcode.wxss */
+.container-bizcode {}
+
+.content {
+  margin-top: 80rpx;
+  text-align: center;
+  transition: all;
+  transform: rotateZ(180deg);
+}
+
+.section1 {
+  margin: auto;
+  width: 690rpx;
+  background: rgba(255, 255, 255, 0.39);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 20rpx;
+  padding: 80rpx 0;
+}
+
+.section1 .row1 {
+  font-size: 34rpx;
+  color: #333333;
+}
+
+.section1 .row2 {
+  margin-top: 40rpx;
+  font-size: 48rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.section1 .row3 {
+  margin-top: 22rpx;
+  font-size: 32rpx;
+  color: #888888;
+  letter-spacing: 2rpx;
+}
+
+.section1 image {
+  margin-top: 72rpx;
+  width: 508rpx;
+  height: 508rpx;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  opacity: 1;
+}
+
+.section2 {
+  margin-top: 60rpx;
+  font-size: 48rpx;
+  font-weight: 500;
+  color: #BBBBBB;
+}
+
+/* @keyframes  */
