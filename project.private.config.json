@@ -47,6 +47,12 @@
           "pathName": "pages/bizEdit/easy",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/bizEdit/edit",
+          "query": "",
+          "scene": null
         }
       ]
     }

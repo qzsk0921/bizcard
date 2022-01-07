@@ -2,3 +2,122 @@
 .content {
   padding: 20rpx 28rpx 0;
 }
+
+.form-section {
+  padding-left: 2rpx;
+  margin-top: 16rpx;
+}
+
+.content .form-section .form-item {
+  display: flex;
+  height: 94rpx;
+  /* border-bottom: 2rpx solid #EEEEEE; */
+  align-items: center;
+
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.content .form-section .form-item label {
+  font-size: 30rpx;
+  width: 170rpx;
+  color: #000000;
+}
+
+.content .form-section .form-item input {
+  width: calc(100% - 170rpx);
+  height: 100%;
+}
+
+.content .form-section .form-item .input-placeholder {
+  font-size: 30rpx;
+  color: #CCCCCC;
+}
+
+/* .content .form-section .form-item.form-item-address {
+  position: relative;
+} */
+
+.content .form-section .form-item.arrow {
+  position: relative;
+}
+
+.content .form-section .form-item.arrow::after {
+  content: '';
+  width: 15rpx;
+  height: 15rpx;
+  border: 3rpx solid #999999;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotateZ(45deg) translateY(-50%);
+  position: absolute;
+  top: 50%;
+  right: 14rpx;
+}
+
+.btn-submit {
+  border-radius: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw !important;
+  line-height: 90rpx;
+  background: #4980F9;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  letter-spacing: 2rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.form-item-phone {
+  position: relative;
+}
+
+.form-item-phone input {
+  width: calc(100% - 330rpx) !important;
+}
+
+.form-item-phone .btn-quick {
+  text-align: center;
+  width: 160rpx;
+  height: 64rpx;
+  border: 2rpx solid #4980F9;
+  border-radius: 8rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  color: #4980F9;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.form-item-style {}
+
+.form-section .form-item .style-item {
+  position: relative;
+  display: inline-block;
+  width: 118rpx !important;
+  height: 64rpx;
+  background: #4980F9;
+  border-radius: 8rpx;
+}
+
+.form-section .form-item .style-item:not(:first-child) {
+  margin-left: 16rpx;
+}
+
+.form-section .form-item .style-item radio {
+  visibility: hidden;
+}
+
+.form-section .form-item .style-item text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24rpx;
+  line-height: 64rpx;
+  color: #FFFFFF;
+}
