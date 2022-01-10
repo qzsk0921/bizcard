@@ -23,14 +23,14 @@ create({
       type: String,
       value: ''
     },
-    location: {
-      type: Object,
-      value: {
-        formatted_addresses: {
-          recommend: '定位中...'
-        }
-      }
-    }
+    // location: {
+    //   type: Object,
+    //   value: {
+    //     formatted_addresses: {
+    //       recommend: '定位中...'
+    //     }
+    //   }
+    // }
   },
   observers: {
     'navHeight': function (val) {

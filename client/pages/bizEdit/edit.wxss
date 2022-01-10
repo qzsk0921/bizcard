@@ -333,6 +333,63 @@
   height: 100rpx;
 }
 
+.form-section.form-section-introduction .tit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 28rpx;
+}
+
+.form-section-introduction .tit text:last-child {
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #CCCCCC;
+}
+
+.form-section.form-section-introduction .form-item-introduction {
+  padding-right: 0 !important;
+  height: auto !important;
+}
+
+.form-item-introduction textarea {
+  height: 348rpx;
+  width: 100%;
+  padding: 30rpx 28rpx;
+  font-size: 28rpx;
+  line-height: 44rpx;
+  color: #333333;
+}
+
+.form-section.form-section-companypic .tit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 28rpx;
+  border-color: transparent !important;
+  height: 90rpx !important;
+  line-height: 90rpx !important;
+}
+
+.form-section-companypic .tit text:last-child {
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #CCCCCC;
+}
+
+.form-section.form-section-companypic .form-item-companypic {
+  height: auto !important;
+  padding: 0 0 80rpx 28rpx !important;
+}
+
+.form-item-companypic image {
+  width: 162rpx;
+  height: 162rpx;
+}
+
+.form-item-companypic image:not(:first-child) {
+  margin-left: 15rpx;
+}
+
 .btn-submit {
   border-radius: 0;
   position: fixed;

@@ -53,6 +53,18 @@
           "pathName": "pages/bizEdit/edit",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/radar/radar",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/bizholder/bizholder",
+          "query": "",
+          "scene": null
         }
       ]
     }

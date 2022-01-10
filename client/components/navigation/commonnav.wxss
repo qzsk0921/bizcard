@@ -46,8 +46,13 @@
   font-weight: 500;
   color: #333333;
 }
-
-.box-location {
+.navigation-wrapper .icon-bizholder {
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  left: 40rpx;
+}
+/* .box-location {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -67,13 +72,6 @@
 }
 
 .box-location .triangle {
-  /* display: inline-block;
-  width: 0;
-  height: 0;
-  border-top: 10rpx solid #333333;
-  border-bottom: 10rpx solid transparent;
-  border-left: 7rpx solid transparent;
-  border-right: 7rpx solid transparent; */
   width: 16rpx;
   height: 16rpx;
   transform: rotate(45deg);
@@ -81,9 +79,9 @@
   border-left-color: transparent;
   border-bottom-color: transparent;
   margin-left: 10rpx;
-}
+} */
 
-.box-category {
+/* .box-category {
   padding-left: 24rpx;
   overflow: hidden;
 }
@@ -113,4 +111,4 @@
 .box-category .search-placeholder {
   font-size: 28rpx;
   color: #999999;
-}
+} */

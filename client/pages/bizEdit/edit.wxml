@@ -131,14 +131,21 @@
             <text>公司简介</text>
             <text>{{currentCountIntroduction}}/300</text>
           </view>
-          <view class="form-item form-item-currentCountIntroduction">
+          <view class="form-item form-item-introduction">
             <!-- <input name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{card.name}}" bindblur="handleInputChange" disabled="{{generateOrderSuccess}}" /> -->
-            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{content}}" name="content" bindinput="textareaInputIntroductionHandle" maxlength="300" />
+            <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{content}}" name="content" bindinput="textareaInputIntroductionHandle" maxlength="300" />
           </view>
         </view>
-        <view class="form-section">
-          <view class="tit">公司介绍图</view>
-
+        <view class="form-section form-section-companypic">
+          <view class="tit">
+            <text>公司介绍图</text>
+            <text>{{currentCountCompanypic}}/9</text>
+          </view>
+          <view class="form-item form-item-companypic">
+            <van-uploader file-list="{{ companypicList }}" bind:after-read="afterRead" bind:delete="deleteCompanypicHandle" max-count="9" multiple="true">
+              <image src="/assets/images/edit_picture_add.png" mode="aspectFill"></image>
+            </van-uploader>
+          </view>
         </view>
         <button class="btn-submit btn" form-type="submit">保存</button>
       </form>

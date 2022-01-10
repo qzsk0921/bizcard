@@ -1,0 +1,50 @@
+<!--pages/radar/radar.wxml-->
+<!-- <text>pages/radar/radar.wxml</text> -->
+<!-- 名片雷达 -->
+<view class="container container-radar">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="#FFFFFF" />
+  </view>
+  <picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange" fields="month">
+    <view class="picker">
+      <view class="text">{{date}}</view>
+      <view class="arrow"></view>
+    </view>
+  </picker>
+  <scroll-view class="scroll-box hide-scrollbar content" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" style="height:{{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH+compatibleInfo.navHeight)+'px'}}">
+    <!--这里是下拉显示的效果-->
+    <!-- <view slot="refresher" class="refresh-container disf faic" style="display:block;width: 100%; height: 80px;  display: flex; align-items:center;justify-content:center;box-sizing: border-box;border-bottom:1px solid #f5f5f5">
+      <view class="disf faic fc6" style="position: absolute;">
+        <view class="disf faic" style="width:70rpx">
+        </view>
+        <view style="width:300rpx;padding-right:30rpx">
+          <view class="fz30 textac">{{refreshText}}</view>
+          <view class="fz22 textac">上次更新时间：{{lastRefresh3}}</view>
+        </view>
+      </view>
+    </view> -->
+    <view class="section1">
+      <view class="no-data" wx:if="{{listData.cache.length==0}}">
+        <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
+        <view class="text">暂无星片信息</view>
+      </view>
+      <view class='radar-list business' wx:else>
+        <view class="card" wx:for="{{listData.cache}}" wx:key="unique">
+          <view class="row1">
+            <image class="avatar col1" src="{{item.avatar}}" mode="aspectFill"></image>
+            <view class="col2">
+              <view class="c2-row1">{{item.nickname}}</view>
+              <view class="c2-row2">{{item.position}}-{{item.company}}</view>
+            </view>
+          </view>
+          <view class="row2">{{item.info}}</view>
+          <view class="row3">
+            <view class="col1">{{item.date}}</view>
+            <view class="col2">{{item.turn}}</view>
+          </view>
+        </view>
+        <!-- <view class="nothing" wx:if="listData.total_page===listData.count">没有更多了~</view> -->
+      </view>
+    </view>
+  </scroll-view>
+</view>

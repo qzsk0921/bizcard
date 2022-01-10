@@ -1,9 +1,12 @@
 {
   "usingComponents": {
-    "van-rate": "@vant/weapp/rate/index"
+    "van-rate": "@vant/weapp/rate/index",
+    "van-uploader": "@vant/weapp/uploader/index"
   },
   "pages": [
     "pages/index/index",
+    "pages/radar/radar",
+    "pages/bizholder/bizholder",
     "pages/welcome/welcome",
     "pages/returnbiz/returnbiz",
     "pages/ta/evaluate/list",
@@ -34,14 +37,14 @@
         "selectedIconPath": "/assets/images/btn_my_card_n.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/radar/radar",
         "text": "星片雷达",
         "iconPath": "/assets/images/btn_data_f.png",
         "selectedIconPath": "/assets/images/btn_data_n.png"
       },
       {
-        "pagePath": "pages/index/index",
-        "text": "星片雷达",
+        "pagePath": "pages/bizholder/bizholder",
+        "text": "星片夹",
         "iconPath": "/assets/images/btn_data_f.png",
         "selectedIconPath": "/assets/images/btn_data_n.png"
       },

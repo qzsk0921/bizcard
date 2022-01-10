@@ -1,0 +1,195 @@
+/* pages/bizholder/bizholder.wxss */
+.container-bizholder {}
+
+.section1 {
+  padding: 20rpx 28rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+}
+
+.section1 .search {
+  position: relative;
+  padding-left: 68rpx;
+  width: 558rpx;
+  height: 66rpx;
+  background: #F5F7FA;
+  border-radius: 8rpx;
+}
+
+.search::before {
+  position: absolute;
+  left: 24rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  content: '';
+  background-size: 100% 100%;
+}
+
+.search::before {
+  left: 22rpx;
+  width: 32rpx;
+  height: 30rpx;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAAXNSR0IArs4c6QAAAF1QTFRFAAAAr6+vp6enqqqqq6urq6urqampqampqqqqqqqqq6urq6urqampqampqqqqqqqqqampqampqqqqqqqqqqqqqqqqqampqampqqqqqqqqqqqqqqqqqqqqqampqqqqJj3L0QAAAB10Uk5TABAgMEBPUF9gb3B/gI+Qn6CvsL/Az9Df4O/w9vcagU4rAAAA/UlEQVQYGX3BCWKCMABFwZ9FmirKIovQ9t3/mE1ElKV2RjP7eW2hv54P2rMVT/2HNk6stEYLpiBq8szKH8sRGJxeCmD0ejA1MDjNcqA2eslGaI0mFqi14oBSkwpGo7UcsEos4LXVwUXJERrtZNAraSDXjgGcohYy7d3AKwKs9moIigD9oYRc0Qheey14RQ0ctQd4RRcoteMAJRkMRlsXqHV3g0obHgi6C0CmFdNDp4cOBqcFUwBeD3YETnryPfAVNHMj0B6MEncm+oGgmetI+qpoufsmCpqZkoXOB5KgJ3u5MamDpEAStOB8yL3XJBANVu8EIqe3wkipf1gn/QIJzRzJL95vWgAAAABJRU5ErkJggg==");
+}
+
+.search-placeholder {
+  font-size: 30rpx;
+  color: #999999;
+  background: #F6F6F6;
+}
+
+.btn-search {
+  margin-left: 16rpx;
+  text-align: center;
+  width: 120rpx;
+  height: 66rpx;
+  background: #F5F7FA;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  line-height: 66rpx;
+  color: #333333;
+}
+
+.section2 {
+  height: 96rpx;
+  padding: 0 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+}
+
+.section2 .right .editing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section2 .right .btn {
+  padding: 0 36rpx;
+  font-size: 24rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  color: #FFFFFF;
+  background: #4980F9;
+}
+
+.section2 .right .btn-all {
+  margin-right: 20rpx;
+}
+
+.section2 .right .btn-all image {
+  margin-right: 8rpx;
+  width: 26rpx;
+  height: 26rpx;
+}
+
+.section3 {
+  background: #F2F4F7;
+}
+
+.no-data {
+  text-align: center;
+}
+
+.no-data image {
+  margin-top: 74rpx;
+  width: 440rpx;
+  height: 332rpx;
+}
+
+.no-data .text {
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.no-data .tip {
+  margin-top: 18rpx;
+  font-size: 24rpx;
+  color: #BABEC2;
+}
+
+.no-data .tip view:not(:first-child) {
+  margin-top: 12rpx;
+}
+
+.btn-invite {
+  margin: 50rpx auto 0;
+  width: 320rpx;
+  height: 76rpx;
+  background: #4283FB;
+  border: 1rpx solid #0F5EEE;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  line-height: 76rpx;
+  color: #FFFFFF;
+}
+
+.card {
+  padding: 28rpx 48rpx;
+  display: flex;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 2rpx solid #EEEEEE;
+}
+
+.card .left {
+  display: flex;
+}
+
+.card .left .avater {
+  width: 100rpx;
+  height: 100rpx;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+}
+
+.card .left .col2 {
+  margin-left: 24rpx;
+}
+
+.card .left .col2 .row1 {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.card .left .col2 .row2 {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.card .left .col2 .row3 {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.card .right .row1 {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.card .right .row2 {
+  margin-top: 31rpx;
+  text-align: center;
+  width: 147rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  background: #EBF1FF;
+  border-radius: 22rpx;
+  font-size: 20rpx;
+  color: #4980F9;
+}
+
+.card .right .row2 .precent {
+  margin-left: 8rpx;
+  font-size: 24rpx;
+  color: #4980F9;
+}
