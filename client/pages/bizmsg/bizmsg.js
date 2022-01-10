@@ -1,7 +1,4 @@
-// pages/bizholder/bizholder.js
-import {
-  setTabBar
-} from '../../utils/business'
+// pages/bizmsg/bizmsg.js
 import store from '../../store/common'
 import create from '../../utils/create'
 
@@ -13,11 +10,10 @@ create(store, {
    */
   data: {
     navStatus: 'bizholder',
-    navigationBarTitleText: '星片夹',
+    navigationBarTitleText: '星片消息',
     userInfo: null,
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
-    tabbarH: null,
 
     listData: {
       cache: [{
@@ -26,141 +22,38 @@ create(store, {
         nickname: '昵称',
         company: '厦门星辰追梦科技有限公司',
         position: '产品经理',
-        date: '2021/05/14',
-        precent: '80%'
+        msg: '很高兴认识您，我们交换一下名片吧~',
+        status: 0
       }, {
         id: 2,
         avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
         nickname: '昵称',
         company: '厦门星辰追梦科技有限公司打到几点第九大队京东到家的角度讲',
         position: '产品经理',
-        date: '2021/05/14',
-        precent: '60%'
+        msg: '很高兴认识您，我们交换一下名片吧很高兴认识您，我们交换一下名片吧很高兴认识您，我们交换一下名片吧~',
+        status: 1
       }, {
         id: 3,
         avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
         nickname: '昵称',
         company: '厦门星辰追梦科技有限公司',
         position: '产品经理',
-        date: '2021/05/14',
-        precent: '60%'
+        msg: '',
+        status: 0
       }, {
         id: 4,
         avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
         nickname: '昵称',
         company: '厦门星辰追梦科技有限公司',
         position: '产品经理',
-        date: '2021/05/14',
-        precent: '60%'
+        msg: '很高兴认识您，我们交换一下名片吧~',
+        status: 0
       }],
       count: 1,
       total_page: 1,
     },
     page: 1,
     page_size: 10,
-
-    remind: 1, //有新的朋友发来名片 0没有 1有
-    searchKeyword: '',
-    selectArr: [], //选中的id数组
-    isSelectAll: 0, //默认非全选 0未全选 1全选
-    status: 'edit' //edit 待编辑,editing 编辑中
-  },
-  watch: {
-    selectArr: {
-      handler(nv, ov, obj) {
-        // console.log(nv)
-        let isSelectAll = 0
-        if (nv.length === this.data.listData.cache.length)
-          isSelectAll = 1
-        else isSelectAll = 0
-
-        this.setData({
-          isSelectAll
-        })
-      },
-    }
-  },
-  // 完成按钮
-  completeHandle() {
-    this.setData({
-      status: 'edit'
-    })
-  },
-  // 编辑按钮
-  editHandle() {
-    this.setData({
-      status: 'editing'
-    })
-  },
-  // 底部删除按钮
-  delHandle() {
-    wx.showModal({
-      title: '提示',
-      content: '确定删除吗',
-      success(res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-  },
-  selectHandle(e) {
-    const id = e.currentTarget.dataset.id
-
-    let res = false
-    if (this.data.selectArr.length) {
-      res = this.data.selectArr.some((idd, index) => {
-        if (idd == id) {
-          // 是选中状态
-          this.data.selectArr.splice(index, 1)
-          return true
-        }
-        return false
-      })
-    }
-
-    // 是未选中状态
-    if (!res) this.data.selectArr.push(id)
-
-    this.setData({
-      selectArr: this.data.selectArr
-    })
-  },
-  selectAllHandle() {
-    let selectArr = []
-
-    if (this.data.isSelectAll) {
-      // 全不选
-    } else {
-      // 全选
-      selectArr = this.data.listData.cache.map(item => item.id)
-    }
-
-    this.setData({
-      selectArr
-    })
-  },
-  searchInputHandle(e) {
-    // console.log(e)
-    this.setData({
-      searchKeyword: e.detail.value
-    })
-  },
-  // 搜索
-  btnSearchHandle() {
-    // console.log('搜索')
-    console.log(this.data.searchKeyword)
-    this.setData({
-      status: 'edit'
-    })
-  },
-  bindconfirmHandle(e) {
-    console.log(e.detail.value)
-    this.setData({
-      status: 'edit'
-    })
   },
   scrollToLower() {
     console.log(e)
@@ -219,24 +112,14 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getApp().setWatcher(this) //设置监听器
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    setTabBar.call(this, {
-      selected: 2
-    })
 
-    const that = this;
-    const query = wx.createSelectorQuery();
-    query.select('.section3').boundingClientRect(function (rect) {
-      that.setData({
-        section3T: rect.top,
-      })
-    }).exec();
   },
 
   /**

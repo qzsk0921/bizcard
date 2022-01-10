@@ -93,21 +93,30 @@ create({
               url: '/pages/index/index',
             })
           }
-        } else if (_data.status === 'location') {
-          // 选择收货地址
+        } else if(_data.status==='bizholder') {
           if (el) {
             wx.navigateTo({
-              url: '/pages/location/index/index',
+              url: '/pages/bizmsg/bizmsg',
             })
           }
-        } else if (_data.status === 'category') {
-          // 分类页面
-          if (el) {
-            wx.navigateTo({
-              url: '/pages/search/search',
-            })
-          }
-        } else {
+        }
+        // else if (_data.status === 'location') {
+        //   // 选择收货地址
+        //   if (el) {
+        //     wx.navigateTo({
+        //       url: '/pages/location/index/index',
+        //     })
+        //   }
+        // } 
+        // else if (_data.status === 'category') {
+        //   // 分类页面
+        //   if (el) {
+        //     wx.navigateTo({
+        //       url: '/pages/search/search',
+        //     })
+        //   }
+        // }
+        else {
           if (el) {
             wx.navigateBack({
               fail(err) {

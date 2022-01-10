@@ -7,8 +7,8 @@
 		<!-- icon空 -->
 		<view wx:elif="{{status==='isEmpty'}}"></view>
 		<!-- 名片夹 -->
-		<view wx:elif="{{status==='bizholder'}}" class="icon-bizholder" data-el="bizholder">
-			<image class="" icon-custom src="/assets/images/holder_news.png" mode="aspectFill"></image>
+		<view wx:elif="{{status==='bizholder'}}" class="icon-bizholder">
+			<image class="" icon-custom src="/assets/images/holder_news.png" mode="aspectFill" data-el="bizholder"></image>
 		</view>
 		<!-- 地址 -->
 		<view class="box-location" wx:elif="{{status==='location'}}">

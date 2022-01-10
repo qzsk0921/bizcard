@@ -1,0 +1,11 @@
+module.exports = {
+  checkSelectSituation: function (id, ids) {
+    var res = false
+    if (ids.length) {
+      res = ids.some(function (idd) {
+        return idd === id
+      })
+    }
+    return res
+  }
+}

@@ -1,30 +1,41 @@
 <!--pages/bizholder/bizholder.wxml-->
 <!-- <text>pages/bizholder/bizholder.wxml</text> -->
+<wxs module="tools" src="./bizholder.wxs"></wxs>
 <!-- 名片夹 -->
 <view class="container container-bizholder">
   <view class="fixed">
-    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="#333" bgColor="#FFFFFF" />
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}"
+      navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}"
+      status="{{navStatus}}" color="#333" bgColor="#FFFFFF" />
   </view>
+  <image wx:if="{{remind}}" class="remind" src="/assets/images/popup_card.png" mode="aspectFill"
+    style="top:{{compatibleInfo.navHeight+'px'}}"></image>
   <view class="section1 input-box">
-    <input class="search" name="search" placeholder="请输入姓名、公司名称或职位" placeholder-class="search-placeholder" value="{{searchKeyword}}" confirm-type="search" bindconfirm="bindconfirmHandle" bindinput="searchInputHandle" />
+    <input class="search" name="search" placeholder="请输入姓名、公司名称或职位" placeholder-class="search-placeholder"
+      value="{{searchKeyword}}" confirm-type="search" bindconfirm="bindconfirmHandle" bindinput="searchInputHandle" />
     <view class="btn btn-search" bindtap="btnSearchHandle">搜索</view>
   </view>
   <view class="section2">
     <view class="left">所有星片(3)</view>
     <view class="right">
-      <!-- <view class="btn btn-edit edit">编辑</view> -->
-      <view class="editing">
-        <view class="btn btn-all">
-          <image src="/assets/images/holder_all_f.png" mode="aspectFill"></image>
+      <view wx:if="{{status==='edit'}}" class="btn btn-edit edit" bindtap="editHandle">编辑</view>
+      <view wx:else class="editing">
+        <view class="btn btn-all" bindtap="selectAllHandle">
+          <image src="{{isSelectAll?'/assets/images/holder_all_n.png':'/assets/images/holder_all_f.png'}}"
+            mode="aspectFill"></image>
           <text>全选</text>
         </view>
-        <view class="btn btn-complete">
+        <view class="btn btn-complete" bindtap="completeHandle">
           完成
         </view>
       </view>
     </view>
   </view>
-  <scroll-view class="scroll-box hide-scrollbar content section3" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" style="height:{{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH+section3T)+'px'}}">
+  <scroll-view class="scroll-box hide-scrollbar content section3" refresher-enabled="{{refresherEnabled}}"
+    refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower"
+    bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull"
+    bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true"
+    style="height:{{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH+section3T)+'px'}}">
     <!--这里是下拉显示的效果-->
     <!-- <view slot="refresher" class="refresh-container disf faic" style="display:block;width: 100%; height: 80px;  display: flex; align-items:center;justify-content:center;box-sizing: border-box;border-bottom:1px solid #f5f5f5">
       <view class="disf faic fc6" style="position: absolute;">
@@ -48,8 +59,12 @@
     <view class='radar-list business' wx:else>
       <view class="card" wx:for="{{listData.cache}}" wx:key="unique">
         <view class="left">
-          <image wx:if="{{status==='editing'}}" src="/assets/images/edit_exposure_n.png"></image>
-          <image class="col1 avater" src="{{item.avatar}}" mode="aspectFill"></image>
+          <view wx:if="{{status==='editing'}}" class="select-box" bindtap="selectHandle" data-id="{{item.id}}">
+            <image class="icon-select"
+              src="{{tools.checkSelectSituation(item.id, selectArr)?'/assets/images/edit_exposure_n.png':'/assets/images/holder_f.png'}}"
+              mode="aspectFill"></image>
+          </view>
+          <image class="col1 avatar" src="{{item.avatar}}" mode="aspectFill"></image>
           <view class="col2">
             <view class="row1">{{item.nickname}}</view>
             <view class="row2">{{item.position}}</view>
@@ -63,5 +78,6 @@
       </view>
       <!-- <view class="nothing" wx:if="listData.total_page===listData.count">没有更多了~</view> -->
     </view>
+    <view wx:if="{{status==='editing'&&selectArr.length}}" class="btn btn-delete" bindtap="delHandle">删除</view>
   </scroll-view>
 </view>

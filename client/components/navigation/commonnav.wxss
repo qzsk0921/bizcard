@@ -50,7 +50,7 @@
   width: 60rpx;
   height: 60rpx;
   position: absolute;
-  left: 40rpx;
+  left: 28rpx;
 }
 /* .box-location {
   display: flex;

@@ -1,6 +1,14 @@
 /* pages/bizholder/bizholder.wxss */
 .container-bizholder {}
 
+.remind {
+  position: absolute;
+  left: 28rpx;
+  width: 284rpx;
+  height: 65rpx;
+  z-index: 2;
+}
+
 .section1 {
   padding: 20rpx 28rpx 0;
   display: flex;
@@ -131,7 +139,7 @@
 }
 
 .card {
-  padding: 28rpx 48rpx;
+  padding: 28rpx 48rpx 28rpx 43rpx;
   display: flex;
   justify-content: space-between;
   background: #ffffff;
@@ -140,9 +148,24 @@
 
 .card .left {
   display: flex;
+  align-items: center;
+  flex: 4;
 }
 
-.card .left .avater {
+.card .left .select-box {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.card .left .select-box .icon-select {
+  margin-right: 20rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.card .left .avatar {
+  /* flex: 2; */
   width: 100rpx;
   height: 100rpx;
   background: rgba(0, 0, 0, 0);
@@ -150,6 +173,7 @@
 }
 
 .card .left .col2 {
+  flex: 8;
   margin-left: 24rpx;
 }
 
@@ -166,9 +190,14 @@
 }
 
 .card .left .col2 .row3 {
-  margin-top: 12rpx;
+  margin-top: 7rpx;
   font-size: 24rpx;
   color: #999999;
+  line-height: 34rpx;
+}
+
+.card .right {
+  flex: 1;
 }
 
 .card .right .row1 {
@@ -192,4 +221,19 @@
   margin-left: 8rpx;
   font-size: 24rpx;
   color: #4980F9;
+}
+
+.btn-delete {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #FFEEEE;
+  height: 84rpx;
+  line-height: 84rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #FF5757;
+  letter-spacing: 2rpx;
 }

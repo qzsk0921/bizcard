@@ -65,6 +65,17 @@
           "pathName": "pages/bizholder/bizholder",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/bizholder/bizholder",
+          "pathName": "pages/bizholder/bizholder",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/bizmsg/bizmsg",
+          "pathName": "pages/bizmsg/bizmsg",
+          "scene": null
         }
       ]
     }

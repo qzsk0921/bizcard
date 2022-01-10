@@ -1,0 +1,122 @@
+/* pages/bizmsg/bizmsg.wxss */
+.container-bizmsg {
+  background: #FFFFFF;
+}
+
+.card {
+  padding: 28rpx 48rpx 28rpx 43rpx;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-bottom: 2rpx solid #EEEEEE;
+}
+
+.card .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card .bottom {
+  margin-top: 19rpx;
+  padding: 11rpx 20rpx;
+  width: 693rpx;
+  background: #F7F8FA;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  line-height: 44rpx;
+  color: #333333;
+}
+
+.card .left {
+  display: flex;
+  align-items: center;
+  flex: 4;
+}
+
+.card .left .select-box {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.card .left .select-box .icon-select {
+  margin-right: 20rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.card .left .avatar {
+  /* flex: 2; */
+  width: 100rpx;
+  height: 100rpx;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+}
+
+.card .left .col2 {
+  flex: 8;
+  margin-left: 24rpx;
+}
+
+.card .left .col2 .row1 {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.card .left .col2 .row2 {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.card .left .col2 .row3 {
+  margin-top: 7rpx;
+  font-size: 24rpx;
+  color: #999999;
+  line-height: 34rpx;
+}
+
+.card .right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.card .right .btn-receive {
+  text-align: center;
+  width: 160rpx;
+  height: 54rpx;
+  border-radius: 4rpx;
+  font-size: 26rpx;
+  line-height: 50rpx;
+  border: 2rpx solid transparent
+}
+
+.card .right .btn-receive.havenotgot {
+  color: #FFFFFF;
+  background: #4980F9;
+}
+
+.card .right .btn-receive.havegot {
+  border-color: #BBBBBB;
+  color: #333333;
+  background: #FFFFFF;
+}
+
+.no-data {
+  text-align: center;
+}
+
+.no-data image {
+  margin-top: 250rpx;
+  width: 440rpx;
+  height: 332rpx;
+}
+
+.no-data .text {
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+}
