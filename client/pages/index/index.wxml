@@ -50,12 +50,12 @@
 <!-- 我的名片 -->
 <view wx:else class="container container-index">
   <view class="fixed">
-    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="" />
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" />
   </view>
-  <image class="image_bg" src="https://img.zcool.cn/community/015db95541a311000001a64b0e9026.jpg@1280w_1l_2o_100sh.jpg" mode="aspectFill"></image>
-  <view class="content">
+  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
+    <!-- <view class="content"> -->
     <view class="section1 card">
-      <card />
+      <card cid="{{currentId}}" />
     </view>
     <!-- 浏览和赞 -->
     <view class="section2">
@@ -82,7 +82,6 @@
       </button>
     </view>
     <!-- 电话 邮箱 地址... -->
-    <!-- <scroll-view class="section4" scroll-x="true"> -->
     <view class="section4">
       <view class="item-box hide-scrollbar">
         <view wx:for="{{section4}}" wx:key="unique" class="item" data-item="{{item}}" bindtap="itemHandle">
@@ -94,9 +93,8 @@
         </view>
       </view>
     </view>
-    <!-- </scroll-view> -->
     <!-- ta的简介，ta的产品... -->
-    <view class="section5">
+    <view class="section5 {{fixed?'fixed':''}}" style="{{fixed?'top:'+(compatibleInfo.tabbarH+compatibleInfo.navHeight)+'px':''}}">
       <view class="tabs-nav" bindtap='changeTab'>
         <view wx:for="{{tabbar}}" wx:key="unique" data-index="{{index}}" class="tab {{tabIndex==index?'active':''}}">
           <view calss="text" data-index="{{index}}">{{item}}</view>
@@ -104,7 +102,7 @@
         <view class="tabs-line" style="transform:translateX({{tabWidth*tabIndex+tabWidth/2+'px'}})translateX(-50%)">
         </view>
       </view>
-      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.isIphoneX?compatibleInfo.systemInfo.screenHeight-(32+listTop)+'px':compatibleInfo.systemInfo.screenHeight-(listTop)+'px'}}">
+      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH+compatibleInfo.navHeight+tabHeight)+'px'}}">
         <view class="no-data" wx:if="{{tadeOptions[tabIndex].cache.length==0}}">
           <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
           <view class="text">这里是空的</view>
@@ -118,7 +116,8 @@
     <view class="section6"></view>
     <view class="section7"></view>
     <view class="section8"></view>
-  </view>
+    <!-- </view> -->
+  </scroll-view>
 </view>
 
 <json-add dialogVisible="{{jsonAddDialogVisibile}}" navHeight="{{compatibleInfo.navHeight}}" />

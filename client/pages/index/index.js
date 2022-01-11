@@ -21,9 +21,13 @@ create(store, {
   data: {
     canIUseGetUserProfile: false,
 
+    fixed: 0, //允许纵向滚动
+    TASrollTop: null, //TA切换栏距离顶部距离
+    currentId: 1,
     is_select: 0, //协议
     isOverShare: true,
 
+    navigationBarTitleText: '我的名片',
     userInfo: null,
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
@@ -31,7 +35,7 @@ create(store, {
 
     navStatus: 'isEntryWithShare', //isEmpty
 
-    isCardEmpty: null, //有无名片
+    // isCardEmpty: null, //有无名片
     currentSwiperIndex: 0, //初始值为0
     mapBackground: [{
       tit: '便捷发放星片',
@@ -149,6 +153,28 @@ create(store, {
       },
       // immediate: true
     }
+  },
+  // 滚动时触发
+  scrollHandle(e) {
+    console.log(e.detail.scrollTop)
+    console.log(this.data.TASrollTop)
+
+    const fixed = this.data.fixed
+    if (this.data.TASrollTop <= e.detail.scrollTop) {
+      if (!fixed) {
+        this.setData({
+          fixed: 1
+        })
+      }
+    } else {
+      if (fixed) {
+        this.setData({
+          fixed: 0
+        })
+      }
+    }
+
+
   },
   createCardHandle() {
     // 跳转至创建名片-极简 需用户勾选同意协议，若未勾选，toast:请阅读并同意《用户协议》和《隐私协议》后，在创建数字名片
@@ -312,11 +338,11 @@ create(store, {
       })
     }
 
-    this.getCardDetail({
-      type: 1
-    }).then(res => {
+    // this.getCardDetail({
+    //   type: 1
+    // }).then(res => {
 
-    })
+    // })
 
     this.setData({
       isCardEmpty: 0
@@ -366,9 +392,14 @@ create(store, {
     const that = this;
     const query = wx.createSelectorQuery();
 
+    query.select('.section5').boundingClientRect(function (rect) {
+      that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight-11)
+    })
+
     query.select('.tab').boundingClientRect(function (rect) {
       that.setData({
         tabWidth: rect.width,
+        tabHeight: rect.height
       })
     }).exec();
   },

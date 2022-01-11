@@ -3,27 +3,30 @@
 <!-- 名片版式 -->
 <view class="format">
   <!-- 1 -->
-  <view wx:if="{{cid==1}}" class="f1 content">
-    <view class="top">
-      <view class="company">厦门阿斯达克有安居房哈公司</view>
-      <view class="name">林老师</view>
-      <view class="position">销售经理</view>
-    </view>
-    <view class="bottom">
-      <view class="phone">
-        <image src="/assets/images/card_location.png" mode="aspectFill"></image>
-        <text>134 0005 5366</text>
+  <view wx:if="{{cid==1}}" class="f1 content" style="margin-top:{{(navHeight+10)+'px'}};">
+    <view class="box">
+      <view class="top">
+        <view class="company" style="color:aquamarine">厦门阿斯达克有安居房哈公司</view>
+        <view class="name" style="color:aquamarine">林老师</view>
+        <view class="position" style="color:aquamarine">销售经理</view>
       </view>
-      <view class="address">
-        <image src="/assets/images/card_location.png" mode="aspectFill"></image>
-        <text>北京市东城区发几款方法啊的空间的是243北京市北北京市东城区发几</text>
+      <view class="bottom">
+        <view class="phone">
+          <image src="/assets/images/card_location.png" mode="aspectFill"></image>
+          <text style="color:aquamarine">134 0005 5366</text>
+        </view>
+        <view class="address">
+          <image src="/assets/images/card_location.png" mode="aspectFill"></image>
+          <text style="color:aquamarine">北京市东城区发几款方法啊的空间的是243北京市北北京市东城区发几</text>
+        </view>
       </view>
     </view>
   </view>
   <!-- 2 -->
-  <view wx:elif="{{cid==2}}" class="f2 content">
+  <!-- <view wx:elif="{{cid==2}}" class="f2 content" style="top:-{{(navHeight+20)+'px'}}"> -->
+  <view wx:elif="{{cid==2}}" class="f2 content" style="height:{{(navHeight+210)+'px'}}">
     <image class="image-bg" src="https://tse2-mm.cn.bing.net/th/id/OIP-C.k1gWWz0th1VjpEHFlbrYAAHaHa?pid=ImgDet&rs=1" mode="aspectFill"></image>
-    <view class="box">
+    <view class="box" style="margin-top:{{(navHeight+20)+'px'}}">
       <image class="avatar" src="/assets/images/card_location.png" mode="aspectFill"></image>
       <view class="top">
         <view class="row1">

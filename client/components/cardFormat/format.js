@@ -21,9 +21,7 @@ create({
   },
   observers: {
     id: function (nv, ov) {
-      console.log(nv, ov)
-      this.updateRate() //这里通过this.updateRate()方法来更新数据
-      console.log(nv, ov)
+      // this.updateRate() //这里通过this.updateRate()方法来更新数据
     }
   },
   /**
@@ -38,6 +36,9 @@ create({
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
+      this.setData({
+        navHeight:store.data.compatibleInfo.navHeight
+      })
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行

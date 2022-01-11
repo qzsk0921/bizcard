@@ -155,16 +155,12 @@
 
 .container .content {
   background: #FFFFFF;
+  overflow: scroll;
 }
 
 .container-index .section1 {
-  margin: 20rpx auto 0;
-  width: 694rpx;
-  background: rgba(255, 255, 255, 0.39);
-  box-shadow: 0rpx 6rpx 16rpx rgba(0, 0, 0, 0.12);
-  opacity: 1;
-  border-radius: 10rpx;
-  min-height: 400rpx;
+  /* margin: 20rpx auto 0; */
+
 }
 
 .container-index .section2 {
@@ -295,6 +291,12 @@
 
 .section5 {}
 
+.section5.fixed {
+  position: relative;
+  /* left: 0; */
+  /* width: 100vw */
+}
+
 .section5 .tabs-nav {
   display: flex;
   position: relative;
@@ -338,6 +340,7 @@
 }
 
 .cont .no-data {
+  padding-top: 1000rpx;
   text-align: center;
 }
 
@@ -352,4 +355,12 @@
   font-size: 32rpx;
   font-weight: 500;
   color: #BABEC2;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
 }

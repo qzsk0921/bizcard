@@ -107,13 +107,18 @@ create(store, {
     if (!this.data.date) {
       const dateObj = new Date()
       const year = dateObj.getFullYear()
-      const month = dateObj.getMonth() + 1
+      const month = this.formatNumber(dateObj.getMonth() + 1)
+
       this.setData({
         date: `${year}-${month}`,
         startDate: `${year-5}-${month}`,
         endDate: `${year}-${month}`
       })
     }
+  },
+  formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : `0${n}`
   },
   bindDateChange(e) {
     // console.log(e)

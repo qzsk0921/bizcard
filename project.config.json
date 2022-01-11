@@ -49,11 +49,12 @@
         "miniprogramNpmDistDir": "client/"
       }
     ],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "minifyWXML": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.19.4",
-  "appid": "wx345dc3351035ebcb",
+  "appid": "wx70897922a2c2b87c",
   "projectname": "%E6%99%BA%E8%83%BD%E5%90%8D%E7%89%87",
   "debugOptions": {
     "hidedInDevtools": []

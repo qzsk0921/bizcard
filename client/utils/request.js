@@ -84,7 +84,7 @@ class Request {
           // console.log(res)
           if (res.data.code !== 1) {
             // 错误次数大于5次不再请求
-            if (++errCount>100) {
+            if (++errCount>10) {
               wx.showToast({
                 title: '请求出错，请重试',
                 icon: 'none'

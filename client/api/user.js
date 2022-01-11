@@ -1,4 +1,4 @@
-// https://www.showdoc.com.cn/1722521359176667/8053561250017786 Xczm190410
+// https://www.showdoc.com.cn/1459684149519018/8309877398396858 Xczm190410
 import request from '../utils/request'
 
 // 用户授权
@@ -12,7 +12,7 @@ export function login(data) {
     url: '/small/Login/login',
     method: 'post',
     data,
-    load: 'noload'
+    // load: 'noload'
   })
 }
 
