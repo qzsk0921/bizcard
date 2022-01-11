@@ -1,0 +1,9 @@
+<!--pages/richtext/purinstruction.wxml-->
+<!-- <text>pages/richtext/purinstruction.wxml</text> -->
+<!-- 购买须知 -->
+<view class="container container-purinstruction">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="#333" bgColor="#FFFFFF" />
+  </view>
+  <rich-text nodes="{{faqHtmlData}}"></rich-text>
+</view>

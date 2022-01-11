@@ -75,6 +75,13 @@
         {
           "name": "pages/bizmsg/bizmsg",
           "pathName": "pages/bizmsg/bizmsg",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/bizEdit/style",
+          "query": "",
           "scene": null
         }
       ]

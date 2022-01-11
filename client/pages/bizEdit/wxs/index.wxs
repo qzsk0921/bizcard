@@ -1,0 +1,16 @@
+module.exports = {
+  // 版式编辑信息展示中的小图标过滤
+  parseIcon: function (requiree, status) {
+    var url = null
+    if (requiree) {
+      url = '/assets/images/card_edit_icon_required.png'
+    } else {
+      if (status)
+        url = '/assets/images/card_edit_icon_show_n.png'
+      else
+        url = '/assets/images/card_edit_icon_disable.png'
+    }
+
+    return url
+  }
+}

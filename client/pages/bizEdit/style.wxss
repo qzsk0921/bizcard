@@ -1,0 +1,178 @@
+/* pages/bizEdit/style.wxss */
+.container-style {
+  background: #ffffff;
+}
+
+.option-box {
+  padding-left: 28rpx;
+}
+
+.option-box .sec1 {
+  margin-top: 10rpx;
+  padding: 30rpx 0;
+  border-bottom: 2rpx solid #E8EDF3;
+}
+
+.option-box .sec .tit {
+  font-size: 26rpx;
+  color: #000000
+}
+
+.option-box .sec1 .image-box {
+  overflow: auto;
+  margin-top: 23rpx;
+  white-space: nowrap;
+}
+
+.option-box .sec1 .image-box .icon-panel,
+.option-box .sec2 .image-box .img-item .icon-pic {
+  width: 148rpx;
+  height: 94rpx;
+  border-radius: 4rpx;
+}
+
+.option-box .sec1 .image-box .icon-panel:not(:first-child),
+.option-box .sec2 .image-box .img-item:not(:first-child) {
+  margin-left: 18rpx;
+}
+
+.option-box .sec2 {
+  padding: 30rpx 0;
+  border-bottom: 2rpx solid #E8EDF3;
+}
+
+.option-box .sec2 .image-box {
+  overflow: auto;
+  margin-top: 23rpx;
+  white-space: nowrap;
+  display: flex;
+}
+
+.option-box .sec2 .image-box .img-item .num {
+  margin-top: 15rpx;
+  font-size: 20rpx;
+  color: #AAAAAA;
+}
+
+.option-box .sec3 {
+  padding: 30rpx 0;
+}
+
+.option-box .sec3 .btn-box {
+  margin-top: 10rpx;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.option-box .sec3 .btn-box .btn-attr {
+  position: relative;
+  margin: 20rpx 24rpx 0 0;
+  width: 155rpx;
+  height: 74rpx;
+  border: 2rpx solid transparent;
+  border-radius: 8rpx;
+  text-align: center;
+  line-height: 70rpx;
+  font-size: 28rpx;
+}
+
+.option-box .sec3 .btn-box .btn-attr.require,
+.option-box .sec3 .btn-box .btn-attr.status1 {
+  border-color: #4980F9;
+  color: #4980F9;
+}
+
+.option-box .sec3 .btn-box .btn-attr.stauts0 {
+  color: #CCCCCC;
+}
+
+.option-box .sec3 .btn-box .btn-attr image {
+  width: 42rpx;
+  height: 42rpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.option-box .sec4 {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.option-box .sec4 .btn-save {
+  box-sizing: content-box;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  background: #4980F9;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.option-box .sec4 .pay-box .row1 {
+  height: 64rpx;
+  background: rgba(254, 246, 224);
+  font-size: 24rpx;
+  color: #DF7043;
+  text-decoration: underline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-box .sec4 .pay-box .row1 .select-box {}
+
+.option-box .sec4 .pay-box .row1 .select-box .icon-noread {
+  width: 26rpx;
+  height: 26rpx;
+  border: 2rpx solid #DF7043;
+}
+
+.option-box .sec4 .pay-box .row1 .select-box .icon-read {
+  width: 26rpx;
+  height: 26rpx;
+}
+
+.option-box .sec4 .pay-box .row1 text {
+  margin-left: 14rpx;
+}
+
+.option-box .sec4 .row2 {
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.option-box .sec4 .row2 .left {
+  text-align: left;
+  width: 482rpx;
+  height: 89rpx;
+  line-height: 89rpx;
+  padding-left: 28rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #FF5757;
+}
+
+.option-box .sec4 .row2 .left text:last-child {
+  margin-left: 8rpx;
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #F83A3A;
+}
+
+.option-box .sec4 .row2 .right {
+  background: rgba(255, 87, 87);
+  text-align: center;
+  width: calc(100% - 482rpx);
+  font-size: 32rpx;
+  line-height: 89rpx;
+  color: #FFFFFF;
+}
+
+.active {
+  border: 4rpx solid #1EE0FF;
+}

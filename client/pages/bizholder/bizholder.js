@@ -226,9 +226,30 @@ create(store, {
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    setTabBar.call(this, {
-      selected: 2
-    })
+    if (this.store.data.isCardEmpty) {
+      let list = [{
+          "pagePath": "/pages/index/index",
+          "text": "我的星片",
+          "iconPath": "/assets/images/btn_my_card_f.png",
+          "selectedIconPath": "/assets/images/btn_my_card_n.png"
+        },
+        {
+          "pagePath": "/pages/bizholder/bizholder",
+          "text": "星片夹",
+          "iconPath": "/assets/images/btn_card_holder_f.png",
+          "selectedIconPath": "/assets/images/btn_card_holder_n.png"
+        }
+      ]
+      setTabBar.call(this, {
+        list,
+        selected: 1
+      })
+    } else {
+      setTabBar.call(this, {
+        selected: 2
+      })
+    }
+
 
     const that = this;
     const query = wx.createSelectorQuery();

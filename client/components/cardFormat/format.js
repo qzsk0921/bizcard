@@ -1,10 +1,16 @@
 // components/cardFormat/format.js
-Component({
+import store from '../../store/common'
+import create from '../../utils/create'
+// Component({
+create({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    cid: {
+      type: Number,
+      value: 0,
+    },
   },
 
   /**
@@ -13,11 +19,28 @@ Component({
   data: {
 
   },
-
+  observers: {
+    id: function (nv, ov) {
+      console.log(nv, ov)
+      this.updateRate() //这里通过this.updateRate()方法来更新数据
+      console.log(nv, ov)
+    }
+  },
   /**
    * 组件的方法列表
    */
   methods: {
 
+  },
+  lifetimes: {
+    ready() {
+      // 在组件在视图层布局完成后执行
+    },
+    attached: function () {
+      // 在组件实例进入页面节点树时执行
+    },
+    detached: function () {
+      // 在组件实例被从页面节点树移除时执行
+    },
   }
 })

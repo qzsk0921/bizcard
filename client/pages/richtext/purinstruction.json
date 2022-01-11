@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "top-navigation": "/components/navigation/commonnav"
+  },
+  "navigationStyle": "custom"
+}

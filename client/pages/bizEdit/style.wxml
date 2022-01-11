@@ -1,0 +1,84 @@
+<!--pages/bizEdit/style.wxml-->
+<!-- <text>pages/bizEdit/style.wxml</text> -->
+<wxs module="tools" src="./wxs/index.wxs"></wxs>
+
+<!-- 名片编辑 -->
+<view class="container container-style">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="#333333" bgColor="transparent" />
+  </view>
+  <view class="content">
+    <card cid="{{currentId}}" />
+    <view class="option-box">
+      <view class="sec1 sec">
+        <view class="tit">选择版式</view>
+        <view class="image-box hide-scrollbar">
+          <image class="icon-panel active" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="sec2 sec">
+        <view class="tit">选择星片图</view>
+        <view class="image-box hide-scrollbar">
+          <view class="img-item">
+            <image class="icon-pic active" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+            <view class="num">库存999</view>
+          </view>
+          <view class="img-item">
+            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+            <view class="num">库存999</view>
+          </view>
+          <view class="img-item">
+            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+            <view class="num">库存999</view>
+          </view>
+          <view class="img-item">
+            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+            <view class="num">库存999</view>
+          </view>
+          <view class="img-item">
+            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+            <view class="num">库存999</view>
+          </view>
+          <view class="img-item">
+            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+            <view class="num">库存999</view>
+          </view>
+        </view>
+      </view>
+      <view class="sec3 sec">
+        <view class="tit">展示信息</view>
+        <view class="btn-box">
+          <view class="btn btn-attr {{item.require?'require':item.status?'status1':'status0'}}" wx:for="{{styleData.show}}" wx:key="unique">
+            <text>{{item.name}}</text>
+            <image src="{{tools.parseIcon(item.require, item.status)}}" mode="aspectFill"></image>
+          </view>
+        </view>
+      </view>
+      <view class="sec4">
+        <!-- <view class="btn btn-save">保存</view> -->
+        <view class="pay-box">
+          <view class="row1">
+            <view class="select-box" bindtap="readHandle">
+              <image wx:if="{{readed}}" class="icon-read" src="/assets/images/card_edit_icon_buy_n.png"></image>
+              <view wx:else class="icon-noread"></view>
+            </view>
+            <text bindtap="toPurinstruction">购买须知>></text>
+          </view>
+        </view>
+        <view class="row2">
+          <view class="left">
+            <text>￥</text>
+            <text>68.2</text>
+          </view>
+          <view class="right">
+            购买并使用
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

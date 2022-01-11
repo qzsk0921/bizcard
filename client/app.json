@@ -14,7 +14,9 @@
     "pages/bizcode/bizcode",
     "pages/bizEdit/easy",
     "pages/bizEdit/edit",
+    "pages/bizEdit/style",
     "pages/bizmsg/bizmsg",
+    "pages/richtext/purinstruction",
     "pages/logs/logs"
   ],
   "window": {

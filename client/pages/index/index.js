@@ -5,6 +5,12 @@ import {
 import config from '../../config/index'
 import store from '../../store/common'
 import create from '../../utils/create'
+import {
+  getCardDetail
+} from '../../api/card'
+import {
+  updateUserInfo
+} from '../../api/user'
 
 // Page({
 create(store, {
@@ -13,6 +19,8 @@ create(store, {
    * 页面的初始数据
    */
   data: {
+    canIUseGetUserProfile: false,
+
     is_select: 0, //协议
     isOverShare: true,
 
@@ -23,10 +31,24 @@ create(store, {
 
     navStatus: 'isEntryWithShare', //isEmpty
 
-    isCardEmpty: 0,
+    isCardEmpty: null, //有无名片
+    currentSwiperIndex: 0, //初始值为0
+    mapBackground: [{
+      tit: '便捷发放星片',
+      des: '转发给微信好友/面对面扫码查看'
+    }, {
+      tit: '更全面的展示自己',
+      des: '多样展示、信息齐全'
+    }, {
+      tit: '访客数据全方位记录',
+      des: '数据雷达监测、实时动态'
+    }, {
+      tit: '统一管理客户信息',
+      des: '云端批量管理客户资料'
+    }], //对象背景图的内容
     // swiper
-    background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
-    indicatorDots: true,
+    background: ['/assets/images/home_img_a.png', '/assets/images/home_img_b.png', '/assets/images/home_img_c.png', '/assets/images/home_img_d.png'],
+    indicatorDots: false,
     vertical: false,
     interval: 2000,
     autoplay: true,
@@ -128,6 +150,55 @@ create(store, {
       // immediate: true
     }
   },
+  createCardHandle() {
+    // 跳转至创建名片-极简 需用户勾选同意协议，若未勾选，toast:请阅读并同意《用户协议》和《隐私协议》后，在创建数字名片
+    if (!this.data.is_select) {
+      wx.showToast({
+        icon: 'none',
+        title: '请阅读并同意《用户协议》和《隐私协议》后，在创建数字名片',
+      })
+      return
+    }
+
+    wx.navigateTo({
+      url: '/pages/bizEdit/easy',
+    })
+
+  },
+  getUserProfile(e) {
+    wx.getUserProfile({
+      desc: '展示用户信息',
+      success: (res) => {
+        console.log(res)
+        // this.store.data.userInfo = res.userInfo
+        this.store.data.userInfo['avatarUrl'] = res.userInfo.avatarUrl
+        this.store.data.userInfo['city'] = res.userInfo.city
+        this.store.data.userInfo['country'] = res.userInfo.country
+        this.store.data.userInfo['gender'] = res.userInfo.gender
+        this.store.data.userInfo['language'] = res.userInfo.language
+        this.store.data.userInfo['nickName'] = res.userInfo.nickName
+        this.store.data.userInfo['province'] = res.userInfo.province
+        this.update()
+
+        // 上传用户信息
+        updateUserInfo(res.userInfo).then(res => {
+          console.log(res.msg)
+          wx.redirectTo({
+            url: '/pages/authorization/phone',
+          })
+        }).catch(err => {
+          console.log('更新微信信息:' + err.msg)
+        })
+      }
+    })
+  },
+  // 无名片轮播图
+  bindchangeHandle(e) {
+    // console.log(e.detail.current)
+    this.setData({
+      currentSwiperIndex: e.detail.current
+    })
+  },
   // 选择阅读协议
   agreementHandle() {
     this.setData({
@@ -221,12 +292,49 @@ create(store, {
 
     this.setData(objData)
   },
+  getCardDetail(data) {
+    return new Promise((resolve, reject) => {
+      getCardDetail(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // getApp().setWatcher(this) //设置监听器
 
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
+
+    this.getCardDetail({
+      type: 1
+    }).then(res => {
+
+    })
+
+    this.setData({
+      isCardEmpty: 0
+    })
+
+    this.store.data.isCardEmpty = 0
+    this.update()
+
+    // getApp().setWatcher(this) //设置监听器
+    //第一次登陆提示json动图 显示一次 来过吗 0 没来过 1 来过
+    const jsonAddDialogVisibile = wx.getStorageSync('jsonAddDialogVisibile')
+    // console.log(jsonAddDialogVisibile)
+    if (!jsonAddDialogVisibile) {
+      this.setData({
+        jsonAddDialogVisibile: 1
+      })
+      wx.setStorageSync('jsonAddDialogVisibile', 1)
+    }
   },
 
   /**
@@ -234,18 +342,19 @@ create(store, {
    */
   onReady: function () {
     let list = [{
-        "pagePath": "pages/index/index",
+        "pagePath": "/pages/index/index",
         "text": "我的星片",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "iconPath": "/assets/images/btn_my_card_f.png",
+        "selectedIconPath": "/assets/images/btn_my_card_n.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "/pages/bizholder/bizholder",
         "text": "星片夹",
-        "iconPath": "/assets/images/btn_home.png",
-        "selectedIconPath": "/assets/images/btn_home_focus.png"
+        "iconPath": "/assets/images/btn_card_holder_f.png",
+        "selectedIconPath": "/assets/images/btn_card_holder_n.png"
       }
     ]
+
     if (this.data.isCardEmpty) {
       setTabBar.call(this, {
         list

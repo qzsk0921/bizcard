@@ -2,9 +2,8 @@
 <!-- <text>components/cardFormat/format.wxml</text> -->
 <!-- 名片版式 -->
 <view class="format">
-  <image class="image-bg" src="https://tse2-mm.cn.bing.net/th/id/OIP-C.k1gWWz0th1VjpEHFlbrYAAHaHa?pid=ImgDet&rs=1" mode="aspectFill"></image>
   <!-- 1 -->
-  <!-- <view class="f1 content">
+  <view wx:if="{{cid==1}}" class="f1 content">
     <view class="top">
       <view class="company">厦门阿斯达克有安居房哈公司</view>
       <view class="name">林老师</view>
@@ -20,22 +19,25 @@
         <text>北京市东城区发几款方法啊的空间的是243北京市北北京市东城区发几</text>
       </view>
     </view>
-  </view> -->
+  </view>
   <!-- 2 -->
-  <view class="f2 content">
-    <image class="avatar" src="/assets/images/card_location.png" mode="aspectFill"></image>
-    <view class="top">
-      <view class="row1">
-        <view class="name">林老师</view>
-        <view class="position">销售经理</view>
+  <view wx:elif="{{cid==2}}" class="f2 content">
+    <image class="image-bg" src="https://tse2-mm.cn.bing.net/th/id/OIP-C.k1gWWz0th1VjpEHFlbrYAAHaHa?pid=ImgDet&rs=1" mode="aspectFill"></image>
+    <view class="box">
+      <image class="avatar" src="/assets/images/card_location.png" mode="aspectFill"></image>
+      <view class="top">
+        <view class="row1">
+          <view class="name">林老师</view>
+          <view class="position">销售经理</view>
+        </view>
+        <view class="company row2">首都卡拉科技公司</view>
       </view>
-      <view class="company row2">首都卡拉科技公司</view>
-    </view>
-    <view class="bottom">
-      <view class="line"></view>
-      <view class="phone">P：13400055366</view>
-      <view class="email">E：24546485@fakfl.com</view>
-      <view class="address">A：北京市东城区发几款方法啊的空间的是的阿斯弗312阿的是的阿斯弗 312阿凡121</view>
+      <view class="bottom">
+        <view class="line"></view>
+        <view class="phone">P：13400055366</view>
+        <view class="email">E：24546485@fakfl.com</view>
+        <view class="address">A：北京市东城区发几款方法啊的空间的是的阿斯弗312阿的是的阿斯弗 312阿凡121</view>
+      </view>
     </view>
   </view>
 </view>

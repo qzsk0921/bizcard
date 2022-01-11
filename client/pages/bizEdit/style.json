@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "top-navigation": "/components/navigation/commonnav",
+    "card": "/components/cardFormat/format"
+  },
+  "navigationStyle": "custom"
+}

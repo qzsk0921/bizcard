@@ -20,7 +20,6 @@ App({
           wx.setStorageSync('token', res.data.token)
           // userStore.getUserDetail()
           getUserDetail().then(res => {
-
             this.globalData.userInfo = res.data
             store.data.userInfo = res.data
             store.update()

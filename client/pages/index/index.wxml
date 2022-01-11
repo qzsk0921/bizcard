@@ -12,11 +12,11 @@
     <image src="/assets/images/home_bk.png" mode="aspectFill"></image>
     <view class="card">
       <view class="l1">
-        <view>便捷发放星片</view>
+        <view>{{mapBackground[currentSwiperIndex].tit}}</view>
       </view>
-      <view class="l2">转发直接发送给微信好友</view>
+      <view class="l2">{{mapBackground[currentSwiperIndex].des}}</view>
       <view class="l3">
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="{{rgba(255, 255, 255, .6)}}" indicator-active-color="{{indicatorActiveColor}}" circular="true">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="{{rgba(255, 255, 255, .6)}}" indicator-active-color="{{indicatorActiveColor}}" circular="true" bindchange="bindchangeHandle">
           <block wx:for="{{background}}" wx:key="*this">
             <swiper-item>
               <!-- <view class="swiper-item {{item.image_url}}"></view> -->
@@ -28,7 +28,11 @@
     </view>
   </view>
   <view class="section2">
-    <view class="btn btn-create">创建我的数字星片</view>
+    <view wx:if="{{userInfo.avatar_url}}" class="btn btn-create" bindtap="createCardHandle">创建我的数字星片</view>
+    <block wx:else>
+      <button class="btn btn-create" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">创建我的数字星片</button>
+      <button class="btn btn-create" wx:else open-type="getUserInfo" bindgetuserinfo="getUserProfile">创建我的数字星片</button>
+    </block>
   </view>
   <view class="section3">
     <view class="radio_box" bindtap="agreementHandle">
@@ -116,3 +120,5 @@
     <view class="section8"></view>
   </view>
 </view>
+
+<json-add dialogVisible="{{jsonAddDialogVisibile}}" navHeight="{{compatibleInfo.navHeight}}" />

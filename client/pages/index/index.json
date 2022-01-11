@@ -6,7 +6,8 @@
     "dropdown-diy": "/components/DropdownMenu/diy",
     "dropdown-share": "/components/DropdownMenu/shareSheet",
     "dialog-forbidden": "/components/Dialog/forbidden",
-    "card": "/components/cardFormat/format"
+    "card": "/components/cardFormat/format",
+    "json-add": "/components/Dialog/json-add"
   },
   "navigationStyle": "custom",
   "disableScroll": true

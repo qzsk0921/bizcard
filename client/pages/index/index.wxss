@@ -73,6 +73,11 @@
   border-radius: 8rpx;
 }
 
+.container-welcome .section1 .card .l3 swiper .swiper-item {
+  width: 570rpx;
+  height: 549rpx;
+}
+
 .container-welcome .section2 {
   margin-top: 44rpx;
 }

@@ -1,0 +1,21 @@
+<!--components/Dialog/json-add.wxml-->
+<!-- <text>components/Dialog/json-add.wxml</text> -->
+<view class="dialog-wrap {{dialogVisible?'':'fadeout'}}" style="top:{{navHeight}}px">
+  <view class="mask" bindtap="dialogTapHandle"></view>
+  <view class="dialog">
+    <image class="icon-arrow" mode="aspectFill" src="/assets/images/popup_up.png"></image>
+    <view class="content">
+      <view class="l1">
+        <view>点击“…”添加到我的小程序</view>
+        <view>微信首页下拉即可快速访问名片</view>
+      </view>
+      <view class="l2">
+        <!-- <canvas id="canvas" type="2d"></canvas> -->
+        <image class="gif" src="/assets/gif/add.gif" mode="aspectFill"></image>
+      </view>
+      <view class="l3">
+        <view class="btn-try btn" bindtap="tryHandle">我去试试</view>
+      </view>
+    </view>
+  </view>
+</view>

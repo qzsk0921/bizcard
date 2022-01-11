@@ -8,11 +8,6 @@
   box-shadow: 0rpx 10rpx 16rpx rgba(75, 75, 75, 0.07);
 }
 
-.image-bg {
-  width: 100%;
-  height: 100%;
-}
-
 .content {
   position: absolute;
   top: 0;
@@ -87,10 +82,28 @@
 }
 
 .f2 {
-  padding: 55rpx 43rpx 25rpx 45rpx;
+  position: relative;
+}
+
+.f2 .box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 55rpx 43rpx 25rpx 45rpx;
+  position: absolute;
+  width: calc(100vw - 86rpx);
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.f2 .image-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 394rpx;
 }
 
 .f2 .avatar {

@@ -26,7 +26,7 @@ create({
           const tabbarRoutes = this.getTabBar().data.list
           const currentRoute = getCurrentPages()[getCurrentPages().length - 1].route
           const res = tabbarRoutes.some(item =>
-            item.pagePath === currentRoute
+            item.pagePath === currentRoute || item.pagePath === '/' + currentRoute
           )
 
           let height = rect.height

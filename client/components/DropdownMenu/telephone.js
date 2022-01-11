@@ -26,7 +26,7 @@ create({
           const tabbarRoutes = this.getTabBar().data.list
           const currentRoute = getCurrentPages()[getCurrentPages().length - 1].route
           const res = tabbarRoutes.some(item =>
-            item.pagePath === currentRoute
+            item.pagePath === currentRoute || item.pagePath === '/' + currentRoute
           )
 
           let height = rect.height
@@ -68,9 +68,9 @@ create({
         // 用户可以选择将该表单以「新增联系人」或「添加到已有联系人」的方式，写入手机系统通讯录。
         // 访问蓝牙、 添加通讯录联系人、 添加日历事件需要用户授权
         // 为优化用户体验， 平台将于2022年2月21日24时之后对访问蓝牙、 添加通讯录联系人、 添加日历事件增加用户授权。 如有使用该技术服务， 请开发者及时对小程序进行调整， 避免影响服务流程。 查看详情: https: //developers.weixin.qq.com/community/develop/doc/000e881c7046a8fa1f4d464105b001
-          wx.addPhoneContact({
-            firstName: '孙'
-          })
+        wx.addPhoneContact({
+          firstName: '孙'
+        })
       } else if (type === 'add') {
         // 添加到通讯录现有联系人
         wx.addPhoneContact({

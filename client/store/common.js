@@ -10,9 +10,10 @@ export default {
       isIphoneX: null,
     },
     settingInfo: {}, //微信设置信息 settingInfo.authSetting['scope.userInfo'](微信已授权)
-    
+
     address_id: wx.getStorageSync('address_id') || null, //当前使用的收货地址
 
+    isCardEmpty: 1, //0有名片 1无名片
     // logs: [],
     // b: { 
     //   arr: [{ name: '数值项目1' }] ,
