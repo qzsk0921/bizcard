@@ -469,6 +469,101 @@
   margin-left: 20rpx;
 }
 
+.section5 .comment .sec-box {
+  padding: 0 35rpx 60rpx;
+  background: #ffffff;
+}
+
+.section5 .comment .sec1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 96rpx;
+  border-bottom: 2rpx solid #EBECEF;
+}
+
+.section5 .comment .sec1 .right {
+  display: flex;
+  align-items: center;
+}
+
+.section5 .comment .sec1 .right .arrow {
+  margin-left: 6rpx;
+  width: 12rpx;
+  height: 12rpx;
+  transform: rotate(40deg);
+  border: 3rpx solid #747888;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.section5 .comment .sec1 .left {
+  font-size: 24rpx;
+  color: #AAAAAA;
+}
+
+.section5 .comment .sec1 .right {
+  font-size: 26rpx;
+  color: #747888;
+}
+
+.section5 .comment .sec2 .item .row1 {
+  padding: 44rpx 0 9rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.section5 .comment .sec2 .item .row1 .left {
+  display: flex;
+}
+
+.section5 .comment .sec2 .item .row1 .left .avatar {
+  width: 88rpx;
+  height: 88rpx;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 50%;
+}
+
+.section5 .comment .sec2 .item .row1 .left .col2 {
+  margin: 11rpx 0 0 20rpx;
+  font-size: 28rpx;
+  color: #747888;
+}
+
+.section5 .comment .sec2 .item .row1 .right {
+  color: #CCCCCC;
+}
+
+.section5 .comment .sec2 .item .row1 .right .icon-zan {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.section5 .comment .sec2 .item .row1 .right text {
+  margin-left: 9rpx;
+  vertical-align: bottom;
+}
+
+.section5 .comment .sec2 .item .row1 .right.active text {
+  font-size: 24rpx;
+  color: #FFB70F;
+}
+
+.section5 .comment .sec2 .item .row2 {
+  margin-top: 21rpx;
+  font-size: 24rpx;
+  line-height: 42rpx;
+  color: #333333;
+}
+
+.section5 .comment .sec2 .item .row3 {
+  margin-top: 9rpx;
+  font-size: 22rpx;
+  color: #ABAEB6;
+  padding-bottom: 40rpx;
+  border-bottom: 2rpx solid #EBECEF;
+}
+
 
 
 

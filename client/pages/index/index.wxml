@@ -52,7 +52,7 @@
   <view class="fixed">
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" />
   </view>
-  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
+  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
     <!-- <view class="content"> -->
     <view class="section1 card">
       <card cid="{{currentId}}" carddata="{{allData}}" />
@@ -123,7 +123,7 @@
                 {{allData.card_info.introduce_myself}}
               </view>
               <view class="tags">
-                <view class="tag btn btn-zan" wx:for="{{allData.card_info_label_list}}">{{item.name}} {{item.zan_num}}</view>
+                <view class="tag btn btn-zan" wx:for="{{allData.card_info_label_list}}" wx:key="unique">{{item.name}} {{item.zan_num}}</view>
               </view>
               <view class="address">
                 {{allData.card_info.address}}
@@ -157,9 +157,36 @@
               </view>
             </view>
           </view>
-          <view wx:if="{{tabIndex===3}}" class="rate">评价</view>
-          <!-- <view class="card" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}" bindtap="toOrderHandle">
-          </view> -->
+          <scroll-view wx:if="{{tabIndex===3}}" class="scroll-box comment" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+            <view class="sec-box">
+              <view class="sec1">
+                <view class="left">共{{commentNum}}条评价</view>
+                <view class="right">
+                  <text>全部评价</text>
+                  <view class="arrow"></view>
+                </view>
+              </view>
+              <view class="sec2">
+                <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}">
+                  <view class="row1">
+                    <view class="left">
+                      <image class="col1 avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+                      <view class="col2">
+                        <view class="nickname">{{item.nick_name}}</view>
+                        <view>五角星</view>
+                      </view>
+                    </view>
+                    <view class="right {{item.is_zan?'active':''}}">
+                      <image class="icon-zan" src="{{item.is_zan?'/assets/images/card_evaluate_like.png':'/assets/images/card_evaluate_like_f.png'}}" mode="aspectFill"></image>
+                      <text>8</text>
+                    </view>
+                  </view>
+                  <view class="row2">{{item.comment}}</view>
+                  <view class="row3">{{item.create_time}}</view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
         </view>
       </view>
     </view>

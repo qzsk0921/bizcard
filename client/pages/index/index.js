@@ -9,8 +9,11 @@ import {
   getCardDetail,
   getStyleInfo,
   setCardZan,
-  setCardLabelZan
+  setCardLabelZan,
 } from '../../api/card'
+import {
+  getCommentList
+} from '../../api/comment'
 import {
   updateUserInfo
 } from '../../api/user'
@@ -126,7 +129,8 @@ create(store, {
       {
         cache: [],
         count: 1,
-        total_page: 1
+        total_page: 1,
+        page_size: 10,
       },
       // 企业
       {
@@ -138,7 +142,8 @@ create(store, {
       {
         cache: [],
         count: 1,
-        total_page: 1
+        total_page: 1,
+        page_size: 10,
       }
     ],
     allData: {
@@ -171,7 +176,7 @@ create(store, {
         "company_avatar": 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png',
         "company_introduce": '厦门脉呗科技营销有限公司于2019年04月10日成立。法定代表人陈先生，公司经营范围包括：软件开发；电影和影视节目发行；互联网信息服务（不含药品信息服务和网吧）；信息系统集成服务；信息技术咨询服务；数据处理和存储服务…',
         "company_introduce_image": null,
-        "company_introduce_image_arr": ['http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png','http://image.wms.wljkxys.com/2022011061dbcddf655db.png','http://image.wms.wljkxys.com/2022011061dbcddf655db.png','http://image.wms.wljkxys.com/2022011061dbcddf655db.png','http://image.wms.wljkxys.com/2022011061dbcddf655db.png','http://image.wms.wljkxys.com/2022011061dbcddf655db.png','http://image.wms.wljkxys.com/2022011061dbcddf655db.png'],
+        "company_introduce_image_arr": ['http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png'],
         "user_id": 1,
         "status": 1,
         "profession": "技术",
@@ -277,7 +282,7 @@ create(store, {
         // console.log(nv)
         if (nv === 0) {
           this.setData({
-            'tadeOptions[0]cache': this.data.allData.card_info,
+            'tadeOptions[0].cache': this.data.allData.card_info,
           })
         } else if (nv === 1) {
           this.setData({
@@ -285,12 +290,14 @@ create(store, {
           })
         } else if (nv === 2) {
           this.setData({
-            'tadeOptions[2]cache': this.data.allData.card_info,
+            'tadeOptions[2].cache': this.data.allData.card_info,
           })
         } else if (nv === 3) {
-          this.setData({
-            // 'tadeOptions[3]cache':
-          })
+          if (!this.data.tadeOptions[3].cache.length) {
+            this.getCommentList({
+              sq_business_card_id: this.data.allData.card_info.id
+            })
+          }
         }
       },
       // immediate: true
@@ -518,6 +525,63 @@ create(store, {
     return new Promise((resolve, reject) => {
       setCardZan(data).then(res => {
         resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  setCardLabelZan(data) {
+    return new Promise((resolve, reject) => {
+      setCardLabelZan(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  // 滚动到最底部
+  scrollToLower(e) {
+    console.log(e)
+    console.log('scrollToLower')
+    const tadeOptions = this.data.tadeOptions
+
+    if (tadeOptions[this.data.tabIndex].count + 1 > tadeOptions[this.data.tabIndex].total_page) return
+
+    this.setData({
+      [`tadeOptions[${this.data.tabIndex}].count`]: ++tadeOptions[this.data.tabIndex].count
+    })
+    this.getCommentList('scrollToLower')
+  },
+  getCommentList(dataObj) {
+    const tempData = {
+      page: this.data.tadeOptions[3].count,
+      page_size: this.data.tadeOptions[3].page_size,
+    }
+
+    if (typeof dataObj === 'object') {
+      Object.keys(dataObj).forEach(key => {
+        tempData[key] = dataObj[key]
+      })
+    }
+
+    return new Promise((resolve, reject) => {
+      getCommentList(tempData).then(res => {
+        if (dataObj === 'scrollToLower') {
+          this.data.tadeOptions[3].cache.push(...res.data.data)
+          this.setData({
+            [`tadeOptions[${3}].cache`]: this.data.tadeOptions[3].cache,
+            [`tadeOptions[${3}].total_page`]: res.data.last_page
+          })
+          resolve(res)
+        } else {
+          this.setData({
+            // 测试数据
+            // [`tadeOptions.cache`]: [].concat(res.data.data).concat(res.data.data).concat(res.data.data).concat(res.data.data),
+            [`tadeOptions[${3}].cache`]: res.data.data,
+            [`tadeOptions[${3}].total_page`]: res.data.last_page,
+            commentNum: res.data.total //总数
+          })
+        }
       }).catch(err => {
         reject(err)
       })
