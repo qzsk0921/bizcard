@@ -24,6 +24,7 @@ export function setCardZan(data) {
     url: '/small/BusinessCard/zan',
     method: 'get',
     data,
+    load: 'noload'
   })
 }
 
@@ -64,5 +65,17 @@ export function returnCard(data) {
     url: '/small/UserCardList/send_business_card',
     method: 'post',
     data,
+  })
+}
+
+// -----------------------
+/**
+ * 名片编辑详情(style_id对应版式清单) small/BusinessCard/style_info_page
+ * @param {int} sq_business_card_id 他人的名片id
+ */
+export function getStyleInfo() {
+  return request({
+    url: '/small/BusinessCard/style_info_page',
+    method: 'get',
   })
 }

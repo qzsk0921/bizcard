@@ -11,7 +11,7 @@ create({
     opened: {
       type: Number,
       value: 0
-    }
+    },
   },
 
   /**
@@ -69,22 +69,21 @@ create({
     },
     optionTapHandle(e) {
       const mode = e.target.dataset.mode
-      console.log(e)
       if (mode === 'share') {
         // 分享给好友
-        // console.log('分享给好友')
+        console.log('分享给好友')
         this.setData({
           opened: 0,
         })
       } else if (mode === 'poster') {
-        // 生成海报
-        console.log('生成海报')
+        // 名片码
+        console.log('名片码')
         this.setData({
           opened: 0,
         })
-        this.triggerEvent('awakenposterdialog')
+        this.triggerEvent('awakenBizcodeHandle')
       }
-    }
+    },
   },
   lifetimes: {
     ready() {

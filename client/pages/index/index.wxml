@@ -3,7 +3,7 @@
 <dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.telephone.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephone.telephoneObj}}" />
 <dropdown-auth bindtap="dropdownAuthMaskTap" opened="{{dialog.auth.opened}}" />
 <dropdown-diy bindtap="dropdownDiyMaskTap" opened="{{dialog.diy.opened}}" />
-<dropdown-share bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
+<dropdown-share bindawakenBizcodeHandle="awakenBizcodeHandle" bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
 <!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
 <!-- 无铭牌信息页面 -->
 <view wx:if="{{isCardEmpty}}" class="container container-welcome">
@@ -55,28 +55,36 @@
   <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
     <!-- <view class="content"> -->
     <view class="section1 card">
-      <card cid="{{currentId}}" />
+      <card cid="{{currentId}}" carddata="{{allData}}" />
     </view>
     <!-- 浏览和赞 -->
     <view class="section2">
       <view class="left">
         <view class="avatar_box">
-          <image wx:for="{{cardData.avatars}}" class="avatar" src="{{item}}"></image>
+          <image wx:for="{{allData.view_user_list}}" wx:key="unique" class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
         </view>
-        <view class="text">524人浏览</view>
+        <view class="text">{{allData.view_user_number}}人浏览</view>
       </view>
       <view class="right">
-        <image class="icon_liked" src="/assets/images/card_like.png" mode="aspectFill"></image>
-        <view class="text">8人赞</view>
+        <image class="icon_liked" src="/assets/images/card_like.png" mode="aspectFill" bindtap="zanHandle"></image>
+        <view class="text">{{allData.card_zan}}人赞</view>
       </view>
     </view>
     <!-- 推荐和联系等按钮 -->
     <view class="section3">
-      <button class="btn btn-share">
+      <button wx:if="{{type===1}}" class="btn btn-edit" bindtap="editHandle">
+        <image src="/assets/images/card_edit.png" mode="aspectFill"></image>
+        <text>名片编辑</text>
+      </button>
+      <button wx:if="{{type===2}}" class="btn btn-share">
         <image src="/assets/images/card_recommend.png" mode="aspectFill"></image>
         <text>推荐给好友</text>
       </button>
-      <button class="btn btn-reply">
+      <button wx:if="{{type===1}}" class="btn btn-send" bindtap="sendHandle">
+        <image src="/assets/images/card_back.png" mode="aspectFill"></image>
+        <text>递名片</text>
+      </button>
+      <button wx:if="{{type===2}}" class="btn btn-reply">
         <image src="/assets/images/card_back.png" mode="aspectFill"></image>
         <text>回递名片</text>
       </button>
@@ -103,13 +111,55 @@
         </view>
       </view>
       <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH+compatibleInfo.navHeight+tabHeight)+'px'}}">
-        <view class="no-data" wx:if="{{tadeOptions[tabIndex].cache.length==0}}">
+        <view class="no-data" wx:if="{{tadeOptions[tabIndex].cache.length==0||!tadeOptions[tabIndex].cache}}">
           <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
           <view class="text">这里是空的</view>
         </view>
-        <view class='ta' wx:elif="{{tadeOptions[tabIndex].cache.length}}">
-          <view class="card" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}" bindtap="toOrderHandle">
+        <view class='ta' wx:else>
+          <view wx:if="{{tabIndex===0}}" class="introduce">
+            <view class="sec1">
+              <view class="des">
+                <!-- {{tadeOptions[tabIndex].cache.introduce_myself}} -->
+                {{allData.card_info.introduce_myself}}
+              </view>
+              <view class="tags">
+                <view class="tag btn btn-zan" wx:for="{{allData.card_info_label_list}}">{{item.name}} {{item.zan_num}}</view>
+              </view>
+              <view class="address">
+                {{allData.card_info.address}}
+              </view>
+            </view>
+            <view wx:if="{{allData.card_info.vidieo_url}}" class="sec2">
+              <view class="tit">TA的视频</view>
+              <video src="{{allData.card_info.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
+            </view>
           </view>
+          <view wx:if="{{tabIndex===1}}" class="product">产品</view>
+          <view wx:if="{{tabIndex===2}}" class="company">
+            <view class="sec-box">
+              <view class="sec1">
+                <image class="logo left" src="{{allData.card_info.company_avatar}}" mode="aspectFill"></image>
+                <view class="right">
+                  <view class="row1">
+                    {{allData.card_info.company}}
+                  </view>
+                  <view class="row2">{{allData.card_info.hometown}}</view>
+                </view>
+              </view>
+              <view wx:if="{{allData.card_info.company_introduce}}" class="sec2">
+                {{allData.card_info.company_introduce}}
+                <!-- 展开 -->
+              </view>
+              <view wx:if="{{allData.card_info.company_introduce_image_arr.length}}" class="sec3">
+                <view class="image-box hide-scrollbar">
+                  <image wx:for="{{allData.card_info.company_introduce_image_arr}}" src="{{item}}" mode="aspectFill"></image>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view wx:if="{{tabIndex===3}}" class="rate">评价</view>
+          <!-- <view class="card" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}" bindtap="toOrderHandle">
+          </view> -->
         </view>
       </view>
     </view>

@@ -15,9 +15,8 @@
   height: 100%;
 } */
 
-.f1 {
+.f1 {}
 
-}
 .f1 .box {
   margin: auto;
   height: 400rpx;
@@ -31,12 +30,22 @@
   box-shadow: 0rpx 6rpx 16rpx rgba(0, 0, 0, 0.12);
   opacity: 1;
   border-radius: 10rpx;
+  position: relative;
 }
+
+.f1 .box .icon-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .f1 .top {}
 
 .f1 .top .company {
   font-size: 28rpx;
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   opacity: 0.8;
 }
 
@@ -44,13 +53,14 @@
   margin-top: 34rpx;
   font-size: 46rpx;
   font-weight: 500;
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
+  opacity: 0.9;
 }
 
 .f1 .top .position {
   margin-top: 22rpx;
   font-size: 22rpx;
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   opacity: 0.8;
 }
 
@@ -63,7 +73,7 @@
 .f1 .bottom .phone {
   font-size: 28rpx;
   font-weight: 500;
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   opacity: 0.8;
   margin-bottom: 16rpx;
 }
@@ -76,7 +86,7 @@
 
 .f1 .bottom .address {
   font-size: 24rpx;
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   letter-spacing: 2rpx;
   opacity: 0.8;
 }

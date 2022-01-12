@@ -52,7 +52,7 @@
         "selectedIconPath": "/assets/images/btn_data_n.png"
       },
       {
-        "pagePath": "pages/bizcode/bizcode",
+        "pagePath": "pages/welcome/welcome",
         "text": "专属商城",
         "iconPath": "/assets/images/btn_shop_f.png",
         "selectedIconPath": "/assets/images/btn_shop_n.png"

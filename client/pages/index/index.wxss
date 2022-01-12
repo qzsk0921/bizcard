@@ -215,7 +215,9 @@
 }
 
 .section3 .btn-share,
-.section3 .btn-reply {
+.section3 .btn-reply,
+.section3 .btn-edit,
+.section3 .btn-send {
   width: 323rpx;
   height: 74rpx;
   background: rgba(255, 255, 255, 0.39);
@@ -223,26 +225,31 @@
   border-radius: 8rpx;
 }
 
-.section3 .btn-share {
+.section3 .btn-share,
+.section3 .btn-edit {
   color: #4980F9;
 }
 
-.section3 .btn-reply {
+.section3 .btn-reply,
+.section3 .btn-send {
   background: #4980F9;
   color: #FFFFFF;
 }
 
-.section3 .btn-share image {
+.section3 .btn-share image,
+.section3 .btn-edit image {
   width: 34rpx;
   height: 34rpx;
 }
 
-.section3 .btn-reply image {
+.section3 .btn-reply image,
+.section3 .btn-send image {
   width: 36rpx;
   height: 36rpx;
 }
 
 .section3 .btn text {
+  vertical-align: middle;
   margin-left: 10rpx;
   font-size: 28rpx;
   line-height: 74rpx;
@@ -289,7 +296,9 @@
   color: #888888;
 }
 
-.section5 {}
+.section5 {
+  background: #EDF0F5;
+}
 
 .section5.fixed {
   position: relative;
@@ -339,8 +348,171 @@
   overflow: auto;
 }
 
+.section5 .introduce .sec1 {
+  background: #ffffff;
+  padding: 0 22rpx;
+}
+
+.section5 .introduce .sec1 .des {
+  padding: 30rpx 0 0 6rpx;
+  font-size: 28rpx;
+  line-height: 48rpx;
+}
+
+.section5 .introduce .sec1 .tags {
+  padding: 0 0 30rpx 0;
+  margin-top: 14rpx;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  border-bottom: 2rpx solid #EDF0F5;
+}
+
+.section5 .introduce .sec1 .tag {
+  margin: 16rpx 20rpx 0 0;
+  line-height: 56rpx;
+  padding: 0 20rpx;
+  height: 60rpx;
+  border: 2rpx solid #C9CED4;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  color: #555555;
+}
+
+.section5 .introduce .sec1 .address {
+  height: 98rpx;
+  font-size: 26rpx;
+  line-height: 98rpx;
+  color: #333333;
+}
+
+.section5 .introduce .sec2 {
+  background: #ffffff;
+  margin-top: 20rpx;
+  padding: 0 40rpx 40rpx 40rpx;
+}
+
+.section5 .introduce .sec2 .tit {
+  height: 90rpx;
+  font-size: 30rpx;
+  line-height: 90rpx;
+  color: #000000;
+}
+
+.section5 .introduce .sec2 video {
+  overflow: hidden;
+  margin: auto;
+  width: 670rpx;
+  height: 376rpx;
+  background: rgba(0, 0, 0, 0);
+  border: 1rpx solid #DDDDDD;
+  border-radius: 8rpx;
+}
+
+.section5 .company .sec-box {
+  padding-left: 28rpx;
+  background: #ffffff;
+}
+
+.section5 .company .sec1 {
+  padding: 30rpx 0;
+  display: flex;
+  border-bottom: 2rpx solid #EDF0F5;
+}
+
+.section5 .company .sec1 .logo {
+  width: 110rpx;
+  height: 110rpx;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 8rpx;
+}
+
+.section5 .company .sec1 .right .row1 {
+  margin-top: 5rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 54rpx;
+  color: #000000;
+}
+
+.section5 .company .sec1 .right .row2 {
+  margin-top: 9rpx;
+  font-size: 26rpx;
+  color: #000000;
+}
+
+.section5 .company .sec2 {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  line-height: 48rpx;
+  color: #555555;
+}
+
+.section5 .company .sec3 {
+  margin-top: 30rpx;
+  padding-bottom: 80rpx;
+}
+
+.section5 .company .sec3 .image-box {
+  white-space: nowrap;
+  overflow: auto;
+}
+
+.section5 .company .sec3 .image-box image {
+  width: 208rpx;
+  height: 156rpx;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 4rpx;
+}
+
+.section5 .company .sec3 .image-box image:not(:first-child) {
+  margin-left: 20rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .cont .no-data {
-  padding-top: 1000rpx;
+  height: 100%;
   text-align: center;
 }
 
@@ -355,6 +527,10 @@
   font-size: 32rpx;
   font-weight: 500;
   color: #BABEC2;
+}
+
+.cont .ta {
+  min-height: 100%;
 }
 
 .fixed {

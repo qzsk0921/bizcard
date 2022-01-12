@@ -7,6 +7,7 @@ create({
    * 组件的属性列表
    */
   properties: {
+    carddata: Object,
     cid: {
       type: Number,
       value: 0,
@@ -37,7 +38,7 @@ create({
     attached: function () {
       // 在组件实例进入页面节点树时执行
       this.setData({
-        navHeight:store.data.compatibleInfo.navHeight
+        navHeight: store.data.compatibleInfo.navHeight
       })
     },
     detached: function () {

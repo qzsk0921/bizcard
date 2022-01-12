@@ -1,23 +1,27 @@
 <!--components/cardFormat/format.wxml-->
 <!-- <text>components/cardFormat/format.wxml</text> -->
+<wxs module="tools" src="./format.wxs"></wxs>
+
 <!-- 名片版式 -->
 <view class="format">
   <!-- 1 -->
+  <!-- 极简版式 标准版式  -->
   <view wx:if="{{cid==1}}" class="f1 content" style="margin-top:{{(navHeight+10)+'px'}};">
     <view class="box">
+      <image class="icon-image" src="{{carddata.card_style.card_image}}" mode="aspectFill"></image>
       <view class="top">
-        <view class="company" style="color:aquamarine">厦门阿斯达克有安居房哈公司</view>
-        <view class="name" style="color:aquamarine">林老师</view>
-        <view class="position" style="color:aquamarine">销售经理</view>
+        <view class="company" style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.company}}</view>
+        <view class="name" style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.name}}</view>
+        <view class="position" style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.title}}</view>
       </view>
       <view class="bottom">
         <view class="phone">
-          <image src="/assets/images/card_location.png" mode="aspectFill"></image>
-          <text style="color:aquamarine">134 0005 5366</text>
+          <image src="{{carddata.card_style.phone_image}}" mode="aspectFill"></image>
+          <text style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.mobile}}</text>
         </view>
         <view class="address">
-          <image src="/assets/images/card_location.png" mode="aspectFill"></image>
-          <text style="color:aquamarine">北京市东城区发几款方法啊的空间的是243北京市北北京市东城区发几</text>
+          <image src="{{carddata.card_style.address_image}}" mode="aspectFill"></image>
+          <text style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.address}}</text>
         </view>
       </view>
     </view>

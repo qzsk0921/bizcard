@@ -1,0 +1,11 @@
+module.exports = {
+  //过滤颜色
+  parseColor: function (color,attr) {
+    var color = color
+    if (color === '22') {
+      color = '#FFFFFF'
+    }
+
+    return color
+  }
+}
