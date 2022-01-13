@@ -84,6 +84,10 @@
   margin-right: 8rpx;
 }
 
+.f1 .bottom .phone text {
+  vertical-align: middle;
+}
+
 .f1 .bottom .address {
   font-size: 24rpx;
   /* color: #FFFFFF; */
@@ -99,6 +103,7 @@
 
 .f1 .bottom .address text {
   line-height: 36rpx;
+  vertical-align: middle;
 }
 
 .f2 {

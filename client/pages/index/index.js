@@ -22,6 +22,19 @@ import {
   getGoodList
 } from '../../api/shopping'
 
+const list = [{
+    "pagePath": "/pages/index/index",
+    "text": "我的星片",
+    "iconPath": "/assets/images/btn_my_card_f.png",
+    "selectedIconPath": "/assets/images/btn_my_card_n.png"
+  },
+  {
+    "pagePath": "/pages/bizholder/bizholder",
+    "text": "星片夹",
+    "iconPath": "/assets/images/btn_card_holder_f.png",
+    "selectedIconPath": "/assets/images/btn_card_holder_n.png"
+  }
+]
 // Page({
 create(store, {
 
@@ -32,9 +45,9 @@ create(store, {
     canIUseGetUserProfile: false,
 
     type: 1, //	1:自己 2:他人
-    fixed: 0, //允许纵向滚动
+    fixed: 0, //是否固定定位
     TASrollTop: null, //TA切换栏距离顶部距离
-    currentId: 1,
+    currentId: 1, //版式id
     is_select: 0, //协议
     isOverShare: true,
 
@@ -44,7 +57,7 @@ create(store, {
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
     tabbarH: null,
 
-    navStatus: 'isEntryWithShare', //isEmpty
+    navStatus: 'isEmpty', //isEmpty
 
     currentSwiperIndex: 0, //初始值为0
     mapBackground: [{
@@ -73,31 +86,33 @@ create(store, {
     tabbar: ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价'],
     tabIndex: 0, //'TA的简介', 'TA的产品', 'TA的企业', 'TA的评价'
     tabWidth: null,
-
-    section4: [{
-      id: 1,
-      img: '/assets/images/card_phone.png',
-      title: '电话',
-      content: '136-0603-2423',
-      toast: '',
-    }, {
-      id: 2,
-      img: '/assets/images/card_email.png',
-      title: '邮箱',
-      content: '13606032423@qq.com',
-      toast: '已为您复制Ta的邮箱至您的粘贴板',
-    }, {
-      id: 3,
-      img: '/assets/images/card_location.png',
-      title: '地址',
-      content: '深圳市福田区新一代产业园1栋30楼',
-      toast: '已将地址存至手机粘贴板' //然后，跳转至地图导航
-    }, {
-      id: 4,
-      img: '/assets/images/card_call.png',
-      title: '座机',
-      content: '0592-5923912'
-    }],
+    //id:1电话 2邮箱 3地址 4座机
+    section4: [
+      // {
+      //   id: 1,
+      //   img: '/assets/images/card_phone.png',
+      //   title: '电话',
+      //   content: '',
+      //   toast: '',
+      // }, {
+      //   id: 2,
+      //   img: '/assets/images/card_email.png',
+      //   title: '邮箱',
+      //   content: '',
+      //   toast: '已为您复制Ta的邮箱至您的粘贴板',
+      // }, {
+      //   id: 3,
+      //   img: '/assets/images/card_location.png',
+      //   title: '地址',
+      //   content: '',
+      //   toast: '已将地址存至手机粘贴板' //然后，跳转至地图导航
+      // }, {
+      //   id: 4,
+      //   img: '/assets/images/card_call.png',
+      //   title: '座机',
+      //   content: ''
+      // }
+    ],
     dialog: {
       // 电话弹窗
       telephone: {
@@ -563,18 +578,42 @@ create(store, {
       handler(nv, ov, obj) {
         // console.log(nv)
         if (nv === 0) {
+          // 简介
+          const data = this.data.allData
+          if (!data.card_info.introduce_myself &&
+            !data.card_info_label_list.length &&
+            !data.card_info.hometown &&
+            !data.card_info.hometown &&
+            !data.card_info.vidieo_url
+          ) {
+            return false
+          }
+
           this.setData({
             'tadeOptions[0].cache': this.data.allData.card_info,
           })
         } else if (nv === 1) {
+          // 产品
           this.getGoodList({
             sq_business_card_id: this.data.allData.card_info.sq_jinzhu_id
           })
         } else if (nv === 2) {
+          // 企业
+          const data = this.data.allData
+          if (!data.card_info.company_avatar &&
+            !data.card_info.company &&
+            !data.card_info.hometown &&
+            !data.card_info.company_introduce &&
+            !data.card_info.company_introduce_image_arr.length
+          ) {
+            return false
+          }
+
           this.setData({
             'tadeOptions[2].cache': this.data.allData.card_info,
           })
         } else if (nv === 3) {
+          // 评价
           if (!this.data.tadeOptions[3].cache.length) {
             this.getCommentList({
               sq_business_card_id: this.data.allData.card_info.id
@@ -755,10 +794,10 @@ create(store, {
       // }
 
       this.setData({
-        // 'dialog.telephone.telephoneObj': item,
-        // 'dialog.telephone.opened': 1,
+        'dialog.telephone.telephoneObj': item,
+        'dialog.telephone.opened': 1,
         // 'dialog.auth.opened': 1,
-        'dialog.diy.opened': 1,
+        // 'dialog.diy.opened': 1,
         // 'dialog.share.opened': 1,
         // 'dialog.forbidden.opened': 1,
       })
@@ -958,80 +997,12 @@ create(store, {
       })
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
-    }
-
-    this.initRequest()
-
-    getApp().setWatcher(this) //设置监听器
-    //第一次登陆提示json动图 显示一次 来过吗 0 没来过 1 来过
-    const jsonAddDialogVisibile = wx.getStorageSync('jsonAddDialogVisibile')
-    // console.log(jsonAddDialogVisibile)
-    if (!jsonAddDialogVisibile) {
-      this.setData({
-        jsonAddDialogVisibile: 1
-      })
-      wx.setStorageSync('jsonAddDialogVisibile', 1)
-    }
-
-    // getApp().getSystemInfoCallback = (res => {
-    //   console.log(res)
-    //   this.setData({
-    //     compatibleInfo: res
-    //   })
-
-    //   this.store.data.compatibleInfo.systemInfo = res.systemInfo
-    //   this.store.data.compatibleInfo.navHeight = res.navHeight
-    //   this.store.data.compatibleInfo.isIphoneX = res.isIphoneX
-    //   this.store.data.compatibleInfo.isIphone = res.isIphone
-
-    //   this.update()
-    // })
-  },
-  initRequest() {
-    // this.getStyleInfo().then(res => {
-    //   console.log(res)
-    // })
-
-    getApp().getRequestCallback = (res => {
-      this.getCardDetail({
-        type: 1
-      }).then(res => {
-        this.setData({
-          allData: res.data,
-          tabIndex: this.data.tabIndex
-        })
-        // console.log(this.data.allData)
-      })
+  initRequest(userInfo) {
+    this.setData({
+      userInfo
     })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    let list = [{
-        "pagePath": "/pages/index/index",
-        "text": "我的星片",
-        "iconPath": "/assets/images/btn_my_card_f.png",
-        "selectedIconPath": "/assets/images/btn_my_card_n.png"
-      },
-      {
-        "pagePath": "/pages/bizholder/bizholder",
-        "text": "星片夹",
-        "iconPath": "/assets/images/btn_card_holder_f.png",
-        "selectedIconPath": "/assets/images/btn_card_holder_n.png"
-      }
-    ]
 
-    if (this.data.userInfo.has_card) {
+    if (userInfo.has_card) {
       setTabBar.call(this)
     } else {
       setTabBar.call(this, {
@@ -1039,6 +1010,58 @@ create(store, {
       })
     }
 
+    // this.getStyleInfo().then(res => {
+    //   console.log(res)
+    // })
+
+    this.getCardDetail({
+      type: 1
+    }).then(res => {
+      let section4 = []
+      if (res.data.card_info.mobile) {
+        section4.push({
+          id: 1,
+          img: '/assets/images/card_phone.png',
+          title: '电话',
+          content: res.data.card_info.mobile,
+          toast: '',
+        })
+      } else if (res.data.card_info.email) {
+        section4.push({
+          id: 2,
+          img: '/assets/images/card_email.png',
+          title: '邮箱',
+          content: res.data.card_info.email,
+          toast: '已为您复制Ta的邮箱至您的粘贴板',
+        })
+      } else if (res.data.card_info.address) {
+        section4.push({
+          id: 3,
+          img: '/assets/images/card_location.png',
+          title: '地址',
+          content: res.data.card_info.address,
+          toast: '已将地址存至手机粘贴板' //然后，跳转至地图导航
+        })
+      } else if (res.data.card_info.landline) {
+        section4.push({
+          id: 4,
+          img: '/assets/images/card_call.png',
+          title: '座机',
+          content: res.data.card_info.landline
+        })
+      }
+
+      this.setData({
+        allData: res.data,
+        tabIndex: this.data.tabIndex,
+        section4
+      })
+
+      // 动态元素加载完成之后执行
+      this.elOnReady()
+    })
+  },
+  elOnReady() {
     const that = this;
     const query = wx.createSelectorQuery();
 
@@ -1053,6 +1076,55 @@ create(store, {
       })
     }).exec();
   },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    getApp().setWatcher(this) //设置监听器
+
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
+
+    if (this.store.data.userInfo) {
+      this.initRequest(this.store.data.userInfo)
+    } else {
+      getApp().getUserInfoCallback = (res => {
+        this.initRequest(res)
+      })
+    }
+
+    //第一次登陆提示json动图 显示一次 来过吗 0 没来过 1 来过
+    const jsonAddDialogVisibile = wx.getStorageSync('jsonAddDialogVisibile')
+    // console.log(jsonAddDialogVisibile)
+    if (!jsonAddDialogVisibile) {
+      this.setData({
+        jsonAddDialogVisibile: 1
+      })
+      wx.setStorageSync('jsonAddDialogVisibile', 1)
+    }
+    // getApp().getSystemInfoCallback = (res => {
+    //   console.log(res)
+    //   this.setData({
+    //     compatibleInfo: res
+    //   })
+
+    //   this.store.data.compatibleInfo.systemInfo = res.systemInfo
+    //   this.store.data.compatibleInfo.navHeight = res.navHeight
+    //   this.store.data.compatibleInfo.isIphoneX = res.isIphoneX
+    //   this.store.data.compatibleInfo.isIphone = res.isIphone
+
+    //   this.update()
+    // })
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -1064,11 +1136,11 @@ create(store, {
       })
     }
 
-    if (!this.data.userInfo) {
-      this.setData({
-        userInfo: this.store.data.userInfo
-      })
-    }
+    // if (!this.data.userInfo) {
+    //   this.setData({
+    //     userInfo: this.store.data.userInfo
+    //   })
+    // }
   },
 
   /**

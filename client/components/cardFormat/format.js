@@ -13,6 +13,7 @@ create({
       type: Number,
       value: 0,
     },
+    navbarFixed: Boolean //0 1表示顶部导航栏有无固定定位
   },
 
   /**

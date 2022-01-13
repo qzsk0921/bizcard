@@ -11,10 +11,10 @@
   <view class="fixed">
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" />
   </view>
-  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
+  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
     <!-- <view class="content"> -->
     <view class="section1 card">
-      <card cid="{{currentId}}" carddata="{{allData}}" />
+      <card cid="{{currentId}}" navbarFixed="1" carddata="{{allData.card_info}}" cardstyle="{{allData.card_style}}" />
     </view>
     <!-- 浏览和赞 -->
     <view class="section2">
@@ -61,7 +61,7 @@
       </view>
     </view>
     <!-- ta的简介，ta的产品... -->
-    <view class="section5 {{fixed?'fixed':''}}" style="{{fixed?'top:'+(compatibleInfo.tabbarH+compatibleInfo.navHeight)+'px':''}}">
+    <view class="section5 {{fixed?'fixed':''}}">
       <view class="tabs-nav" bindtap='changeTab'>
         <view wx:for="{{tabbar}}" wx:key="unique" data-index="{{index}}" class="tab {{tabIndex==index?'active':''}}">
           <view calss="text" data-index="{{index}}">{{item}}</view>
@@ -77,15 +77,15 @@
         <view class='ta' wx:else>
           <view wx:if="{{tabIndex===0}}" class="introduce">
             <view class="sec1">
-              <view class="des">
+              <view wx:if="{{allData.card_info.introduce_myself}}" class="des">
                 <!-- {{tadeOptions[tabIndex].cache.introduce_myself}} -->
                 {{allData.card_info.introduce_myself}}
               </view>
-              <view class="tags">
+              <view wx:if="{{allData.card_info_label_list.length}}" class="tags">
                 <view class="tag btn btn-zan" wx:for="{{allData.card_info_label_list}}" wx:key="unique">{{item.name}} {{item.zan_num}}</view>
               </view>
-              <view class="address">
-                {{allData.card_info.address}}
+              <view wx:if="{{allData.card_info.hometown}}" class="hometown">
+                {{allData.card_info.hometown}}
               </view>
             </view>
             <view wx:if="{{allData.card_info.vidieo_url}}" class="sec2">
@@ -110,12 +110,12 @@
           <view wx:if="{{tabIndex===2}}" class="company">
             <view class="sec-box">
               <view class="sec1">
-                <image class="logo left" src="{{allData.card_info.company_avatar}}" mode="aspectFill"></image>
+                <image wx:if="{{allData.card_info.company_avatar}}" class="logo left" src="{{allData.card_info.company_avatar}}" mode="aspectFill"></image>
                 <view class="right">
-                  <view class="row1">
+                  <view wx:if="{{allData.card_info.company}}" class="row1">
                     {{allData.card_info.company}}
                   </view>
-                  <view class="row2">{{allData.card_info.hometown}}</view>
+                  <view wx:if="{{allData.card_info.hometown}}" class="row2">{{allData.card_info.hometown}}</view>
                 </view>
               </view>
               <view wx:if="{{allData.card_info.company_introduce}}" class="sec2">
@@ -174,7 +174,7 @@
 </view>
 
 <!-- 无铭牌信息页面 -->
-<view wx:else class="container container-welcome">
+<view wx:if="{{userInfo.has_card===0}}" class="container container-welcome">
   <view wx:if="{{compatibleInfo.systemInfo.safeArea}}" class="compatibleIphoneXEl"></view>
   <view class="section1">
     <image src="/assets/images/home_bk.png" mode="aspectFill"></image>

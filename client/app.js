@@ -8,7 +8,6 @@ import store from './store/common'
 
 App({
   onLaunch() {
-
     const token = wx.getStorageSync('token')
     if (!token) {
       wx.login().then(res => {
@@ -19,26 +18,13 @@ App({
         }).then(res => {
           wx.setStorageSync('token', res.data.token)
           // userStore.getUserDetail()
-          getUserDetail().then(res => {
-            this.globalData.userInfo = res.data
-            store.data.userInfo = res.data
-            store.update()
-
-            if (this.getRequestCallback) {
-              this.getRequestCallback()
-            }
-          })
+          this.getUserDetail()
         })
       }).catch(err => {
         console.log(err)
       })
     } else {
-      getUserDetail().then(res => {
-
-        this.globalData.userInfo = res.data
-        store.data.userInfo = res.data
-        store.update()
-      })
+      this.getUserDetail()
     }
 
     this.init()
@@ -50,6 +36,17 @@ App({
     this.getSystemInfo()
     // 版本更新
     this.update()
+  },
+  getUserDetail() {
+    getUserDetail().then(res => {
+      this.globalData.userInfo = res.data
+      store.data.userInfo = res.data
+      store.update()
+
+      if (this.getUserInfoCallback) {
+        this.getUserInfoCallback(res.data)
+      }
+    })
   },
   getSystemInfo() {
     const _this = this
