@@ -23,6 +23,10 @@ App({
             this.globalData.userInfo = res.data
             store.data.userInfo = res.data
             store.update()
+
+            if (this.getRequestCallback) {
+              this.getRequestCallback()
+            }
           })
         })
       }).catch(err => {

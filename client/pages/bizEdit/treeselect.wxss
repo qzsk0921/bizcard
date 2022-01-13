@@ -1,0 +1,31 @@
+/* pages/bizEdit/treeselect.wxss */
+.van-tree-select {
+  height: 100vh !important;
+}
+
+.van-sidebar-item--selected {
+  border-color: #4980F9 !important;
+}
+
+.van-sidebar-item__text {
+  font-size: 28rpx;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  line-height: 40rpx;
+  color: #333333;
+}
+
+.van-sidebar-item--selected .van-sidebar-item__text {
+  color: #4980F9;
+}
+
+.van-tree-select__item {
+  font-size: 28rpx !important;
+  font-family: Source Han Sans CN !important;
+  font-weight: 400 !important;
+  color: #333333 !important;
+}
+
+.van-tree-select__item.van-tree-select__item--active {
+  color: #4980F9 !important;
+}

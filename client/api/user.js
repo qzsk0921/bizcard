@@ -35,13 +35,13 @@ export function updateUserInfo(data) {
 }
 
 /**
- * 更新手机 small/Login/updateWxPhone
+ * 更新手机 small/Login/update_phone
  * @param {string} encryptedData require 微信加密数据
  * @param {string} iv require 微信解密key
  */
 export function updatePhone(data) {
   return request({
-    url: '/small/Login/updateWxPhone',
+    url: '/small/Login/update_phone',
     method: 'post',
     data
   })

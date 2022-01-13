@@ -12,11 +12,15 @@ import {
   setCardLabelZan,
 } from '../../api/card'
 import {
-  getCommentList
+  getCommentList,
+  setCommentZan
 } from '../../api/comment'
 import {
   updateUserInfo
 } from '../../api/user'
+import {
+  getGoodList
+} from '../../api/shopping'
 
 // Page({
 create(store, {
@@ -42,7 +46,6 @@ create(store, {
 
     navStatus: 'isEntryWithShare', //isEmpty
 
-    // isCardEmpty: null, //有无名片
     currentSwiperIndex: 0, //初始值为0
     mapBackground: [{
       tit: '便捷发放星片',
@@ -127,7 +130,286 @@ create(store, {
       },
       // 产品
       {
-        cache: [],
+        cache: [{
+            "id": 10,
+            "name": "双净全棉加厚洗脸巾抽式，水刺无纺布，12包（箱）198元",
+            "cover": "http://image.wms.wljkxys.com/202009305f742bc2bfac6.jpg",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f742bc2bfac6.jpg",
+            "g_type": 1,
+            "price": "198.00",
+            "is_private": 0,
+            "earnings": "99.00",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 9,
+            "read_num": 13,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "198元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 11,
+            "name": "双净全棉加厚洗脸巾卷纸，水刺无纺布，10粒（箱）198元",
+            "cover": "http://image.wms.wljkxys.com/202009305f742b4c394ee.jpg",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f742b4c394ee.jpg",
+            "g_type": 1,
+            "price": "198.00",
+            "is_private": 0,
+            "earnings": "118.00",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 8,
+            "read_num": 10,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "198元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 12,
+            "name": "喜庆时分宝宝软抽纸450张（8包/提），木浆纸，2提（16包）29.9元",
+            "cover": "http://image.wms.wljkxys.com/202009305f742ae593f1e.jpg",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f742ae593f1e.jpg",
+            "g_type": 1,
+            "price": "29.90",
+            "is_private": 0,
+            "earnings": "3.90",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 7,
+            "read_num": 4,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "29.9元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 13,
+            "name": "双净柔纸巾（1*6*4），木浆纸，24包（箱）126元",
+            "cover": "http://image.wms.wljkxys.com/202009305f742a98ce6c9.jpg",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f742a98ce6c9.jpg",
+            "g_type": 1,
+            "price": "126.00",
+            "is_private": 0,
+            "earnings": "61.00",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 6,
+            "read_num": 6,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "126元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 14,
+            "name": "双净绿茶软抽（8包一提），木浆纸，2提（16包）29.9元",
+            "cover": "http://image.wms.wljkxys.com/202009305f742e3bf05b0.jpg",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f742e3bf05b0.jpg",
+            "g_type": 1,
+            "price": "29.90",
+            "is_private": 0,
+            "earnings": "4.30",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 5,
+            "read_num": 6,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "29.9元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 15,
+            "name": "明柔可湿水抽纸（8包一提），木浆纸，3提（24包）29.9元",
+            "cover": "http://image.wms.wljkxys.com/202009305f7429ef4e7ac.png",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f7429ef4e7ac.png",
+            "g_type": 1,
+            "price": "29.90",
+            "is_private": 0,
+            "earnings": "2.40",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 4,
+            "read_num": 4,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "29.9元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 17,
+            "name": "双净本色纸抽纸330张 （20包/箱），本色纸，20包（箱）69.9元",
+            "cover": "http://image.wms.wljkxys.com/202009305f7429311b182.jpg",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f7429311b182.jpg",
+            "g_type": 1,
+            "price": "69.90",
+            "is_private": 0,
+            "earnings": "34.90",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 3,
+            "read_num": 7,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "69.9元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 16,
+            "name": "双净宝宝柔软抽纸408张（8包/提），木浆纸，2提（16包）29.9元",
+            "cover": "http://image.wms.wljkxys.com/202009305f74288b8a6c5.jpg",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f74288b8a6c5.jpg",
+            "g_type": 1,
+            "price": "29.90",
+            "is_private": 0,
+            "earnings": "2.90",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 2,
+            "read_num": 5,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "29.9元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          },
+          {
+            "id": 18,
+            "name": "明柔可湿水抽纸（10包/提），木浆纸，3提（30包）29.9元",
+            "cover": "http://image.wms.wljkxys.com/202009305f742c49a5276.png",
+            "cover_url": "http://image.wms.wljkxys.com/202009305f742c49a5276.png",
+            "g_type": 1,
+            "price": "29.90",
+            "is_private": 0,
+            "earnings": "3.90",
+            "comment_num": 0,
+            "enjoy": 0,
+            "join_goods_id": 1,
+            "read_num": 5,
+            "is_postage": 1,
+            "type": 0,
+            "jinzhu_id": 782,
+            "shop_id": 2,
+            "shop_name": "小罗小店",
+            "avatar": "http://image.wms.wljkxys.com/202009305f742f2b83137",
+            "is_enjoy": 0,
+            "is_official": 0,
+            "is_join": 0,
+            "check_buy": 0,
+            "kilometers": "",
+            "small_path": "",
+            "color": "",
+            "licensing_time": "",
+            "price_str": "29.9元",
+            "kilometers_str": "",
+            "licensing_time_str": ""
+          }
+        ],
         count: 1,
         total_page: 1,
         page_size: 10,
@@ -285,8 +567,8 @@ create(store, {
             'tadeOptions[0].cache': this.data.allData.card_info,
           })
         } else if (nv === 1) {
-          this.setData({
-            // tadeOptions[1]cache: 
+          this.getGoodList({
+            sq_business_card_id: this.data.allData.card_info.sq_jinzhu_id
           })
         } else if (nv === 2) {
           this.setData({
@@ -336,8 +618,6 @@ create(store, {
     })
   },
   zanHandle() {
-    // console.log(999)
-    console.log(this.data.allData.card_info)
     const type = this.data.allData.card_is_zan ? 0 : 1
     this.setCardZan({
       type,
@@ -371,25 +651,33 @@ create(store, {
 
   },
   getUserProfile(e) {
+    if (!this.data.is_select) {
+      wx.showToast({
+        icon: 'none',
+        title: '请阅读并同意《用户协议》和《隐私协议》后，在创建数字名片',
+      })
+      return
+    }
+
     wx.getUserProfile({
       desc: '展示用户信息',
       success: (res) => {
         console.log(res)
         // this.store.data.userInfo = res.userInfo
-        this.store.data.userInfo['avatarUrl'] = res.userInfo.avatarUrl
+        this.store.data.userInfo['avatar_url'] = res.userInfo.avatarUrl
         this.store.data.userInfo['city'] = res.userInfo.city
         this.store.data.userInfo['country'] = res.userInfo.country
         this.store.data.userInfo['gender'] = res.userInfo.gender
         this.store.data.userInfo['language'] = res.userInfo.language
-        this.store.data.userInfo['nickName'] = res.userInfo.nickName
+        this.store.data.userInfo['nick_name'] = res.userInfo.nickName
         this.store.data.userInfo['province'] = res.userInfo.province
         this.update()
 
         // 上传用户信息
         updateUserInfo(res.userInfo).then(res => {
-          console.log(res.msg)
-          wx.redirectTo({
-            url: '/pages/authorization/phone',
+          // console.log(res.msg)
+          wx.navigateTo({
+            url: '/pages/bizEdit/easy',
           })
         }).catch(err => {
           console.log('更新微信信息:' + err.msg)
@@ -503,6 +791,38 @@ create(store, {
 
     this.setData(objData)
   },
+  // 评论点赞
+  commentZanHandle(e) {
+    const item = e.currentTarget.dataset.item
+    const type = item.is_zan ? 0 : 1
+    this.setCommentZan({
+      type,
+      comment_id: item.id
+    }).then(res => {
+      this.data.tadeOptions[3].cache.some((it, index) => {
+        if (it.id === item.id) {
+          this.setData({
+            [`tadeOptions[3].cache[${index}].is_zan`]: type,
+            [`tadeOptions[3].cache[${index}].zan_num`]: type ? item.zan_num + 1 : item.zan_num - 1
+          })
+          return true
+        }
+        return false
+      })
+    })
+  },
+  // 跳转至全部评论页
+  toEvaluateHandle() {
+    wx.navigateTo({
+      url: '/pages/ta/evaluate/list',
+    })
+  },
+  // 跳转至立即评论页
+  toEvaluatesubmitHandle() {
+    wx.navigateTo({
+      url: '/pages/ta/evaluate/submit',
+    })
+  },
   getCardDetail(data) {
     return new Promise((resolve, reject) => {
       getCardDetail(data).then(res => {
@@ -539,6 +859,50 @@ create(store, {
       })
     })
   },
+  setCommentZan(data) {
+    return new Promise((resolve, reject) => {
+      setCommentZan(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  getGoodList(dataObj) {
+    const tempData = {
+      page: this.data.tadeOptions[1].count,
+      page_size: this.data.tadeOptions[1].page_size,
+      sq_business_card_id: this.data.allData.card_info.sq_business_card_id
+    }
+
+    if (typeof dataObj === 'object') {
+      Object.keys(dataObj).forEach(key => {
+        tempData[key] = dataObj[key]
+      })
+    }
+
+    return new Promise((resolve, reject) => {
+      getGoodList(tempData).then(res => {
+        if (dataObj === 'scrollToLower') {
+          this.data.tadeOptions[1].cache.push(...res.data.data)
+          this.setData({
+            [`tadeOptions[1].cache`]: this.data.tadeOptions[1].cache,
+            [`tadeOptions[1].total_page`]: res.data.last_page
+          })
+          resolve(res)
+        } else {
+          this.setData({
+            // 测试数据
+            // [`tadeOptions.cache`]: [].concat(res.data.data).concat(res.data.data).concat(res.data.data).concat(res.data.data),
+            [`tadeOptions[1].cache`]: res.data.data,
+            [`tadeOptions[1].total_page`]: res.data.last_page,
+          })
+        }
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
   // 滚动到最底部
   scrollToLower(e) {
     console.log(e)
@@ -550,12 +914,19 @@ create(store, {
     this.setData({
       [`tadeOptions[${this.data.tabIndex}].count`]: ++tadeOptions[this.data.tabIndex].count
     })
-    this.getCommentList('scrollToLower')
+
+    if (this.data.tabIndex === 1) {
+      this.getGoodList('scrollToLower')
+    } else if (this.data.tabIndex === 3) {
+      this.getCommentList('scrollToLower')
+    }
+
   },
   getCommentList(dataObj) {
     const tempData = {
       page: this.data.tadeOptions[3].count,
       page_size: this.data.tadeOptions[3].page_size,
+      sq_business_card_id: this.data.allData.card_info.sq_business_card_id
     }
 
     if (typeof dataObj === 'object') {
@@ -569,16 +940,16 @@ create(store, {
         if (dataObj === 'scrollToLower') {
           this.data.tadeOptions[3].cache.push(...res.data.data)
           this.setData({
-            [`tadeOptions[${3}].cache`]: this.data.tadeOptions[3].cache,
-            [`tadeOptions[${3}].total_page`]: res.data.last_page
+            [`tadeOptions[3].cache`]: this.data.tadeOptions[3].cache,
+            [`tadeOptions[3].total_page`]: res.data.last_page
           })
           resolve(res)
         } else {
           this.setData({
             // 测试数据
             // [`tadeOptions.cache`]: [].concat(res.data.data).concat(res.data.data).concat(res.data.data).concat(res.data.data),
-            [`tadeOptions[${3}].cache`]: res.data.data,
-            [`tadeOptions[${3}].total_page`]: res.data.last_page,
+            [`tadeOptions[3].cache`]: res.data.data,
+            [`tadeOptions[3].total_page`]: res.data.last_page,
             commentNum: res.data.total //总数
           })
         }
@@ -598,14 +969,7 @@ create(store, {
       })
     }
 
-    this.initRequst()
-
-    this.setData({
-      isCardEmpty: 0
-    })
-
-    this.store.data.isCardEmpty = 0
-    this.update()
+    this.initRequest()
 
     getApp().setWatcher(this) //设置监听器
     //第一次登陆提示json动图 显示一次 来过吗 0 没来过 1 来过
@@ -617,23 +981,36 @@ create(store, {
       })
       wx.setStorageSync('jsonAddDialogVisibile', 1)
     }
-  },
-  initRequst() {
-    this.getCardDetail({
-      type: 1
-    }).then(res => {
-      this.setData({
-        allData: res.data,
-        tabIndex: this.data.tabIndex
-      })
-      // console.log(this.data.allData)
-    })
 
-    this.getStyleInfo().then(res => {
-      console.log(res)
-      // this.setData({
-      //   allData: res.data
-      // })
+    // getApp().getSystemInfoCallback = (res => {
+    //   console.log(res)
+    //   this.setData({
+    //     compatibleInfo: res
+    //   })
+
+    //   this.store.data.compatibleInfo.systemInfo = res.systemInfo
+    //   this.store.data.compatibleInfo.navHeight = res.navHeight
+    //   this.store.data.compatibleInfo.isIphoneX = res.isIphoneX
+    //   this.store.data.compatibleInfo.isIphone = res.isIphone
+
+    //   this.update()
+    // })
+  },
+  initRequest() {
+    // this.getStyleInfo().then(res => {
+    //   console.log(res)
+    // })
+
+    getApp().getRequestCallback = (res => {
+      this.getCardDetail({
+        type: 1
+      }).then(res => {
+        this.setData({
+          allData: res.data,
+          tabIndex: this.data.tabIndex
+        })
+        // console.log(this.data.allData)
+      })
     })
   },
   /**
@@ -654,12 +1031,12 @@ create(store, {
       }
     ]
 
-    if (this.data.isCardEmpty) {
+    if (this.data.userInfo.has_card) {
+      setTabBar.call(this)
+    } else {
       setTabBar.call(this, {
         list
       })
-    } else {
-      setTabBar.call(this)
     }
 
     const that = this;

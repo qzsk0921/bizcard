@@ -5,50 +5,9 @@
 <dropdown-diy bindtap="dropdownDiyMaskTap" opened="{{dialog.diy.opened}}" />
 <dropdown-share bindawakenBizcodeHandle="awakenBizcodeHandle" bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
 <!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
-<!-- 无铭牌信息页面 -->
-<view wx:if="{{isCardEmpty}}" class="container container-welcome">
-  <view wx:if="{{compatibleInfo.systemInfo.safeArea}}" class="compatibleIphoneXEl"></view>
-  <view class="section1">
-    <image src="/assets/images/home_bk.png" mode="aspectFill"></image>
-    <view class="card">
-      <view class="l1">
-        <view>{{mapBackground[currentSwiperIndex].tit}}</view>
-      </view>
-      <view class="l2">{{mapBackground[currentSwiperIndex].des}}</view>
-      <view class="l3">
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="{{rgba(255, 255, 255, .6)}}" indicator-active-color="{{indicatorActiveColor}}" circular="true" bindchange="bindchangeHandle">
-          <block wx:for="{{background}}" wx:key="*this">
-            <swiper-item>
-              <!-- <view class="swiper-item {{item.image_url}}"></view> -->
-              <image class="swiper-item icon-banner" src="{{item}}" mode="aspectFill"></image>
-            </swiper-item>
-          </block>
-        </swiper>
-      </view>
-    </view>
-  </view>
-  <view class="section2">
-    <view wx:if="{{userInfo.avatar_url}}" class="btn btn-create" bindtap="createCardHandle">创建我的数字星片</view>
-    <block wx:else>
-      <button class="btn btn-create" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">创建我的数字星片</button>
-      <button class="btn btn-create" wx:else open-type="getUserInfo" bindgetuserinfo="getUserProfile">创建我的数字星片</button>
-    </block>
-  </view>
-  <view class="section3">
-    <view class="radio_box" bindtap="agreementHandle">
-      <image wx:if="{{is_select}}" class="radio_img" src="/assets/images/home_n.png" mode="aspectFill"></image>
-      <view wx:else class="radio"></view>
-    </view>
-    <view class="agree">同意
-      <text class="agreement">
-        <text>《用户协议》</text>和<text>《隐私协议》</text>
-      </text>
-    </view>
-  </view>
-</view>
 
 <!-- 我的名片 -->
-<view wx:else class="container container-index">
+<view wx:if="{{userInfo.has_card}}" class="container container-index">
   <view class="fixed">
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" />
   </view>
@@ -134,7 +93,20 @@
               <video src="{{allData.card_info.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
             </view>
           </view>
-          <view wx:if="{{tabIndex===1}}" class="product">产品</view>
+          <!-- <view wx:if="{{tabIndex===1}}" class="product">产品</view> -->
+          <scroll-view wx:if="{{tabIndex===1}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+            <view class="items">
+              <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}">
+                <image class="good-img left" src="{{item.cover}}" mode="aspectFill"></image>
+                <view class="right">
+                  <view class="row1">{{item.name}}</view>
+                  <view class="row2">
+                    {{item.price_str}}
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
           <view wx:if="{{tabIndex===2}}" class="company">
             <view class="sec-box">
               <view class="sec1">
@@ -161,7 +133,7 @@
             <view class="sec-box">
               <view class="sec1">
                 <view class="left">共{{commentNum}}条评价</view>
-                <view class="right">
+                <view class="right" bindtap="toEvaluateHandle">
                   <text>全部评价</text>
                   <view class="arrow"></view>
                 </view>
@@ -173,18 +145,22 @@
                       <image class="col1 avatar" src="{{item.avatar}}" mode="aspectFill"></image>
                       <view class="col2">
                         <view class="nickname">{{item.nick_name}}</view>
-                        <view>五角星</view>
+                        <van-rate value="{{item.score}}" count="{{item.score}}" color="#FFB70F" />
                       </view>
                     </view>
                     <view class="right {{item.is_zan?'active':''}}">
-                      <image class="icon-zan" src="{{item.is_zan?'/assets/images/card_evaluate_like.png':'/assets/images/card_evaluate_like_f.png'}}" mode="aspectFill"></image>
-                      <text>8</text>
+                      <image class="icon-zan" src="{{item.is_zan?'/assets/images/card_evaluate_like.png':'/assets/images/card_evaluate_like_f.png'}}" mode="aspectFill" bindtap="commentZanHandle" data-item="{{item}}"></image>
+                      <text>{{item.zan_num}}</text>
                     </view>
                   </view>
                   <view class="row2">{{item.comment}}</view>
                   <view class="row3">{{item.create_time}}</view>
                 </view>
               </view>
+            </view>
+            <view class="btn btn-comment" bindtap="toEvaluatesubmitHandle">
+              <image src="/assets/images/card_evaluate.png" mode="aspectFill"></image>
+              <text>立即评价</text>
             </view>
           </scroll-view>
         </view>
@@ -195,6 +171,48 @@
     <view class="section8"></view>
     <!-- </view> -->
   </scroll-view>
+</view>
+
+<!-- 无铭牌信息页面 -->
+<view wx:else class="container container-welcome">
+  <view wx:if="{{compatibleInfo.systemInfo.safeArea}}" class="compatibleIphoneXEl"></view>
+  <view class="section1">
+    <image src="/assets/images/home_bk.png" mode="aspectFill"></image>
+    <view class="card">
+      <view class="l1">
+        <view>{{mapBackground[currentSwiperIndex].tit}}</view>
+      </view>
+      <view class="l2">{{mapBackground[currentSwiperIndex].des}}</view>
+      <view class="l3">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="{{rgba(255, 255, 255, .6)}}" indicator-active-color="{{indicatorActiveColor}}" circular="true" bindchange="bindchangeHandle">
+          <block wx:for="{{background}}" wx:key="*this">
+            <swiper-item>
+              <!-- <view class="swiper-item {{item.image_url}}"></view> -->
+              <image class="swiper-item icon-banner" src="{{item}}" mode="aspectFill"></image>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
+  <view class="section2">
+    <view wx:if="{{userInfo.avatar_url}}" class="btn btn-create" bindtap="createCardHandle">创建我的数字星片</view>
+    <block wx:else>
+      <button class="btn btn-create" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">创建我的数字星片</button>
+      <button class="btn btn-create" wx:else open-type="getUserInfo" bindgetuserinfo="getUserProfile">创建我的数字星片</button>
+    </block>
+  </view>
+  <view class="section3">
+    <view class="radio_box" bindtap="agreementHandle">
+      <image wx:if="{{is_select}}" class="radio_img" src="/assets/images/home_n.png" mode="aspectFill"></image>
+      <view wx:else class="radio"></view>
+    </view>
+    <view class="agree">同意
+      <text class="agreement">
+        <text>《用户协议》</text>和<text>《隐私协议》</text>
+      </text>
+    </view>
+  </view>
 </view>
 
 <json-add dialogVisible="{{jsonAddDialogVisibile}}" navHeight="{{compatibleInfo.navHeight}}" />

@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "van-rate": "@vant/weapp/rate/index",
-    "van-uploader": "@vant/weapp/uploader/index"
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-tree-select": "@vant/weapp/tree-select/index"
   },
   "pages": [
     "pages/index/index",
@@ -15,6 +16,7 @@
     "pages/bizEdit/easy",
     "pages/bizEdit/edit",
     "pages/bizEdit/style",
+    "pages/bizEdit/treeselect",
     "pages/bizmsg/bizmsg",
     "pages/richtext/purinstruction",
     "pages/logs/logs"

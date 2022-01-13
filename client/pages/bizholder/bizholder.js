@@ -226,7 +226,11 @@ create(store, {
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    if (this.store.data.isCardEmpty) {
+    if (this.store.data.has_card) {
+      setTabBar.call(this, {
+        selected: 2
+      })
+    } else {
       let list = [{
           "pagePath": "/pages/index/index",
           "text": "我的星片",
@@ -243,10 +247,6 @@ create(store, {
       setTabBar.call(this, {
         list,
         selected: 1
-      })
-    } else {
-      setTabBar.call(this, {
-        selected: 2
       })
     }
 

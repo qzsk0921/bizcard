@@ -6,22 +6,23 @@
 <view class="format">
   <!-- 1 -->
   <!-- 极简版式 标准版式  -->
-  <view wx:if="{{cid==1}}" class="f1 content" style="margin-top:{{(navHeight+10)+'px'}};">
+  <!-- <view wx:if="{{cid==1}}" class="f1 content" style="margin-top:{{(navHeight+10)+'px'}};"> -->
+  <view wx:if="{{cid==1}}" class="f1 content">
     <view class="box">
-      <image class="icon-image" src="{{carddata.card_style.card_image}}" mode="aspectFill"></image>
+      <image class="icon-image" src="{{cardstyle.card_image}}" mode="aspectFill"></image>
       <view class="top">
-        <view class="company" style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.company}}</view>
-        <view class="name" style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.name}}</view>
-        <view class="position" style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.title}}</view>
+        <view class="company" style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.company}}</view>
+        <view class="name" style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.name}}</view>
+        <view class="position" style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.title}}</view>
       </view>
       <view class="bottom">
         <view class="phone">
-          <image src="{{carddata.card_style.phone_image}}" mode="aspectFill"></image>
-          <text style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.mobile}}</text>
+          <image src="{{cardstyle.phone_image}}" mode="aspectFill"></image>
+          <text style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.mobile}}</text>
         </view>
         <view class="address">
-          <image src="{{carddata.card_style.address_image}}" mode="aspectFill"></image>
-          <text style="color:{{tools.parseColor(carddata.card_style.company_color)}}">{{carddata.card_info.address}}</text>
+          <image src="{{cardstyle.address_image}}" mode="aspectFill"></image>
+          <text style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.address}}</text>
         </view>
       </view>
     </view>

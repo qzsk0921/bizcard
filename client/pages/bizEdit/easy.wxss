@@ -100,16 +100,13 @@
   display: inline-block;
   width: 118rpx !important;
   height: 64rpx;
-  background: #4980F9;
+  background: #F3F5F8;
   border-radius: 8rpx;
+  color: #747888;
 }
 
-.form-section .form-item .style-item:not(:first-child) {
-  margin-left: 16rpx;
-}
-
-.form-section .form-item .style-item radio {
-  visibility: hidden;
+.form-section .form-item .style-item.active {
+  background: #4980F9;
 }
 
 .form-section .form-item .style-item text {
@@ -119,5 +116,18 @@
   transform: translate(-50%, -50%);
   font-size: 24rpx;
   line-height: 64rpx;
+  color: #747888;
+}
+
+.form-section .form-item .style-item.active text {
   color: #FFFFFF;
+}
+
+
+.form-section .form-item .style-item:not(:first-child) {
+  margin-left: 16rpx;
+}
+
+.form-section .form-item .style-item radio {
+  visibility: hidden;
 }

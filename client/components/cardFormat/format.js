@@ -8,6 +8,7 @@ create({
    */
   properties: {
     carddata: Object,
+    cardstyle: Object,
     cid: {
       type: Number,
       value: 0,

@@ -1,6 +1,6 @@
 export default {
-  // baseUrl: 'https://wms.wljkxys.com',
-  baseUrl: 'https://wms.wljkxys.com', //测试
+  baseUrl: 'https://mbapp-test.xcmbkj.com', //测试
+  // baseUrl: 'https://wms.wljkxys.com', 
   contentType: 'application/json',
   tencentKey: 'NMUBZ-KWM6V-E5IPZ-UARUF-6CKRH-FFBM2',
   // tencentKey: 'SIIBZ-BL36R-R54WV-WXKZM-OUTBQ-ZWFPR',

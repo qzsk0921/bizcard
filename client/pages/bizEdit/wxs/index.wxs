@@ -12,5 +12,18 @@ module.exports = {
     }
 
     return url
+  },
+  parseStyle: function (currentStyleId, styleList) {
+    if (styleList.length) {
+      var res = null
+      styleList.some(function (item) {
+        if (item.id === currentStyleId) {
+          return res = item
+        }
+        return false
+      })
+
+      return res
+    }
   }
 }

@@ -16,7 +16,7 @@ export function getCommentList(data) {
 /**
  * 评论点赞 small/Comment/zan
  * @param {int} type require 1:赞 0:不赞
- * @param {int} sq_business_card_id 名片id
+ * @param {int} comment_id 名片id
  */
 export function setCommentZan(data) {
   return request({
