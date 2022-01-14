@@ -17,19 +17,9 @@ create(store, {
   data: {
     cid: 1, //版式id
 
-    cardData: {
-      avatar: '', //头像
-      video: '', //视频
-      logo: ''
-    },
-
-    companypicList: [], //公司介绍图
-
     currentCountProfile: 0, //个人简介
-    // currentCountTag: 0, //我的标签
-    tagArr: [], //解析用
     currentCountIntroduction: 0, //公司简介
-    currentCountCompanypic: 0, //公司介绍图
+    tagArr: [], //解析用
 
     navStatus: '', //isEmpty
     editData: null, //名片编辑数据 这里主要用到我的标签
@@ -56,9 +46,11 @@ create(store, {
       industry_id: '', //行业id
       industry_name: '', //行业名称 否
       address: '', //公司地址
+      address_longitude: '', //公司地址经度
+      address_latitude: '', //公司地址纬度
       company_avatar: '', //公司Logo
       company_introduce: '', //公司介绍
-      company_introduce_image_arr: '', //公司介绍图片
+      company_introduce_image_arr: [], //公司介绍图片
     },
   },
   // 跳转至选择名片样式页
@@ -79,10 +71,43 @@ create(store, {
       url: '/pages/bizEdit/treeselect?type=hometown&page=pages/bizEdit/edit',
     })
   },
+  // 去选择职位
+  positionHandle() {
+    wx.navigateTo({
+      url: '/pages/bizEdit/treeselect?type=position&page=pages/bizEdit/edit',
+    })
+  },
   // 去选择行业
   industryHandle() {
     wx.navigateTo({
       url: '/pages/bizEdit/treeselect?type=industry&page=pages/bizEdit/edit',
+    })
+  },
+  // 公司地址选择
+  addressHandle() {
+    const that = this
+
+    wx.chooseLocation({
+      success: function (res) {
+        // console.log('chooseLocation success')
+        console.log(res)
+        that.setData({
+          // 'formData.address': res.name,
+          'formData.address': res.address,
+          'formData.address_latitude': res.latitude,
+          'formData.address_longitude': res.longitude
+        })
+      },
+      fail: function (res) {
+        // 接口调用失败的回调函数
+        console.log('chooseLocation fail')
+        console.log(res)
+      },
+      complete: function (res) {
+        // 接口调用结束的回调函数（调用成功、失败都会执行）
+        console.log('chooseLocation complete')
+        console.log(res)
+      }
     })
   },
   chooseImage(field) {
@@ -115,14 +140,14 @@ create(store, {
       success(res) {
         // console.log(res.tempFilePath)
         that.setData({
-          'cardData.video': res.tempFilePath
+          'formData.vidieo_url': res.tempFilePath
         })
       }
     })
   },
   // 选择logo图
   inputLogoHandle() {
-    this.chooseImage('logo')
+    this.chooseImage('company_avatar')
   },
   // 个人简介
   textareaInputProfileHandle(e) {
@@ -157,8 +182,6 @@ create(store, {
       tagArr: this.data.tagArr,
       'formData.label_str': this.data.tagArr.join()
     })
-
-    console.log(this.data.parseLabelArr)
   },
   // 公司简介
   textareaInputIntroductionHandle(e) {
@@ -188,15 +211,15 @@ create(store, {
 
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
     const {
-      companypicList = []
-    } = this.data;
+      company_introduce_image_arr = []
+    } = this.data.formData;
 
     // console.log(tempFilePaths)
-    companypicList.push(
+    company_introduce_image_arr.push(
       ...file,
     );
     this.setData({
-      companypicList
+      'formData.company_introduce_image_arr': company_introduce_image_arr
     });
 
     // wx.uploadFile({
@@ -227,16 +250,16 @@ create(store, {
 
     const currentThumb = e.detail.file.thumb
 
-    this.data.companypicList.some((item, index) => {
+    this.data.formData.company_introduce_image_arr.some((item, index) => {
       if (item.thumb === currentThumb) {
-        this.data.companypicList.splice(index, 1)
+        this.data.formData.company_introduce_image_arr.splice(index, 1)
         return true
       }
       return false
     })
 
     this.setData({
-      companypicList: this.data.companypicList
+      'formData.company_introduce_image_arr': this.data.formData.company_introduce_image_arr
     });
   },
   addCard(data) {

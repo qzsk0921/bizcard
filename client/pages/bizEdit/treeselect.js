@@ -93,8 +93,8 @@ Page({
     if (this.data.options.type === 'position') {
       // 职位 
       if (this.data.options.page) {
-        if (this.data.options.page === 'pages/bizEdit/easy') {
-          // from名片极简编辑页
+        if (this.data.options.page === 'pages/bizEdit/easy'||this.data.options.page==='pages/bizEdit/edit') {
+          // from名片极简和普通编辑页
           prevPage.setData({
             'formData.profession_id': data.id,
             'formData.profession_name': data.text

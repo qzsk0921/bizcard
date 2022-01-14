@@ -47,5 +47,10 @@ module.exports = {
       })
     }
     return res
+  },
+  //计算字符数
+  count:function(str) {
+    console.log(str)
+    return str.length
   }
 }
