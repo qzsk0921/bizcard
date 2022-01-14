@@ -37,9 +37,6 @@
             <label class="style-item {{item.id==formData.style_image_id?'active':''}}" wx:for="{{styleList}}" wx:key="unique" bindtap="styleHandle" data-id="{{item.id}}">
               <radio value="{{formData.style_image_id}}" /><text>{{item.name}}</text>
             </label>
-            <!-- <label class="style-item">
-              <radio value="radio2" /><text>高级</text>
-            </label> -->
           </radio-group>
         </view>
       </view>

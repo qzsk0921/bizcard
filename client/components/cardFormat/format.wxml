@@ -28,23 +28,23 @@
     </view>
   </view>
   <!-- 2 -->
-  <!-- <view wx:elif="{{cid==2}}" class="f2 content" style="top:-{{(navHeight+20)+'px'}}"> -->
-  <view wx:elif="{{cid==2}}" class="f2 content" style="height:{{(navHeight+210)+'px'}}">
-    <image class="image-bg" src="https://tse2-mm.cn.bing.net/th/id/OIP-C.k1gWWz0th1VjpEHFlbrYAAHaHa?pid=ImgDet&rs=1" mode="aspectFill"></image>
-    <view class="box" style="margin-top:{{(navHeight+20)+'px'}}">
+  <!-- <view wx:elif="{{cid==2}}" class="f2 content" style="height:{{(navHeight+210)+'px'}}"> -->
+  <view wx:elif="{{cid==2}}" class="f2 content" style="{{navbarFixed?'padding-top:'+(navHeight+10)+'px':''}}">
+    <image class="image-bg" src="{{cardstyle.card_image}}" mode="aspectFill"></image>
+    <view class="box">
       <image class="avatar" src="/assets/images/card_location.png" mode="aspectFill"></image>
       <view class="top">
         <view class="row1">
-          <view class="name">林老师</view>
-          <view class="position">销售经理</view>
+          <view class="name" style="color:{{tools.parseColor(cardstyle.name_color)}}">林老师</view>
+          <view class="position" style="color:{{tools.parseColor(cardstyle.profession_color)}}">销售经理</view>
         </view>
-        <view class="company row2">首都卡拉科技公司</view>
+        <view class="company row2" style="color:{{tools.parseColor(cardstyle.company_color)}}">首都卡拉科技公司</view>
       </view>
       <view class="bottom">
         <view class="line"></view>
-        <view class="phone">P：13400055366</view>
-        <view class="email">E：24546485@fakfl.com</view>
-        <view class="address">A：北京市东城区发几款方法啊的空间的是的阿斯弗312阿的是的阿斯弗 312阿凡121</view>
+        <view class="phone" style="color:{{tools.parseColor(cardstyle.phone_color)}}">P：13400055366</view>
+        <view class="email" style="color:{{tools.parseColor(cardstyle.email_color)}}">E：24546485@fakfl.com</view>
+        <view class="address" style="color:{{tools.parseColor(cardstyle.address_color)}}">A：北京市东城区发几款方法啊的空间的是的阿斯弗312阿的是的阿斯弗 312阿凡121</view>
       </view>
     </view>
   </view>

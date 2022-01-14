@@ -2,4 +2,5 @@
 <!-- <text>pages/bizEdit/treeselect.wxml</text> -->
 <view class="container container-treeselect">
   <van-tree-select items="{{ items }}" main-active-index="{{ mainActiveIndex }}" active-id="{{ activeId }}" bind:click-nav="onClickNav" bind:click-item="onClickItem" />
+  <view class="shim"></view>
 </view>

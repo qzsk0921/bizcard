@@ -1,21 +1,22 @@
 <!--pages/bizEdit/edit.wxml-->
 <!-- <text>pages/bizEdit/edit.wxml</text> -->
+<wxs module="tools" src="./wxs/index.wxs"></wxs>
 <!-- 名片编辑 -->
 <view class="container container-edit">
   <view class="fixed">
-    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#FFFFFF" bgColor="transparent" />
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="{{tools.parseNavColor(cid)}}" bgColor="transparent" />
   </view>
   <view class="content hide-scrollbar" style="height:{{compatibleInfo.isIphoneX?compatibleInfo.systemInfo.screenHeight+'px':compatibleInfo.systemInfo.screenHeight+'px'}}">
-    <image class="image_bg" src="https://img.zcool.cn/community/015db95541a311000001a64b0e9026.jpg@1280w_1l_2o_100sh.jpg" mode="aspectFill"></image>
-    <view class="section1 section card" style="top:{{compatibleInfo.navHeight+10}}px;">
-      <card />
+    <view class="section1 section card">
+      <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
     </view>
-    <view class="section2 section" style="margin-top:{{200-(197-compatibleInfo.navHeight-10)}}px;">
+    <!-- <view class="section2 section" style="margin-top:{{200-(197-compatibleInfo.navHeight-10)}}px;"> -->
+    <view class="section2 section">
       <view class="l">
         <image src="/assets/images/card_edit_change.png" mode="aspectFill"></image>
         <text>更换名片样式</text>
       </view>
-      <view class="r">
+      <view class="r" bindtap="toStyleHandle">
         <text>编辑</text>
         <image class="icon-arrow" src="/assets/images/nav_btn_more.png" mode="aspectFill"></image>
       </view>
@@ -25,7 +26,7 @@
         <view class="row1">星片曝光</view>
         <view class="row2">打开即表示您允许将名片信息展示在脉呗平台上</view>
       </view>
-      <image class="r icon-exposure" src="/assets/images/edit_exposure_f.png" mode="aspectFill"></image>
+      <image class="r icon-exposure" src="{{formData.is_public?'/assets/images/edit_exposure_n.png':'/assets/images/edit_exposure_f.png'}}" mode="aspectFill" bindtap="exposureHandle"></image>
     </view>
     <view class="section4 section">
       <form bindsubmit="formSubmit" bindreset="formReset">
@@ -34,32 +35,32 @@
           <view class="form-item form-item-avatar arrow">
             <label>头像</label>
             <view class="input-box" bindtap="inputAvatarHandle">
-              <image wx:if="{{cardData.avatar}}" class="icon-avatar" src="{{cardData.avatar}}" mode="aspectFill"></image>
+              <image wx:if="{{formData.avatar}}" class="icon-avatar" src="{{formData.avatar}}" mode="aspectFill"></image>
               <image wx:else class="icon-avatar" src="/assets/images/card_edit_head.png" mode="aspectFill"></image>
             </view>
           </view>
           <view class="form-item form-item-name">
             <label class="label-require">姓名</label>
-            <input class="one-txt-cut" name="shop_type_str" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{name}}" maxlength="11" />
+            <input class="one-txt-cut" name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{formData.name}}" />
           </view>
           <view class="form-item form-item-company arrow">
             <label>家乡</label>
-            <input name="company" placeholder="请选择您的家乡" placeholder-class="input-placeholder" value="{{card.company}}" disabled="true" />
+            <input name="company" placeholder="请选择您的家乡" placeholder-class="input-placeholder" value="{{formData.hometown}}" disabled="true" bindtap="hometownHandle" />
           </view>
         </view>
         <view class="form-section">
           <view class="tit">联系信息</view>
           <view class="form-item form-item-phone">
             <label class="label-require">电话</label>
-            <input type="digit" name="name" placeholder="请输入您的联系电话" placeholder-class="input-placeholder" value="{{card.phone}}" bindblur="handleInputChange" disabled="{{generateOrderSuccess}}" />
+            <input type="digit" name="mobile" placeholder="请输入您的联系电话" placeholder-class="input-placeholder" value="{{formData.mobile}}" bindblur="handleInputChange" maxlength="11" />
           </view>
           <view class="form-item form-item-telephone">
             <label>座机</label>
-            <input class="one-txt-cut" type="digit" name="shop_type_str" placeholder="请输入您的座机" placeholder-class="input-placeholder" value="{{telephone}}" maxlength="11" />
+            <input class="one-txt-cut" type="digit" name="landline" placeholder="请输入您的座机" placeholder-class="input-placeholder" value="{{formData.landline}}" maxlength="13" />
           </view>
           <view class="form-item form-item-email">
             <label>邮箱</label>
-            <input name="email" placeholder="请输入您的邮箱地址" placeholder-class="input-placeholder" value="{{card.email}}" />
+            <input name="email" placeholder="请输入您的邮箱地址" placeholder-class="input-placeholder" value="{{formData.email}}" />
           </view>
         </view>
         <view class="form-section form-section-profile">
@@ -68,23 +69,16 @@
             <text>{{currentCountProfile}}/100</text>
           </view>
           <view class="form-item form-item-profile">
-            <!-- <input name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{card.name}}" bindblur="handleInputChange" disabled="{{generateOrderSuccess}}" /> -->
-            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{content}}" name="content" bindinput="textareaInputProfileHandle" maxlength="100" />
+            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="content" bindinput="textareaInputProfileHandle" maxlength="100" />
           </view>
         </view>
         <view class="form-section form-section-tag">
           <view class="tit">
             <text>我的标签</text>
-            <text>{{currentCountTag}}/9</text>
+            <text>{{tagArr.length}}/9</text>
           </view>
           <view class="form-item form-item-tag">
-            <view class="tag">活泼开朗</view>
-            <view class="tag">乐观</view>
-            <view class="tag">宽大为怀</view>
-            <view class="tag">精益求精</view>
-            <view class="tag">乐观</view>
-            <view class="tag">精益求精</view>
-            <view class="tag">乐观</view>
+            <view bindtap="tagHandle" class="tag {{tools.parseLabelStr(item.id,tagArr)?'active':''}}" data-id="{{item.id}}" wx:for="{{editData.select_tag_list}}" wx:key="id">{{item.name}}</view>
           </view>
         </view>
         <view class="form-section form-section-video">
@@ -112,7 +106,7 @@
           </view>
           <view class="form-item form-item-industry arrow">
             <label>行业</label>
-            <input name="company" placeholder="请选择行业" placeholder-class="input-placeholder" value="{{card.industry}}" disabled="true" />
+            <input name="industry_id" placeholder="请选择行业" placeholder-class="input-placeholder" value="{{formData.industry_name}}" disabled="true" bindtap="industryHandle" />
           </view>
           <view class="form-item form-item-cadress arrow">
             <label>公司地址</label>

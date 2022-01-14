@@ -1,6 +1,7 @@
 /* pages/bizEdit/treeselect.wxss */
 .van-tree-select {
   height: 100vh !important;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .van-sidebar-item--selected {

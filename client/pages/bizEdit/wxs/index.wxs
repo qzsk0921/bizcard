@@ -25,5 +25,27 @@ module.exports = {
 
       return res
     }
+  },
+  // 根据名片版式解析导航栏字色
+  parseNavColor: function (cid) {
+    var color = null
+    if (cid === 1) {
+      // 无背景
+      color = '#333333'
+    } else if (cid === 2) {
+      // 有背景
+      color = '#FFFFFF'
+    }
+    return color
+  },
+  // 解析我的标签进行高亮
+  parseLabelStr: function (id, label_arr) {
+    var res = false
+    if (label_arr.length) {
+      res = label_arr.some(function (idd) {
+        return idd == id
+      })
+    }
+    return res
   }
 }

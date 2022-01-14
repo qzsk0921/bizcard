@@ -14,7 +14,13 @@ export default {
     address_id: wx.getStorageSync('address_id') || null, //当前使用的收货地址
 
     has_card: 1, //0无名片 1有名片
-    styles: [] //版式
+    // styles: [], //版式
+
+    // 名片数据
+    card: {
+      data: null, //数据
+      style: null, //样式
+    }
     // logs: [],
     // b: { 
     //   arr: [{ name: '数值项目1' }] ,

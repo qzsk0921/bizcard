@@ -1,6 +1,8 @@
 // pages/bizEdit/treeselect.js
 import {
-  getProfessionList
+  getProfessionList,
+  getAddressList,
+  getIndustryList
 } from '../../api/cardEdit'
 
 Page({
@@ -21,16 +23,42 @@ Page({
         //     id: 2,
         //   },
         // ],
-        this.getProfessionList({
-          pid: this.data.items[nv].id
-        }).then(res => {
-          res.data.data.forEach(it => {
-            it.text = it.name
+        if (this.data.options.type === 'position') {
+          this.getProfessionList({
+            pid: this.data.items[nv].id
+          }).then(res => {
+            res.data.data.forEach(it => {
+              it.text = it.name
+            })
+            this.setData({
+              [`items[${nv}].children`]: res.data.data
+            })
           })
-          this.setData({
-            [`items[${nv}].children`]: res.data.data
+        } else if (this.data.options.type === 'hometown') {
+          this.data.currentProvince = this.data.items[nv].province_name
+          this.getAddressList({
+            type: 2,
+            provinceid: this.data.items[nv].provinceid
+          }).then(res => {
+            res.data.forEach(it => {
+              it.text = it.city_name
+            })
+            this.setData({
+              [`items[${nv}].children`]: res.data
+            })
           })
-        })
+        } else if (this.data.options.type === "industry") {
+          this.getIndustryList({
+            pid: this.data.items[nv].id
+          }).then(res => {
+            res.data.data.forEach(it => {
+              it.text = it.name
+            })
+            this.setData({
+              [`items[${nv}].children`]: res.data.data
+            })
+          })
+        }
       },
     }
   },
@@ -73,6 +101,27 @@ Page({
           })
         }
       }
+    } else if (this.data.options.type === 'hometown') {
+      // 家乡 
+      if (this.data.options.page) {
+        if (this.data.options.page === 'pages/bizEdit/edit') {
+          // from名片编辑页
+          prevPage.setData({
+            'formData.hometown': this.data.currentProvince + data.city_name,
+          })
+        }
+      }
+    } else if (this.data.options.type === 'industry') {
+      // 行业 
+      if (this.data.options.page) {
+        if (this.data.options.page === 'pages/bizEdit/edit') {
+          // from名片编辑页
+          prevPage.setData({
+            'formData.industry_id': data.id,
+            'formData.industry_name': data.text
+          })
+        }
+      }
     }
   },
   // 修改职位数据
@@ -86,9 +135,49 @@ Page({
       mainActiveIndex: 0
     })
   },
+  // 修改地址数据
+  parseAddressData(data) {
+    data.forEach(item => {
+      item.text = item.province_name
+    })
+
+    this.setData({
+      items: data,
+      mainActiveIndex: 0
+    })
+  },
+  // 修改行业数据
+  parseIndustryData(data) {
+    data.forEach(item => {
+      item.text = item.name
+    })
+
+    this.setData({
+      items: data,
+      mainActiveIndex: 0
+    })
+  },
   getProfessionList(data) {
     return new Promise((resolve, reject) => {
       getProfessionList(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  getAddressList(data) {
+    return new Promise((resolve, reject) => {
+      getAddressList(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  getIndustryList(data) {
+    return new Promise((resolve, reject) => {
+      getIndustryList(data).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -109,6 +198,16 @@ Page({
         // 职位
         this.getProfessionList().then(res => {
           this.parsePositionData(res.data.data)
+        })
+      } else if (options.type === 'hometown') {
+        this.getAddressList({
+          type: 1
+        }).then(res => {
+          this.parseAddressData(res.data)
+        })
+      } else if (options.type === 'industry') {
+        this.getIndustryList().then(res => {
+          this.parseIndustryData(res.data.data)
         })
       }
     }

@@ -1057,6 +1057,10 @@ create(store, {
         section4
       })
 
+      this.store.data.card.data = res.data.card_info
+      this.store.data.card.style = res.data.card_style
+      this.update()
+      
       // 动态元素加载完成之后执行
       this.elOnReady()
     })

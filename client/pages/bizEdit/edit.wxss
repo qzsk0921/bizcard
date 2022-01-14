@@ -19,10 +19,11 @@
 .content .section {}
 
 .content .section1 {
-  background: #FFFFFF;
-  margin: 0 auto;
-  width: 694rpx;
-  background: rgba(255, 255, 255, 0.39);
+  /* background: #FFFFFF; */
+  /* margin: 0 auto; */
+  /* width: 694rpx; */
+  /* width: 100%; */
+  /* background: rgba(255, 255, 255, 0.39);
   box-shadow: 0rpx 6rpx 16rpx rgba(0, 0, 0, 0.12);
   opacity: 1;
   border-radius: 10rpx;
@@ -30,7 +31,7 @@
 
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); */
 }
 
 .content .section2 {
@@ -61,6 +62,8 @@
 .content .section2 .r {
   font-size: 28rpx;
   color: #888888;
+  height: 100%;
+  line-height: 114rpx;
 }
 
 .content .section2 .r text {
@@ -244,15 +247,16 @@
 }
 
 .form-section .form-item-tag .tag {
-  margin-bottom: 16rpx;
+  margin: 0 20rpx 16rpx 0;
   padding: 17rpx 20rpx;
   border: 2rpx solid #C9CED4;
   opacity: 1;
   border-radius: 4rpx;
 }
 
-.form-section .form-item-tag .tag {
-  margin-right: 20rpx;
+.form-section .form-item-tag .tag.active {
+  border-color: #4980F9;
+  color: #4980F9;
 }
 
 .form-section-tag .tit,
@@ -421,4 +425,15 @@
   position: absolute;
   top: 50%;
   right: 39rpx;
+}
+
+
+
+
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
 }

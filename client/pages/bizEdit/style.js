@@ -1,6 +1,10 @@
 // pages/bizEdit/style.js
 import store from '../../store/common'
 import create from '../../utils/create'
+import {
+  getStyleList,
+  getStyleImageList
+} from '../../api/cardEdit'
 
 // Page({
 create(store, {
@@ -14,7 +18,12 @@ create(store, {
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
-    currentId: 2, //版式id
+    card: null,
+    navStatus: '', //isEmpty
+    currentStyleId: null, //当前选中版式id
+    currentStyleImageObj: null, //当前选中星片图对象
+    styleList: null, //名片编辑详情
+    currentId: 1, //版式id
     readed: 0, //购买须知 0 1
     styleData: {
       show: [{
@@ -44,6 +53,35 @@ create(store, {
       }]
     }
   },
+  // 选择版式
+  styleHandle(e) {
+    const dataset = e.currentTarget.dataset
+    this.getStyleImageList({
+      style_id: dataset.item.id
+    }).then(res => {
+      this.setData({
+        'styleList.style_image_list': res.data,
+        currentStyleId: dataset.item.id,
+        currentStyleImageObj: res.data[0]
+      })
+    })
+  },
+  // 选择星片图
+  styleImageHandle(e) {
+    if (!this.data.currentStyleId) {
+      wx.showToast({
+        title: '请先选择版式',
+        icon: 'none'
+      })
+      return
+    }
+
+    const dataset = e.currentTarget.dataset
+
+    this.setData({
+      currentStyleImageObj: dataset.item
+    })
+  },
   readHandle() {
     this.setData({
       readed: !this.data.readed
@@ -54,11 +92,38 @@ create(store, {
       url: '../richtext/purinstruction',
     })
   },
+  getStyleImageList(data) {
+    return new Promise((resolve, reject) => {
+      getStyleImageList(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  getStyleList(data) {
+    return new Promise((resolve, reject) => {
+      getStyleList(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      card: this.store.data.card,
+      currentStyleImageObj: this.store.data.card.style
+    })
 
+    this.getStyleList().then(res => {
+      this.setData({
+        styleList: res.data,
+      })
+    })
   },
 
   /**

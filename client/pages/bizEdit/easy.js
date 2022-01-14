@@ -5,7 +5,7 @@ import {
   checkMobile
 } from '../../utils/util'
 import {
-  getStyleList,
+  getStyleImageList,
   addEasyCard
 } from '../../api/cardEdit'
 import {
@@ -179,9 +179,9 @@ create(store, {
       })
     })
   },
-  getStyleList(data) {
+  getStyleImageList(data) {
     return new Promise((resolve, reject) => {
-      getStyleList(data).then(res => {
+      getStyleImageList(data).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -192,7 +192,7 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getStyleList({
+    this.getStyleImageList({
       style_id: 4
     }).then(res => {
       this.setData({

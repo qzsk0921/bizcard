@@ -107,22 +107,23 @@
 }
 
 .f2 {
-  position: relative;
-  left: 0;
   width: 100vw;
 }
 
 .f2 .box {
+  position: relative;
+  z-index: 1;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 55rpx 43rpx 25rpx 45rpx;
-  position: absolute;
   width: calc(100vw - 86rpx);
   height: 400rpx;
+  /* position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); */
 
   width: 694rpx;
   background: rgba(255, 255, 255, 0.39);

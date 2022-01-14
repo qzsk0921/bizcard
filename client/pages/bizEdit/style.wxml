@@ -7,57 +7,36 @@
   <view class="fixed">
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="#333333" bgColor="transparent" />
   </view>
-  <view class="content">
-    <card cid="{{currentId}}" />
+  <view class="content hide-scrollbar">
+    <view class="section1 section card">
+      <card cid="{{currentId}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{currentStyleImageObj}}" />
+    </view>
     <view class="option-box">
       <view class="sec1 sec">
         <view class="tit">选择版式</view>
         <view class="image-box hide-scrollbar">
-          <image class="icon-panel active" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-          <image class="icon-panel" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
+          <image wx:for="{{styleList.style_list}}" wx:key="id" class="icon-panel {{item.id===currentStyleId?'active':''}}" data-item="{{item}}" src="{{item.image}}" mode="aspectFill" bindtap="styleHandle"></image>
         </view>
       </view>
       <view class="sec2 sec">
         <view class="tit">选择星片图</view>
         <view class="image-box hide-scrollbar">
-          <view class="img-item">
-            <image class="icon-pic active" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-            <view class="num">库存999</view>
-          </view>
-          <view class="img-item">
-            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-            <view class="num">库存999</view>
-          </view>
-          <view class="img-item">
-            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-            <view class="num">库存999</view>
-          </view>
-          <view class="img-item">
-            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-            <view class="num">库存999</view>
-          </view>
-          <view class="img-item">
-            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-            <view class="num">库存999</view>
-          </view>
-          <view class="img-item">
-            <image class="icon-pic" src="https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7" mode="aspectFill"></image>
-            <view class="num">库存999</view>
+          <view class="img-item" wx:for="{{styleList.style_image_list}}" wx:key="id">
+            <image class="icon-pic {{item.id===currentStyleImageObj.id?'active':''}}" src="{{item.card_image}}" data-item="{{item}}" mode="aspectFill" bindtap="styleImageHandle"></image>
+            <view class="num">库存{{item.stock}}</view>
           </view>
         </view>
       </view>
       <view class="sec3 sec">
         <view class="tit">展示信息</view>
         <view class="btn-box">
-          <view class="btn btn-attr {{item.require?'require':item.status?'status1':'status0'}}" wx:for="{{styleData.show}}" wx:key="unique">
+          <view class="btn btn-attr {{item.require?'require':item.status?'status1':'status0'}}" wx:for="{{styleList.select_tag_list}}" wx:key="id">
             <text>{{item.name}}</text>
-            <image src="{{tools.parseIcon(item.require, item.status)}}" mode="aspectFill"></image>
+            <image src="{{tools.parseIcon(item.status, item.select_status)}}" mode="aspectFill"></image>
           </view>
         </view>
       </view>
+      <view class="sec4-shim"></view>
       <view class="sec4">
         <!-- <view class="btn btn-save">保存</view> -->
         <view class="pay-box">
