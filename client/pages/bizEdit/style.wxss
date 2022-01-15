@@ -94,7 +94,7 @@ option-box .sec1 .image-box .icon-panel:last-child,
   color: #4980F9;
 }
 
-.option-box .sec3 .btn-box .btn-attr.stauts0 {
+.option-box .sec3 .btn-box .btn-attr.status0 {
   color: #CCCCCC;
 }
 

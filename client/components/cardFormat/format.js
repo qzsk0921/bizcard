@@ -7,6 +7,10 @@ create({
    * 组件的属性列表
    */
   properties: {
+    field: {
+      type: String,
+      value: null,
+    }, //属性的字段 例:name avatar company profession phone address email
     carddata: Object,
     cardstyle: Object,
     cid: {

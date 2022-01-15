@@ -11,7 +11,7 @@ import {
 import {
   updatePhone
 } from '../../api/user'
-
+const duration = 500
 // Page({
 create(store, {
 
@@ -141,7 +141,6 @@ create(store, {
       // } else {
       // 新增
       this.addEasyCard(formdata).then(res => {
-        const duration = 500
         wx.showToast({
           icon: 'none',
           title: res.msg,
@@ -150,9 +149,9 @@ create(store, {
 
         setTimeout(() => {
           // 返回我的名片页面 返回Ta的名片页面
-          wx.navigateBack({
-            delta: 0,
-          })
+          // wx.navigateBack({
+          //   delta: 0,
+          // })
           wx.switchTab({
             url: '/pages/index/index',
           })

@@ -18,11 +18,604 @@ create(store, {
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
+    currentField: null, //操控显示的属性
     card: null,
     navStatus: '', //isEmpty
     currentStyleId: null, //当前选中版式id
     currentStyleImageObj: null, //当前选中星片图对象
-    styleList: null, //名片编辑详情
+    styleList: {
+      "card_info": {
+        "id": 4269,
+        "sq_jinzhu_id": 10353,
+        "template_card_id": 1,
+        "name": "l凌老师",
+        "title": "",
+        "mobile": "18969479682",
+        "email": "",
+        "wx_number": "",
+        "company": "星辰",
+        "address": "",
+        "avatar": "",
+        "wx_qr_code": "",
+        "introduce_myself": null,
+        "personal_label": "",
+        "personal_style": null,
+        "create_time": 1642073177,
+        "update_time": 1642073177,
+        "del_flag": 0,
+        "type": 1,
+        "is_public": 0,
+        "hometown": null,
+        "landline": null,
+        "vidieo_url": null,
+        "profession_id": 0,
+        "industry_id": 0,
+        "company_avatar": null,
+        "company_introduce": null,
+        "company_introduce_image": null,
+        "user_id": 3452,
+        "status": 1,
+        "profession": "",
+        "industry": "",
+        "company_introduce_image_arr": ""
+      },
+      "style_list": [{
+        "id": 1,
+        "name": "版式一",
+        "image": "http://image.wms.xcmbkj.com/2022011261de4ddadcfc0.png",
+        "status": 1,
+        "sort": 950,
+        "create_time": 1641459985,
+        "type": 1
+      }],
+      "style_image_list": [{
+          "id": 7,
+          "card_image": "http://image.wms.xcmbkj.com/2022011261de504947c7e.png",
+          "price": "0.00",
+          "stock": 9999999,
+          "sort": 1000,
+          "name_color": "#FFFFFF",
+          "name_transparent": "100",
+          "is_name_show": 1,
+          "is_name_default_show": 1,
+          "avatar_color": "",
+          "avatar_transparent": "",
+          "is_avatar_show": 0,
+          "is_avatar_default_show": 0,
+          "phone_color": "#FFFFFF",
+          "phone_transparent": "80",
+          "is_phone_show": 1,
+          "is_phone_default_show": 0,
+          "profession_color": "#FFFFFF",
+          "profession_transparent": "80",
+          "is_profession_show": 1,
+          "is_profession_default_show": 0,
+          "company_color": "#FFFFFF",
+          "company_transparent": "80",
+          "is_company_show": 1,
+          "is_company_default_show": 1,
+          "address_color": "#FFFFFF",
+          "address_transparent": "80",
+          "is_address_show": 1,
+          "is_address_default_show": 0,
+          "phone_image": "http://image.wms.xcmbkj.com/2022011261de4e6b01284.png",
+          "email_image": "http://image.wms.xcmbkj.com/2022011261de4e6f180c1.png",
+          "address_image": "http://image.wms.xcmbkj.com/2022011261de4f598fe0a.png",
+          "background_image": "",
+          "status": 1,
+          "create_time": 1641959061,
+          "email_color": "",
+          "email_transparent": "",
+          "is_email_show": 0,
+          "is_email_default_show": 0,
+          "style_id": 1,
+          "name": "版式一图一",
+          "is_customize_set": 0,
+          "card_image_preview": null,
+          "customize_image": "",
+          "tag_list": [{
+              "field": "name",
+              "name": "名称",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "avatar",
+              "name": "头像",
+              "is_show": 0,
+              "is_default_show": 0
+            },
+            {
+              "field": "phone",
+              "name": "手机",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "profession",
+              "name": "职业",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "company",
+              "name": "公司",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "address",
+              "name": "地址",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "email",
+              "name": "邮箱",
+              "is_show": 0,
+              "is_default_show": 0
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "card_image": "http://image.wms.xcmbkj.com/2022011261de505e9c2f8.png",
+          "price": "0.00",
+          "stock": 9999999,
+          "sort": 950,
+          "name_color": "#FFFFFF",
+          "name_transparent": "100",
+          "is_name_show": 1,
+          "is_name_default_show": 1,
+          "avatar_color": "",
+          "avatar_transparent": "",
+          "is_avatar_show": 0,
+          "is_avatar_default_show": 0,
+          "phone_color": "#FFFFFF",
+          "phone_transparent": "80",
+          "is_phone_show": 1,
+          "is_phone_default_show": 0,
+          "profession_color": "#FFFFFF",
+          "profession_transparent": "80",
+          "is_profession_show": 1,
+          "is_profession_default_show": 0,
+          "company_color": "#FFFFFF",
+          "company_transparent": "80",
+          "is_company_show": 1,
+          "is_company_default_show": 1,
+          "address_color": "#FFFFFF",
+          "address_transparent": "80",
+          "is_address_show": 1,
+          "is_address_default_show": 0,
+          "phone_image": "http://image.wms.xcmbkj.com/2022011261de4ec45774a.png",
+          "email_image": "",
+          "address_image": "http://image.wms.xcmbkj.com/2022011261de4ed582ccc.png",
+          "background_image": "",
+          "status": 1,
+          "create_time": 1641959169,
+          "email_color": "",
+          "email_transparent": "",
+          "is_email_show": 0,
+          "is_email_default_show": 0,
+          "style_id": 1,
+          "name": "版式一图二",
+          "is_customize_set": 0,
+          "card_image_preview": null,
+          "customize_image": "",
+          "tag_list": [{
+              "field": "name",
+              "name": "名称",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "avatar",
+              "name": "头像",
+              "is_show": 0,
+              "is_default_show": 1
+            },
+            {
+              "field": "phone",
+              "name": "手机",
+              "is_show": 0,
+              "is_default_show": 0
+            },
+            {
+              "field": "profession",
+              "name": "职业",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "company",
+              "name": "公司",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "address",
+              "name": "地址",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "email",
+              "name": "邮箱",
+              "is_show": 0,
+              "is_default_show": 0
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "card_image": "http://image.wms.xcmbkj.com/2022011261de508d8b26b.png",
+          "price": "9.90",
+          "stock": 1000,
+          "sort": 800,
+          "name_color": "#FFFFFF",
+          "name_transparent": "100",
+          "is_name_show": 1,
+          "is_name_default_show": 1,
+          "avatar_color": "",
+          "avatar_transparent": "",
+          "is_avatar_show": 0,
+          "is_avatar_default_show": 0,
+          "phone_color": "#FFFFFF",
+          "phone_transparent": "80",
+          "is_phone_show": 1,
+          "is_phone_default_show": 0,
+          "profession_color": "#FFFFFF",
+          "profession_transparent": "80",
+          "is_profession_show": 1,
+          "is_profession_default_show": 0,
+          "company_color": "#FFFFFF",
+          "company_transparent": "80",
+          "is_company_show": 1,
+          "is_company_default_show": 1,
+          "address_color": "#FFFFFF",
+          "address_transparent": "80",
+          "is_address_show": 1,
+          "is_address_default_show": 0,
+          "phone_image": "http://image.wms.xcmbkj.com/2022011261de50a1dd74c.png",
+          "email_image": "",
+          "address_image": "http://image.wms.xcmbkj.com/2022011261de50a55a796.png",
+          "background_image": "",
+          "status": 1,
+          "create_time": 1641959640,
+          "email_color": "",
+          "email_transparent": "",
+          "is_email_show": 0,
+          "is_email_default_show": 0,
+          "style_id": 1,
+          "name": "版式一图三",
+          "is_customize_set": 0,
+          "card_image_preview": null,
+          "customize_image": "",
+          "tag_list": [{
+              "field": "name",
+              "name": "名称",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "avatar",
+              "name": "头像",
+              "is_show": 0,
+              "is_default_show": 0
+            },
+            {
+              "field": "phone",
+              "name": "手机",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "profession",
+              "name": "职业",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "company",
+              "name": "公司",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "address",
+              "name": "地址",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "email",
+              "name": "邮箱",
+              "is_show": 0,
+              "is_default_show": 0
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "card_image": "http://image.wms.xcmbkj.com/2022011261de512ebc195.png",
+          "price": "9.90",
+          "stock": 1000,
+          "sort": 750,
+          "name_color": "#FFFFFF",
+          "name_transparent": "100",
+          "is_name_show": 1,
+          "is_name_default_show": 1,
+          "avatar_color": "",
+          "avatar_transparent": "",
+          "is_avatar_show": 0,
+          "is_avatar_default_show": 0,
+          "phone_color": "#FFFFFF",
+          "phone_transparent": "80",
+          "is_phone_show": 1,
+          "is_phone_default_show": 0,
+          "profession_color": "#FFFFFF",
+          "profession_transparent": "80",
+          "is_profession_show": 1,
+          "is_profession_default_show": 0,
+          "company_color": "#FFFFFF",
+          "company_transparent": "80",
+          "is_company_show": 1,
+          "is_company_default_show": 1,
+          "address_color": "#FFFFFF",
+          "address_transparent": "80",
+          "is_address_show": 1,
+          "is_address_default_show": 0,
+          "phone_image": "http://image.wms.xcmbkj.com/2022011261de514c8f26a.png",
+          "email_image": "",
+          "address_image": "http://image.wms.xcmbkj.com/2022011261de5151a3934.png",
+          "background_image": "",
+          "status": 1,
+          "create_time": 1641959802,
+          "email_color": "",
+          "email_transparent": "",
+          "is_email_show": 0,
+          "is_email_default_show": 0,
+          "style_id": 1,
+          "name": "版式一图四",
+          "is_customize_set": 0,
+          "card_image_preview": null,
+          "customize_image": "",
+          "tag_list": [{
+              "field": "name",
+              "name": "名称",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "avatar",
+              "name": "头像",
+              "is_show": 0,
+              "is_default_show": 0
+            },
+            {
+              "field": "phone",
+              "name": "手机",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "profession",
+              "name": "职业",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "company",
+              "name": "公司",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "address",
+              "name": "地址",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "email",
+              "name": "邮箱",
+              "is_show": 0,
+              "is_default_show": 0
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "card_image": "http://image.wms.xcmbkj.com/2022011261de51ba8d405.png",
+          "price": "9.90",
+          "stock": 1000,
+          "sort": 650,
+          "name_color": "#FFFFFF",
+          "name_transparent": "100",
+          "is_name_show": 1,
+          "is_name_default_show": 1,
+          "avatar_color": "",
+          "avatar_transparent": "",
+          "is_avatar_show": 0,
+          "is_avatar_default_show": 0,
+          "phone_color": "#FFFFFF",
+          "phone_transparent": "80",
+          "is_phone_show": 1,
+          "is_phone_default_show": 0,
+          "profession_color": "#FFFFFF",
+          "profession_transparent": "80",
+          "is_profession_show": 1,
+          "is_profession_default_show": 0,
+          "company_color": "#FFFFFF",
+          "company_transparent": "80",
+          "is_company_show": 1,
+          "is_company_default_show": 1,
+          "address_color": "#FFFFFF",
+          "address_transparent": "80",
+          "is_address_show": 1,
+          "is_address_default_show": 0,
+          "phone_image": "http://image.wms.xcmbkj.com/2022011261de51cde2793.png",
+          "email_image": "",
+          "address_image": "http://image.wms.xcmbkj.com/2022011261de51d2ab594.png",
+          "background_image": "",
+          "status": 1,
+          "create_time": 1641959914,
+          "email_color": "",
+          "email_transparent": "",
+          "is_email_show": 0,
+          "is_email_default_show": 0,
+          "style_id": 1,
+          "name": "版式一图五",
+          "is_customize_set": 0,
+          "card_image_preview": null,
+          "customize_image": "",
+          "tag_list": [{
+              "field": "name",
+              "name": "名称",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "avatar",
+              "name": "头像",
+              "is_show": 0,
+              "is_default_show": 0
+            },
+            {
+              "field": "phone",
+              "name": "手机",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "profession",
+              "name": "职业",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "company",
+              "name": "公司",
+              "is_show": 1,
+              "is_default_show": 1
+            },
+            {
+              "field": "address",
+              "name": "地址",
+              "is_show": 1,
+              "is_default_show": 0
+            },
+            {
+              "field": "email",
+              "name": "邮箱",
+              "is_show": 0,
+              "is_default_show": 0
+            }
+          ]
+        }
+      ],
+      "order_list": [],
+      "select_tag_list": [{
+          "id": 1,
+          "name": "标签1",
+          "status": 1,
+          "sort": 10000,
+          "create_time": 1641969189,
+          "update_time": 1641969189,
+          "select_status": 0
+        },
+        {
+          "id": 2,
+          "name": "标签2",
+          "status": 1,
+          "sort": 9950,
+          "create_time": 1641969200,
+          "update_time": 1641969200,
+          "select_status": 0
+        },
+        {
+          "id": 3,
+          "name": "标签3",
+          "status": 1,
+          "sort": 9900,
+          "create_time": 1641969210,
+          "update_time": 1641969210,
+          "select_status": 0
+        },
+        {
+          "id": 4,
+          "name": "标签4",
+          "status": 1,
+          "sort": 9850,
+          "create_time": 1641969217,
+          "update_time": 1641969217,
+          "select_status": 0
+        },
+        {
+          "id": 5,
+          "name": "标签5",
+          "status": 1,
+          "sort": 9800,
+          "create_time": 1641969225,
+          "update_time": 1641969225,
+          "select_status": 0
+        },
+        {
+          "id": 6,
+          "name": "标签6",
+          "status": 1,
+          "sort": 9750,
+          "create_time": 1641969239,
+          "update_time": 1641969239,
+          "select_status": 0
+        },
+        {
+          "id": 7,
+          "name": "标签7",
+          "status": 1,
+          "sort": 9700,
+          "create_time": 1641969261,
+          "update_time": 1641969261,
+          "select_status": 0
+        },
+        {
+          "id": 8,
+          "name": "标签8",
+          "status": 1,
+          "sort": 9650,
+          "create_time": 1641969268,
+          "update_time": 1641969268,
+          "select_status": 0
+        },
+        {
+          "id": 9,
+          "name": "标签9",
+          "status": 1,
+          "sort": 9600,
+          "create_time": 1641969274,
+          "update_time": 1641969274,
+          "select_status": 0
+        },
+        {
+          "id": 10,
+          "name": "标签10",
+          "status": 1,
+          "sort": 9550,
+          "create_time": 1641969282,
+          "update_time": 1641969282,
+          "select_status": 0
+        },
+        {
+          "id": 11,
+          "name": "标签11",
+          "status": 1,
+          "sort": 9500,
+          "create_time": 1641969287,
+          "update_time": 1641969287,
+          "select_status": 0
+        }
+      ]
+    }, //名片编辑详情
     currentId: 1, //版式id
     readed: 0, //购买须知 0 1
     styleData: {
@@ -60,7 +653,7 @@ create(store, {
       style_id: dataset.item.id
     }).then(res => {
       this.setData({
-        'styleList.style_image_list': res.data,
+        // 'styleList.style_image_list': res.data,
         currentStyleId: dataset.item.id,
         currentStyleImageObj: res.data[0]
       })
@@ -81,6 +674,21 @@ create(store, {
     this.setData({
       currentStyleImageObj: dataset.item
     })
+  },
+  tagHandle(e) {
+    // console.log(e)
+    const dataset = e.currentTarget.dataset
+    // 固定属性
+    if (dataset.item.is_default_show) return
+    // 非固定属性
+    else {
+      // 显示0,1 取反
+      this.data.currentStyleImageObj.tag_list[dataset.index].is_show = dataset.item.is_show ? 0 : 1
+      this.setData({
+        [`currentStyleImageObj.tag_list[${dataset.index}]`]: this.data.currentStyleImageObj.tag_list[dataset.index],
+        currentField: dataset.item.field
+      })
+    }
   },
   readHandle() {
     this.setData({
@@ -121,7 +729,7 @@ create(store, {
 
     this.getStyleList().then(res => {
       this.setData({
-        styleList: res.data,
+        // styleList: res.data,
       })
     })
   },

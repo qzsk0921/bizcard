@@ -5,6 +5,7 @@ import {
 } from './api/user.js'
 
 import store from './store/common'
+import config from './config/index'
 
 App({
   onLaunch() {
@@ -36,6 +37,8 @@ App({
     this.getSystemInfo()
     // 版本更新
     this.update()
+    // 定位授权
+    this.getLocation()
   },
   getUserDetail() {
     getUserDetail().then(res => {
@@ -167,6 +170,42 @@ App({
         //     }
         //   }
         // }
+      }
+    })
+  },
+  getLocation() {
+    const that = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        let latitude = res.latitude
+        let longitude = res.longitude
+        wx.request({
+          url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${config.tencentKey}`,
+          success: res => {
+            // console.log(res)
+            const result = res.data.result
+
+            store.data.currentAddress = {
+              address: result.formatted_addresses.recommend,
+              longitude: result.location.lng,
+              latitude: result.location.lat,
+              hometown: result.address_component.province + ' ' + result.address_component.city
+            }
+
+            store.update()
+
+            if (that.getLocationCallback) {
+              thie.getLocationCallback(result.address_component.province + ' ' + result.address_component.city)
+            }
+          }
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      },
+      complete: function () {
+        console.log('complete')
       }
     })
   },

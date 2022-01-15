@@ -9,7 +9,7 @@
   </view>
   <view class="content hide-scrollbar">
     <view class="section1 section card">
-      <card cid="{{currentId}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{currentStyleImageObj}}" />
+      <card cid="{{currentId}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{currentStyleImageObj}}" field="{{currentField}}" />
     </view>
     <view class="option-box">
       <view class="sec1 sec">
@@ -27,12 +27,12 @@
           </view>
         </view>
       </view>
-      <view class="sec3 sec">
+      <view class="sec3 sec" wx:if="{{currentStyleImageObj.tag_list.length}}">
         <view class="tit">展示信息</view>
         <view class="btn-box">
-          <view class="btn btn-attr {{item.require?'require':item.status?'status1':'status0'}}" wx:for="{{styleList.select_tag_list}}" wx:key="id">
+          <view class="btn btn-attr {{item.is_default_show?'require':item.is_show?'status1':'status0'}}" wx:for="{{currentStyleImageObj.tag_list}}" wx:key="id" data-item="{{item}}" data-index="{{index}}" bindtap="tagHandle">
             <text>{{item.name}}</text>
-            <image src="{{tools.parseIcon(item.status, item.select_status)}}" mode="aspectFill"></image>
+            <image src="{{tools.parseIcon(item.is_default_show, item.is_show)}}" mode="aspectFill"></image>
           </view>
         </view>
       </view>

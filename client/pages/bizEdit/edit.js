@@ -7,6 +7,7 @@ import {
 import {
   getStyleList
 } from '../../api/cardEdit'
+const duration = 500
 
 // Page({
 create(store, {
@@ -30,18 +31,19 @@ create(store, {
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
     formData: {
+      sq_business_card_id: '', //名片id 必须
       is_public: '', //是否曝光 1:曝光 0：否
-      avatar: '', //头像
-      name: '', //name
+      avatar: '', //头像 必须
+      name: '', //name 必须
       hometown: '', //是否家乡
-      mobile: '', //电话
+      mobile: '', //电话 必须
       landline: '', //座机
       email: '', //邮箱
       introduce_myself: '', //个人简介
       label_str: '', //标签id 逗号分割
       vidieo_url: '', //视频地址
-      company: '', //公司名
-      profession_id: '', //职业id
+      company: '', //公司名 必须
+      profession_id: '', //职业id 必须
       profession_name: '', //职位名称 否
       industry_id: '', //行业id
       industry_name: '', //行业名称 否
@@ -261,6 +263,78 @@ create(store, {
     this.setData({
       'formData.company_introduce_image_arr': this.data.formData.company_introduce_image_arr
     });
+  },
+  // 保存名片信息
+  formSubmit(e) {
+    console.log(e)
+    const formData = e.detail.value
+
+    // 校验
+    if (!this.formValidate(formData)) return
+
+    // 返回我的名片页面
+    this.addCard(formData).then(res => {
+      wx.showToast({
+        icon: 'none',
+        title: '保存成功',
+        duration
+      })
+
+      setTimeout(() => {
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
+      }, duration)
+    })
+  },
+  formValidate(formData) {
+    const flag = Object.keys(formData).some(key => {
+      if (!formData[key]) {
+        if (key === 'avatar') {
+          wx.showToast({
+            icon: 'none',
+            title: '请上传头像',
+          })
+        } else if (key === 'name') {
+          wx.showToast({
+            icon: 'none',
+            title: '请输入姓名',
+          })
+        } else if (key === 'mobile') {
+          wx.showToast({
+            icon: 'none',
+            title: '请输入电话',
+          })
+        } else if (key === 'company') {
+          wx.showToast({
+            icon: 'none',
+            title: '请输入公司名称',
+          })
+        } else if (key === 'profession_id') {
+          wx.showToast({
+            icon: 'none',
+            title: '请选择职位',
+          })
+        }
+        return true
+      }
+      return false
+    })
+
+    // 全部填写再校验手机号码
+    if (!flag) {
+      if (!checkMobile(formData.mobile)) {
+        wx.showToast({
+          title: '请输入正确手机号',
+          icon: 'none'
+        })
+        return false
+      } else {
+        return true
+      }
+    } else {
+      return false
+    }
   },
   addCard(data) {
     return new Promise((resolve, reject) => {

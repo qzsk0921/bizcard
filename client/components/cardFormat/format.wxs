@@ -1,11 +1,27 @@
 module.exports = {
   //过滤颜色
-  parseColor: function (color,attr) {
+  parseColor: function (color, attr) {
     var color = color
     if (color === '22') {
       color = '#FFFFFF'
     }
 
     return color
+  },
+  // 控制属性是否显示
+  parseShow: function (myfield, field, taglist) {
+    var res = true
+    if (field) {
+      if (myfield === field) {
+        var ress = taglist.some(function (item) {
+          if (item.field === field) {
+            if (!item.is_show) return true
+          }
+          return false
+        })
+        if (ress) res = false
+      }
+    }
+    return res
   }
 }

@@ -8,6 +8,7 @@ export default {
       systemInfo: null, //systemInfo system:'ios'||'android',
       navHeight: 0, //顶部导航栏高度
       isIphoneX: null,
+      tabbarH: null, //自定义tabbar高度
     },
     settingInfo: {}, //微信设置信息 settingInfo.authSetting['scope.userInfo'](微信已授权)
 
@@ -20,7 +21,14 @@ export default {
     card: {
       data: null, //数据
       style: null, //样式
-    }
+    },
+    // 用户授权地址
+    currentAddress: {
+      address: null,
+      longitude: null,
+      latitude: null,
+      hometown: null
+    },
     // logs: [],
     // b: { 
     //   arr: [{ name: '数值项目1' }] ,

@@ -1,11 +1,15 @@
 // pages/bizEdit/treeselect.js
+import store from '../../store/common'
+import create from '../../utils/create'
+
 import {
   getProfessionList,
   getAddressList,
   getIndustryList
 } from '../../api/cardEdit'
 
-Page({
+// Page({
+create(store, {
 
   /**
    * 页面的初始数据
@@ -93,7 +97,7 @@ Page({
     if (this.data.options.type === 'position') {
       // 职位 
       if (this.data.options.page) {
-        if (this.data.options.page === 'pages/bizEdit/easy'||this.data.options.page==='pages/bizEdit/edit') {
+        if (this.data.options.page === 'pages/bizEdit/easy' || this.data.options.page === 'pages/bizEdit/edit') {
           // from名片极简和普通编辑页
           prevPage.setData({
             'formData.profession_id': data.id,
@@ -137,13 +141,18 @@ Page({
   },
   // 修改地址数据
   parseAddressData(data) {
-    data.forEach(item => {
+    let mainActiveIndex = 0
+    data.forEach((item, index) => {
       item.text = item.province_name
+      // 获取省项的索引
+      if (this.store.data.currentAddress.hometown.indexOf(item.province_name) != -1) {
+        mainActiveIndex = index
+      }
     })
 
     this.setData({
       items: data,
-      mainActiveIndex: 0
+      mainActiveIndex
     })
   },
   // 修改行业数据
@@ -200,12 +209,26 @@ Page({
           this.parsePositionData(res.data.data)
         })
       } else if (options.type === 'hometown') {
+        //家乡 默认显示微信授权的位置信息
+        if (this.store.data.currentAddress.hometown) {
+          this.setData({
+            hometown: this.store.data.currentAddress.hometown
+          })
+        } else {
+          getApp().getLocationCallback = (hometown) => {
+            this.setData({
+              hometown
+            })
+          }
+        }
+
         this.getAddressList({
           type: 1
         }).then(res => {
           this.parseAddressData(res.data)
         })
       } else if (options.type === 'industry') {
+        // 行业
         this.getIndustryList().then(res => {
           this.parseIndustryData(res.data.data)
         })

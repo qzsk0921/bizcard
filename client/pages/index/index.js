@@ -55,7 +55,6 @@ create(store, {
     userInfo: null,
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
-    tabbarH: null,
 
     navStatus: 'isEmpty', //isEmpty
 
