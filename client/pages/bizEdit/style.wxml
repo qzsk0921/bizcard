@@ -27,6 +27,14 @@
           </view>
         </view>
       </view>
+      <view class="sec2-nft sec">
+        <view class="tit">我的数字艺术藏品</view>
+        <view class="image-box hide-scrollbar">
+          <view class="img-item" wx:for="{{tools.parseNFT(styleList.style_image_list)}}" wx:key="id">
+            <image class="icon-nft {{item.id===currentStyleImageObj.id?'active':''}}" src="{{item.card_image}}" data-item="{{item}}" mode="aspectFill" bindtap="styleImageHandle"></image>
+          </view>
+        </view>
+      </view>
       <view class="sec3 sec" wx:if="{{currentStyleImageObj.tag_list.length}}">
         <view class="tit">展示信息</view>
         <view class="btn-box">
@@ -38,25 +46,27 @@
       </view>
       <view class="sec4-shim"></view>
       <view class="sec4">
-        <!-- <view class="btn btn-save">保存</view> -->
-        <view class="pay-box">
-          <view class="row1">
-            <view class="select-box" bindtap="readHandle">
-              <image wx:if="{{readed}}" class="icon-read" src="/assets/images/card_edit_icon_buy_n.png"></image>
-              <view wx:else class="icon-noread"></view>
+        <view wx:if="{{currentStyleImageObj.price==0.00||!currentStyleImageObj.price}}" class="btn btn-save" bindtap="saveHandle">保存</view>
+        <block wx:else>
+          <view class="pay-box">
+            <view class="row1">
+              <view class="select-box" bindtap="readHandle">
+                <image wx:if="{{readed}}" class="icon-read" src="/assets/images/card_edit_icon_buy_n.png"></image>
+                <view wx:else class="icon-noread"></view>
+              </view>
+              <text bindtap="toPurinstruction">购买须知>></text>
             </view>
-            <text bindtap="toPurinstruction">购买须知>></text>
           </view>
-        </view>
-        <view class="row2">
-          <view class="left">
-            <text>￥</text>
-            <text>68.2</text>
+          <view class="row2">
+            <view class="left">
+              <text>￥</text>
+              <text>{{currentStyleImageObj.price}}</text>
+            </view>
+            <view class="right" bindtap="payHandle">
+              购买并使用
+            </view>
           </view>
-          <view class="right">
-            购买并使用
-          </view>
-        </view>
+        </block>
       </view>
     </view>
   </view>

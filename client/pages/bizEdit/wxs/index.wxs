@@ -48,9 +48,13 @@ module.exports = {
     }
     return res
   },
-  //计算字符数
-  count:function(str) {
-    console.log(str)
-    return str.length
+  // 返回数字艺术藏品
+  parseNFT: function (imageList) {
+    if (imageList) {
+      var res = imageList.filter(function (item) {
+        return item.price != 0.00 || !item.price
+      })
+      return res
+    }
   }
 }

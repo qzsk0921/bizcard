@@ -2,11 +2,12 @@
 import store from '../../store/common'
 import create from '../../utils/create'
 import {
-  addCard
-} from '../../api/cardEdit'
-import {
+  addCard,
   getStyleList
 } from '../../api/cardEdit'
+import {
+  getCardDetail
+} from '../../api/card'
 const duration = 500
 
 // Page({
@@ -354,14 +355,19 @@ create(store, {
       })
     })
   },
+  getCardDetail(data) {
+    return new Promise((resolve, reject) => {
+      getCardDetail(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
   /**.0
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      card: this.store.data.card
-    })
-
     this.getStyleList().then(res => {
       this.setData({
         editData: res.data
@@ -391,6 +397,18 @@ create(store, {
         userInfo: this.store.data.userInfo
       })
     }
+
+    this.getCardDetail({
+      type: 1
+    }).then(res => {
+      this.store.data.card.data = res.data.card_info
+      this.store.data.card.style = res.data.card_style
+      this.update()
+
+      this.setData({
+        card: this.store.data.card
+      })
+    })
   },
 
   /**

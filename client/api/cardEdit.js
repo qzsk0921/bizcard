@@ -1,7 +1,7 @@
 import request from '../utils/request'
 /**
  * 名片编辑详情 small/BusinessCard/style_info_page
- * @param {int} sq_business_card_id 他人的名片id
+ * @param {int} sq_business_card_id 名片id
  */
 export function getStyleList(data) {
   return request({
@@ -11,11 +11,21 @@ export function getStyleList(data) {
   })
 }
 
+/**
+ * // 设置用户自定义名片图片 small/BusinessCard/set_style_image_customize_image
+ * @param {int} style_id require 版式id 极简模式 版式id:4
+ * @param {int} style_image_id require 名片图id
+ * @param {int} image_url require 自定义名片图
+ */
+export function setStyleImage(data) {
+  return request({
+    url: '/small/BusinessCard/set_style_image_customize_image',
+    method: 'post',
+    data,
+    // load: 'noload'
+  })
+}
 
-
-
-
-// 设置用户自定义名片图片 small/BusinessCard/set_style_image_cu
 /**
  * 获取名片图列表 small/BusinessCard/get_style_image_list
  * @param {int} style_id require 版式id 极简模式 版式id:4
@@ -27,7 +37,29 @@ export function getStyleImageList(data) {
     data,
   })
 }
-// 设置名片图风格 small/BusinessCard/set_style_info
+
+/**
+ * 设置名片图风格 small/BusinessCard/set_style_info
+ * @param {int} type require 2：名片图点击 1:订单
+ * @param {int} sq_business_card_id require 名片id
+ * @param {int} style_image_id 可选	int	名片图id 2:必选
+ * @param {int} order_id 可选	int	订单id 1:必须
+ * @param {int} is_name_show require 是否显示名称
+ * @param {int} is_avatar_show require 是否显示头像
+ * @param {int} is_phone_show require 是否显示手机
+ * @param {int} is_profession_show require 是否显示职业
+ * @param {int} is_company_show require 是否显示公司
+ * @param {int} is_address_show require 是否显示地址
+ * @param {int} is_email_show require 是否显示邮箱
+ */
+export function setStyleInfo(data) {
+  return request({
+    url: '/small/BusinessCard/set_style_info',
+    method: 'post',
+    data,
+    // load: 'noload'
+  })
+}
 
 /**
  * 极简模式添加 small/BusinessCard/add_simple_business_card
@@ -68,7 +100,7 @@ export function addEasyCard(data) {
  */
 export function addCard(data) {
   return request({
-    url: '/small/BusinessCard/add_simple_business_card',
+    url: '/small/BusinessCard/save_business_card',
     method: 'post',
     data,
   })
