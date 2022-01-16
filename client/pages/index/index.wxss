@@ -710,3 +710,10 @@
   width: 100vw;
   z-index: 1;
 }
+
+.canvas-box {
+  position: fixed;
+  top: 1000px;
+  left: 1000px;
+  z-index: -10;
+}

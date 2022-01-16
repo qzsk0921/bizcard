@@ -1,6 +1,7 @@
 // pages/index/index.js
 import {
-  setTabBar
+  setTabBar,
+  drawCanvas
 } from '../../utils/business'
 import config from '../../config/index'
 import store from '../../store/common'
@@ -21,7 +22,6 @@ import {
 import {
   getGoodList
 } from '../../api/shopping'
-
 const list = [{
     "pagePath": "/pages/index/index",
     "text": "我的星片",
@@ -42,12 +42,15 @@ create(store, {
    * 页面的初始数据
    */
   data: {
+    canvasWidth: 420,
+    canvasHeight: 336,
+
     canIUseGetUserProfile: false,
 
     type: 1, //	1:自己 2:他人
     fixed: 0, //是否固定定位
     TASrollTop: null, //TA切换栏距离顶部距离
-    currentId: 1, //版式id
+    cid: 1, //版式id
     is_select: 0, //协议
     isOverShare: true,
 
@@ -1060,7 +1063,7 @@ create(store, {
       this.store.data.card.data = res.data.card_info
       this.store.data.card.style = res.data.card_style
       this.update()
-      
+
       // 动态元素加载完成之后执行
       this.elOnReady()
     })
@@ -1086,6 +1089,27 @@ create(store, {
   onLoad: function (options) {
     getApp().setWatcher(this) //设置监听器
 
+    if (options.scene) {
+      let temp = {}
+
+      // const scene = decodeURIComponent(options.scene).substr(1)
+      const scene = decodeURIComponent(options.scene)
+      // console.log(scene)
+      //scene=order_id=84&user_type=1
+      //id=31&first_id=110&share_id=110
+      if (scene && scene != 'undefined') {
+        scene.split('?')[1].split('&').forEach(it => {
+          const i = it.split('=')
+          temp[i[0]] = i[1]
+        })
+      } else {
+        temp = options
+      }
+      options = temp
+    }
+
+    console.log(options)
+
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
@@ -1109,19 +1133,6 @@ create(store, {
       })
       wx.setStorageSync('jsonAddDialogVisibile', 1)
     }
-    // getApp().getSystemInfoCallback = (res => {
-    //   console.log(res)
-    //   this.setData({
-    //     compatibleInfo: res
-    //   })
-
-    //   this.store.data.compatibleInfo.systemInfo = res.systemInfo
-    //   this.store.data.compatibleInfo.navHeight = res.navHeight
-    //   this.store.data.compatibleInfo.isIphoneX = res.isIphoneX
-    //   this.store.data.compatibleInfo.isIphone = res.isIphone
-
-    //   this.update()
-    // })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -1178,14 +1189,17 @@ create(store, {
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  async onShareAppMessage(res) {
     if (res.from === 'button') {
+      const imageUrl = await drawCanvas(this,this.data.cid, this.data.allData)
+      console.log(imageUrl)
+      this.setData({tttt:imageUrl})
       // 来自页面内转发按钮
       return {
         title: ' ',
-        path: `pages/index/index?sq_business_card_id=${store.data.userInfo.id}`,
+        path: `pages/index/index`,
         // imageUrl: 'https://sharepuls.xcmbkj.com/img_enrollment.png',
-        imageUrl: '/assets/images/share_send.png',
+        imageUrl,
         success(res) {
           console.log('分享成功', res)
         },
@@ -1194,5 +1208,5 @@ create(store, {
         }
       }
     }
-  }
+  },
 })

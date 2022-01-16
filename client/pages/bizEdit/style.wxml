@@ -9,7 +9,7 @@
   </view>
   <view class="content hide-scrollbar">
     <view class="section1 section card">
-      <card cid="{{currentId}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{currentStyleImageObj}}" field="{{currentField}}" />
+      <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{currentStyleImageObj}}" field="{{currentField}}" />
     </view>
     <view class="option-box">
       <view class="sec1 sec">
@@ -27,11 +27,11 @@
           </view>
         </view>
       </view>
-      <view class="sec2-nft sec">
+      <view wx:if="{{styleList.order_list.style_image_info.length}}" class="sec2-nft sec">
         <view class="tit">我的数字艺术藏品</view>
         <view class="image-box hide-scrollbar">
-          <view class="img-item" wx:for="{{tools.parseNFT(styleList.style_image_list)}}" wx:key="id">
-            <image class="icon-nft {{item.id===currentStyleImageObj.id?'active':''}}" src="{{item.card_image}}" data-item="{{item}}" mode="aspectFill" bindtap="styleImageHandle"></image>
+          <view class="img-item" wx:for="{{tools.parseNFT(styleList.order_list.style_image_info)}}" wx:key="id">
+            <image class="icon-nft {{item.id===currentStyleImageObj.id?'active':''}}" src="{{item.card_image}}" data-item="{{item}}" data-type="nft" mode="aspectFill" bindtap="styleImageHandle"></image>
           </view>
         </view>
       </view>
@@ -46,7 +46,7 @@
       </view>
       <view class="sec4-shim"></view>
       <view class="sec4">
-        <view wx:if="{{currentStyleImageObj.price==0.00||!currentStyleImageObj.price}}" class="btn btn-save" bindtap="saveHandle">保存</view>
+        <view wx:if="{{currentStyleImageObj.is_buy}}" class="btn btn-save" bindtap="saveHandle">保存</view>
         <block wx:else>
           <view class="pay-box">
             <view class="row1">

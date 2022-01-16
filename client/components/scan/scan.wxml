@@ -1,0 +1,4 @@
+<!--components/scan/scan.wxml-->
+<!-- <text>components/scan/sacn.wxml</text> -->
+<!-- <text style="font-size:28rpx">用体验版小程序，扫生成的小程序码，进入对应页面的功能</text> -->
+<button class="btn-scan" bindtap="scanHandle">扫描</button>

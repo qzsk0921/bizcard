@@ -11,17 +11,25 @@ module.exports = {
   // 控制属性是否显示
   parseShow: function (myfield, field, taglist) {
     var res = true
-    if (field) {
+    if (taglist) {
       if (myfield === field) {
-        var ress = taglist.some(function (item) {
+        res = taglist.some(function (item) {
           if (item.field === field) {
-            if (!item.is_show) return true
+            if (item.is_show) return true
           }
           return false
         })
-        if (ress) res = false
+      } else {
+        // 保持原值
+        res = taglist.some(function (item) {
+          if (item.field === myfield) {
+            if (item.is_show) return true
+          }
+          return false
+        })
       }
     }
+
     return res
   }
 }

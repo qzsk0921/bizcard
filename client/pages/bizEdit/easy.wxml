@@ -8,7 +8,7 @@
   </view>
   <view class="content">
     <view class="section1 card">
-      <card cid="{{currentId}}" carddata="{{cardInfo}}" cardstyle="{{tools.parseStyle(formData.style_image_id,styleList)}}" />
+      <card cid="{{cid}}" carddata="{{cardInfo}}" cardstyle="{{tools.parseStyle(formData.style_image_id,styleList)}}" />
     </view>
     <form bindsubmit="formSubmit" bindreset="formReset">
       <view class="form-section">

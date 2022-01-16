@@ -7,7 +7,8 @@
     "dropdown-share": "/components/DropdownMenu/shareSheet",
     "dialog-forbidden": "/components/Dialog/forbidden",
     "card": "/components/cardFormat/format",
-    "json-add": "/components/Dialog/json-add"
+    "json-add": "/components/Dialog/json-add",
+    "scan": "/components/scan/scan"
   },
   "navigationStyle": "custom",
   "disableScroll": true

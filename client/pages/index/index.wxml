@@ -5,7 +5,13 @@
 <dropdown-diy bindtap="dropdownDiyMaskTap" opened="{{dialog.diy.opened}}" />
 <dropdown-share bindawakenBizcodeHandle="awakenBizcodeHandle" bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
 <!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
-
+<scan />
+<!--canvas盒子-->
+<view class="canvas-box">
+  <canvas canvas-id="canvas" class="canvas" style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"></canvas>
+  <!-- <canvas class="handWriting2" canvas-id="handWriting2" type="2d">
+  </canvas> -->
+</view>
 <!-- 我的名片 -->
 <view wx:if="{{userInfo.has_card}}" class="container container-index">
   <view class="fixed">
@@ -14,7 +20,7 @@
   <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
     <!-- <view class="content"> -->
     <view class="section1 card">
-      <card cid="{{currentId}}" navbarFixed="1" carddata="{{allData.card_info}}" cardstyle="{{allData.card_style}}" />
+      <card cid="{{cid}}" navbarFixed="1" carddata="{{allData.card_info}}" cardstyle="{{allData.card_style}}" />
     </view>
     <!-- 浏览和赞 -->
     <view class="section2">

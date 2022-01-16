@@ -19,7 +19,7 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    currentId: 1, //版式
+    cid: 1, //版式
     // currentStyleId: null, //样式id
     cardInfo: {
       company: '厦门阿斯达克有安居房哈公司',

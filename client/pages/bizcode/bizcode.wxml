@@ -7,9 +7,9 @@
   </view>
   <view class="content">
     <view class="section1">
-      <view class="row1">厦门星辰追梦网络科技有限公司</view>
-      <view class="row2">用户昵称</view>
-      <view class="row3">产品经理</view>
+      <view class="row1">{{card.data.company}}</view>
+      <view class="row2">{{card.data.name}}</view>
+      <view class="row3">{{card.data.profession}}</view>
       <image src="/assets/images/card_share_popup_scan.png" mode="aspectFill"></image>
     </view>
     <view class="section2">

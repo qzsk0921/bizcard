@@ -1,0 +1,12 @@
+/* components/scan/scan.wxss */
+.btn-scan {
+  position: absolute;
+  z-index: 99999;
+  margin: 10rpx auto 0;
+  color: #000;
+  padding: 15rpx 35rpx;
+  border: 1px solid #000000;
+  text-align: center;
+  border-radius: 50rpx;
+  width: 200rpx;
+}
