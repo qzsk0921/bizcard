@@ -1,16 +1,15 @@
 import request from '../utils/request'
 
 /**
- * 二维码生成接口
- * @param {string} type 1:团队车源，2:个人车源，3:商品详情，4:帮卖商品详情
- * @param {string} sq_jinzhu_id 商品的金主id type = 4 帮卖用户id
- * @param {string} goods_id require 商品id
- * @param {string} share_user_id 分享用户id，分享的时候加
+ * 生成二维码 small/UserCardList/q_code
+ * @param {int} type require 1:名片详情
+ * @param {int} b 名片id 名片详情时必选
+ * @param {int} s 分享者ID
  */
 export function getQRcode(data) {
   return request({
-    url: '/small/BusinessCard/info',
-    method: 'get',
+    url: '/small/BusinessCard/q_code',
+    method: 'post',
     data,
     load: 'noload'
   })

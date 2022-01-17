@@ -42,24 +42,25 @@ create(store, {
    * 页面的初始数据
    */
   data: {
+    tabbarPage: '/pages/index/index',
+
     canvasWidth: 420,
     canvasHeight: 336,
 
     canIUseGetUserProfile: false,
 
-    type: 1, //	1:自己 2:他人
     fixed: 0, //是否固定定位
     TASrollTop: null, //TA切换栏距离顶部距离
     cid: 1, //版式id
     is_select: 0, //协议
     isOverShare: true,
 
-    navigationBarTitleText: '我的名片',
+    navigationBarTitleText: '', //我的名片
     userInfo: null,
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
-    navStatus: 'isEmpty', //isEmpty
+    navStatus: '', //isEmpty
 
     currentSwiperIndex: 0, //初始值为0
     mapBackground: [{
@@ -781,8 +782,10 @@ create(store, {
           // wx.chooseLocation({
           // })
           wx.openLocation({
-            latitude: 24.44579,
-            longitude: 118.08243
+            // latitude: 24.44579,
+            // longitude: 118.08243
+            latitude: this.datal.allData.card_info.address_latitude,
+            longitude: this.datal.allData.card_info.address_longitude
           })
         }, 100)
       }
@@ -1005,21 +1008,40 @@ create(store, {
       userInfo
     })
 
-    if (userInfo.has_card) {
-      setTabBar.call(this)
+    if (this.data.type == 1) {
+      // 我的名片
+      if (userInfo.has_card) {
+        setTabBar.call(this)
+      } else {
+        setTabBar.call(this, {
+          list
+        })
+      }
     } else {
-      setTabBar.call(this, {
-        list
-      })
+      //他的名片
+
     }
 
-    // this.getStyleInfo().then(res => {
-    //   console.log(res)
-    // })
 
-    this.getCardDetail({
-      type: 1
-    }).then(res => {
+    const temp = {}
+    if (this.data.s) {
+      // 通过扫码打开的他人的名片
+      temp.type = this.data.type
+      temp.sq_business_card_id = this.data.b
+    } else {
+      // 自己的名片
+      temp.type = this.data.type
+    }
+
+    this.getCardDetail(temp).then(res => {
+      if (temp.type == 2) {
+        // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
+        wx.showToast({
+          icon: 'none',
+          title: '已为您将该名片至名片夹',
+        })
+      }
+
       let section4 = []
       if (res.data.card_info.mobile) {
         section4.push({
@@ -1088,27 +1110,55 @@ create(store, {
    */
   onLoad: function (options) {
     getApp().setWatcher(this) //设置监听器
+    // if (options.scene) {
+    //   let temp = {}
 
-    if (options.scene) {
-      let temp = {}
+    //   // const scene = decodeURIComponent(options.scene).substr(1)
+    //   const scene = decodeURIComponent(options.scene)
+    //   // console.log(scene)
+    //   //scene=order_id=84&user_type=1
+    //   //id=31&first_id=110&share_id=110
+    //   if (scene && scene != 'undefined') {
+    //     scene.split('?')[1].split('&').forEach(it => {
+    //       const i = it.split('=')
+    //       temp[i[0]] = i[1]
+    //     })
+    //   } else {
+    //     temp = options
+    //   }
+    //   options = temp
+    // }
+    let temp = {}
 
-      // const scene = decodeURIComponent(options.scene).substr(1)
-      const scene = decodeURIComponent(options.scene)
-      // console.log(scene)
-      //scene=order_id=84&user_type=1
-      //id=31&first_id=110&share_id=110
-      if (scene && scene != 'undefined') {
-        scene.split('?')[1].split('&').forEach(it => {
-          const i = it.split('=')
-          temp[i[0]] = i[1]
-        })
+    if (JSON.stringify(options) == "{}") {
+      temp.type = 1
+      temp.navigationBarTitleText = '我的名片'
+      temp.navStatus = 'isEmpty'
+    } else {
+      if (options.q) {
+        // 扫码进入
+        const q = decodeURIComponent(options.q) // 获取到二维码原始链接内容
+        // const scancode_time = parseInt(options.scancode_time) // 获取用户扫码时间 UNIX 时间戳
+        if (q && q != 'undefined') {
+          q.split('?')[1].split('&').forEach(it => {
+            const i = it.split('=')
+            temp[i[0]] = i[1]
+          })
+        } else {
+          temp = options
+        }
+        temp.navStatus = 'isEntryWithShare'
       } else {
         temp = options
+        // 调试后删除--------------------------------------------
+        temp.navStatus = 'isEntryWithShare'
       }
-      options = temp
     }
+    options = temp
 
+    // {type: "2", b: "4269", s: "3452"}
     console.log(options)
+    this.setData(options)
 
     if (wx.getUserProfile) {
       this.setData({
@@ -1191,9 +1241,11 @@ create(store, {
    */
   async onShareAppMessage(res) {
     if (res.from === 'button') {
-      const imageUrl = await drawCanvas(this,this.data.cid, this.data.allData)
+      const imageUrl = await drawCanvas(this, this.data.cid, this.data.allData)
       console.log(imageUrl)
-      this.setData({tttt:imageUrl})
+      this.setData({
+        tttt: imageUrl
+      })
       // 来自页面内转发按钮
       return {
         title: ' ',

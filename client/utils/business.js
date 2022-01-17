@@ -45,39 +45,39 @@ async function drawCanvas1(that, drawData) {
   ctx.drawImage(cardImageInfo.path, 0, 0, 420, 244);
   // 公司
   ctx.save(); // 先保存状态 已便于画完再用
-  ctx.setFontSize(28)
+  ctx.setFontSize(16)
   ctx.setFillStyle(drawData.card_style.company_color);
-  ctx.fillText(drawData.card_info.company, 44, 40);
+  ctx.fillText(drawData.card_info.company, 24, 26 + 8);
   // 姓名
-  ctx.setFontSize(46)
+  ctx.setFontSize(28)
   ctx.setFillStyle(drawData.card_style.name_color);
-  ctx.fillText(drawData.card_info.name, 44, 102);
+  ctx.fillText(drawData.card_info.name, 24, 60 + 14);
   // 职位
   if (drawData.card_info.profession) {
-    ctx.setFontSize(22)
+    ctx.setFontSize(13)
     ctx.setFillStyle(drawData.card_style.profession_color);
-    ctx.fillText(drawData.card_info.profession, 44, 170);
+    ctx.fillText(drawData.card_info.profession, 24, 102 + 6);
   }
   // 电话
   if (drawData.card_info.mobile) {
-    const imgInfo = await getLocalImg(drawData.card_style.address_image)
-    ctx.setFontSize(28)
+    const imgInfo = await getLocalImg(drawData.card_style.phone_image)
+    ctx.setFontSize(18)
     ctx.setFillStyle(drawData.card_style.mobile_color);
     if (drawData.card_info.address) {
-      ctx.drawImage(imgInfo.path, 47, 278, imgInfo.width, imgInfo.height);
-      ctx.fillText(drawData.card_info.mobile, 76, 278);
+      ctx.drawImage(imgInfo.path, 26, 167 - imgInfo.height / 2 / 2, imgInfo.width / 2, imgInfo.height / 2);
+      ctx.fillText(drawData.card_info.mobile, 46, 166 + 9);
     } else {
-      ctx.drawImage(imgInfo.path, 47, 188-imgInfo.height, imgInfo.width, imgInfo.height);
-      ctx.fillText(drawData.card_info.mobile, 76, 188);
+      ctx.drawImage(imgInfo.path, 26, 198 - imgInfo.height / 2 / 2, imgInfo.width / 2, imgInfo.height / 2);
+      ctx.fillText(drawData.card_info.mobile, 46, 198 + 9);
     }
   }
   // 地址
   if (drawData.card_info.address) {
     const imgInfo = await getLocalImg(drawData.card_style.address_image)
-    ctx.drawImage(imgInfo.path, 47, 328, imgInfo.width, imgInfo.height);
-    ctx.setFontSize(24)
+    ctx.drawImage(imgInfo.path, 26, 198 - imgInfo.height / 2 / 2, imgInfo.width / 2, imgInfo.height / 2);
+    ctx.setFontSize(14)
     ctx.setFillStyle(drawData.card_style.address_color);
-    ctx.fillText(drawData.card_info.address, 76, 328);
+    ctx.fillText(drawData.card_info.address, 46, 198 + 7);
   }
   // 保存按钮
   ctx.drawImage('/assets/images/btn.png', 0, 244, 420, 92);
@@ -189,23 +189,23 @@ async function drawCanvas1(that, drawData) {
     ctx.draw(false, (() => {
       // 延时生成图片 否则真机测试文字会样式混乱
       setTimeout(() => {
-      // 生成图片
-      wx.canvasToTempFilePath({
-        canvasId: 'canvas',
-        success: res => {
-          // wx.hideLoading();
-          // res.tempFilePath
-          console.log(res)
-          resolve(res.tempFilePath)
-        },
-        fail: (err) => {
-          console.log(err)
-          // wx.showToast({
-          //   title: '图片生成失败~',
-          //   icon: 'none'
-          // });
-        }
-      }, that)
+        // 生成图片
+        wx.canvasToTempFilePath({
+          canvasId: 'canvas',
+          success: res => {
+            // wx.hideLoading();
+            // res.tempFilePath
+            console.log(res)
+            resolve(res.tempFilePath)
+          },
+          fail: (err) => {
+            console.log(err)
+            // wx.showToast({
+            //   title: '图片生成失败~',
+            //   icon: 'none'
+            // });
+          }
+        }, that)
       }, 300)
     })())
   })

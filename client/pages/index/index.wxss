@@ -158,10 +158,7 @@
   overflow: scroll;
 }
 
-.container-index .section1 {
-
-
-}
+.container-index .section1 {}
 
 .container-index .section2 {
   margin-top: 44rpx;
@@ -231,6 +228,7 @@
 }
 
 .section3 .btn-reply,
+.section3 btn-contact,
 .section3 .btn-send {
   background: #4980F9;
   color: #FFFFFF;
@@ -246,6 +244,11 @@
 .section3 .btn-send image {
   width: 36rpx;
   height: 36rpx;
+}
+
+.section3 btn-contact image {
+  width: 34rpx;
+  height: 34rpx;
 }
 
 .section3 .btn text {

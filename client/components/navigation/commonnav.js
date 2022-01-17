@@ -34,7 +34,7 @@ create({
   },
   observers: {
     'navHeight': function (val) {
-      if(!val) {
+      if (!val) {
         wx.getSystemInfo().then(res => {
           const navHeight = res.statusBarHeight + store.data.compatibleInfo.menuButtonObject.height + (store.data.compatibleInfo.menuButtonObject.top - res.statusBarHeight) * 2
 
@@ -44,17 +44,17 @@ create({
         })
       }
     },
-    'navTop':function(val) {
-      if(!val) {
+    'navTop': function (val) {
+      if (!val) {
         this.setData({
-          navTop:wx.getMenuButtonBoundingClientRect().top
+          navTop: wx.getMenuButtonBoundingClientRect().top
         })
       }
     },
-    'menuButtonHeight':function(val) {
-      if(!val) {
+    'menuButtonHeight': function (val) {
+      if (!val) {
         this.setData({
-          menuButtonHeight:wx.getMenuButtonBoundingClientRect().height
+          menuButtonHeight: wx.getMenuButtonBoundingClientRect().height
         })
       }
     },
@@ -76,13 +76,16 @@ create({
     navigateBackHandle(e) {
       const _data = this.data,
         el = e.target.dataset.el
-      // console.log(_data)
+
       if (_data.tabbarPage) {
         // tabbar页面优先处理
         if (el) {
           // 点击左边的元素触发
-          wx.switchTab({
-            url: _data.tabbarPage,
+          // wx.switchTab({
+          //   url: _data.tabbarPage,
+          // })
+          wx.reLaunch({
+            url: _data.tabbarPage
           })
         }
       } else {
@@ -93,7 +96,7 @@ create({
               url: '/pages/index/index',
             })
           }
-        } else if(_data.status==='bizholder') {
+        } else if (_data.status === 'bizholder') {
           if (el) {
             wx.navigateTo({
               url: '/pages/bizmsg/bizmsg',
@@ -148,7 +151,7 @@ create({
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
-      
+
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行

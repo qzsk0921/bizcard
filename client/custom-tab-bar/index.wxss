@@ -3,7 +3,8 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
+  /* right: 0; */
+  width: 100%;
   height: 100rpx;
   background: white;
   display: flex;
@@ -39,3 +40,28 @@
   font-weight: bold;
   line-height: 30rpx;
 }
+
+.tab-bar.hide {
+  visibility: hidden;
+  width: 0;
+  opacity: 0;
+  bottom: -10000rpx;
+  left: -10000rpx;
+  background: transparent;
+  border-color: transparent;
+  z-index: -99999999 !important;
+  height: 0;
+  padding-bottom: 0;
+}
+
+/* .hide .tab-bar-border {
+  width: 0;
+  height: 0;
+} */
+
+/* .hide .tab-bar-item {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+} */

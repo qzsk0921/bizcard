@@ -37,13 +37,17 @@ create({
     },
     attached: function () {
       const query = wx.createSelectorQuery().in(this);
-      // 在组件实例进入页面节点树时执行
-      query.select('.tab-bar').boundingClientRect(function (rect) {
-        if (rect.height) {
-          store.data.compatibleInfo.tabbarH = rect.height
-          store.update()
-        }
-      }).exec();
+
+      setTimeout(()=>{
+        // 在组件实例进入页面节点树时执行
+        query.select('.tab-bar').boundingClientRect(function (rect) {
+          if (rect.height) {
+            store.data.compatibleInfo.tabbarH = rect.height
+            store.update()
+          }
+        }).exec();
+      },500)
+      
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行

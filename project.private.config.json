@@ -83,6 +83,18 @@
           "pathName": "pages/bizEdit/style",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "type=2&b=4269&s=3452",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

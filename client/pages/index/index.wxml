@@ -5,7 +5,7 @@
 <dropdown-diy bindtap="dropdownDiyMaskTap" opened="{{dialog.diy.opened}}" />
 <dropdown-share bindawakenBizcodeHandle="awakenBizcodeHandle" bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
 <!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
-<scan />
+<!-- <scan /> -->
 <!--canvas盒子-->
 <view class="canvas-box">
   <canvas canvas-id="canvas" class="canvas" style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"></canvas>
@@ -15,7 +15,7 @@
 <!-- 我的名片 -->
 <view wx:if="{{userInfo.has_card}}" class="container container-index">
   <view class="fixed">
-    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" />
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" tabbarPage="{{tabbarPage}}" />
   </view>
   <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
     <!-- <view class="content"> -->
@@ -37,21 +37,26 @@
     </view>
     <!-- 推荐和联系等按钮 -->
     <view class="section3">
-      <button wx:if="{{type===1}}" class="btn btn-edit" bindtap="editHandle">
+      <button wx:if="{{type==1}}" class="btn btn-edit" bindtap="editHandle">
         <image src="/assets/images/card_edit.png" mode="aspectFill"></image>
         <text>名片编辑</text>
       </button>
-      <button wx:if="{{type===2}}" class="btn btn-share">
+      <button wx:if="{{type==2}}" class="btn btn-share" open-type="share">
         <image src="/assets/images/card_recommend.png" mode="aspectFill"></image>
         <text>推荐给好友</text>
       </button>
-      <button wx:if="{{type===1}}" class="btn btn-send" bindtap="sendHandle">
+      <button wx:if="{{type==1}}" class="btn btn-send" bindtap="sendHandle">
         <image src="/assets/images/card_back.png" mode="aspectFill"></image>
         <text>递名片</text>
       </button>
-      <button wx:if="{{type===2}}" class="btn btn-reply">
+      <!-- 0:没有对方名片 1:有对方名片 2:双方互存 -->
+      <button wx:if="{{type==2&&allData.card_status!=2}}" class="btn btn-reply">
         <image src="/assets/images/card_back.png" mode="aspectFill"></image>
         <text>回递名片</text>
+      </button>
+      <button wx:if="{{type==2&&allData.card_status==2}}" class="btn btn-contact">
+        <image src="/assets/images/card_calll.png" mode="aspectFill"></image>
+        <text>联系Ta</text>
       </button>
     </view>
     <!-- 电话 邮箱 地址... -->

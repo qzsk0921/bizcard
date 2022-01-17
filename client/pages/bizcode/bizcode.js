@@ -24,14 +24,14 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.store.data.card)
     this.setData({
       card: this.store.data.card
     })
     const tempData = {
-      // type: 3,
-      // sq_jinzhu_id: this.data.detail.sq_jinzhu_id,
-      // goods_id: this.data.detail.id,
-      // share_user_id: store.data.userInfo.id
+      type: 1,
+      b: this.store.data.card.data.id,
+      s: this.store.data.userInfo.id
     }
     getQRcode(tempData).then(res => {
       this.setData({

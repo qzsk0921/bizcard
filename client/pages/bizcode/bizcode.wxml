@@ -10,7 +10,7 @@
       <view class="row1">{{card.data.company}}</view>
       <view class="row2">{{card.data.name}}</view>
       <view class="row3">{{card.data.profession}}</view>
-      <image src="/assets/images/card_share_popup_scan.png" mode="aspectFill"></image>
+      <image src="{{qrcode}}" mode="aspectFill"></image>
     </view>
     <view class="section2">
       请惠存~
