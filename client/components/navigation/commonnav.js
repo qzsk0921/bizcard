@@ -7,6 +7,7 @@ create({
    * 组件的属性列表
    */
   properties: {
+    type: Number, //1我的名片 2他的名片
     color: String,
     bgColor: String,
     navigationBarTitleText: String,
@@ -84,6 +85,13 @@ create({
           // wx.switchTab({
           //   url: _data.tabbarPage,
           // })
+          
+          // 除Ta的简介、Ta的产品、Ta的企业、Ta的评价可点击切换内容以外，其他可点击内容，用户未授权微信，直接显示微信授权弹窗
+          if (!store.data.userInfo.avatar_url && this.data.type == 2 && _data.tabbarPage == '/pages/index/index') {
+            this.triggerEvent('awakenDialogAuth')
+            return
+          }
+
           wx.reLaunch({
             url: _data.tabbarPage
           })

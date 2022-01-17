@@ -35,7 +35,8 @@
   left: 0;
   top: 100%;
   overflow: hidden;
-  padding: 48rpx 0 40rpx 28rpx;
+  padding: 48rpx 0 0 28rpx;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .row1 {
@@ -60,7 +61,7 @@
 }
 
 .row3 {
-  margin-top: 34rpx;
+  margin: 34rpx 0 40rpx 0;
   width: 694rpx;
   height: 72rpx;
   line-height: 72rpx;

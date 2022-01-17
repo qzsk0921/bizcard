@@ -385,7 +385,23 @@
 .section5 .introduce .sec1 .hometown {
   height: 98rpx;
   font-size: 26rpx;
-  line-height: 98rpx;
+  /* line-height: 98rpx; */
+  color: #333333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section5 .introduce .sec1 .hometown .btn-hometown {
+  text-align: center;
+  width: 120rpx;
+  height: 60rpx;
+  border: 2rpx solid #F2F2F2;
+  background: linear-gradient(180deg, #FCFCFC 0%, #F2F2F2 100%);
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  line-height: 60rpx;
   color: #333333;
 }
 

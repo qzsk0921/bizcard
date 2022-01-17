@@ -52,6 +52,7 @@ export function setTownsman(data) {
     url: '/small/BusinessCard/fellow_townsman',
     method: 'post',
     data,
+    load: 'noload'
   })
 }
 

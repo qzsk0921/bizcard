@@ -1,7 +1,10 @@
 // pages/returnbiz/returnbiz.js
 import store from '../../store/common'
 import create from '../../utils/create'
-
+import {
+  returnCard
+} from '../../api/card'
+const duration = 500
 // Page({
 create(store, {
 
@@ -11,7 +14,7 @@ create(store, {
   data: {
     currentCount: 0,
     content: '',
-    
+
     userInfo: null,
     navigationBarTitleText: '回递名片',
     systemInfo: null,
@@ -19,7 +22,7 @@ create(store, {
   },
   inputHandle(e) {
     // console.log(e)
-    // let content = e.detail.value
+    let content = e.detail.value
     let len = e.detail.value.length
 
     if (len > 100) {
@@ -29,7 +32,27 @@ create(store, {
 
     this.setData({
       currentCount: len,
-      // content
+      content
+    })
+  },
+  // 回递名片
+  returnbizHandle() {
+    // console.log(this.data.content)
+    this.returnCard({
+      sq_business_card_id: this.store.data.card.data.id,
+      remark: this.data.content
+    }).then(res => {
+      wx.showToast({
+        icon: 'none',
+        title: res.msg,
+        duration
+      })
+
+      setTimeout(() => {
+        wx.navigateBack({
+          delta: 0,
+        })
+      }, duration)
     })
   },
   /**
@@ -61,6 +84,10 @@ create(store, {
         userInfo: this.store.data.userInfo
       })
     }
+
+    this.setData({
+      card: this.store.data.card
+    })
   },
 
   /**
@@ -96,5 +123,14 @@ create(store, {
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  returnCard(data) {
+    return new Promise((resolve, reject) => {
+      returnCard(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
 })

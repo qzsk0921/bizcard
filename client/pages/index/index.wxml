@@ -15,7 +15,7 @@
 <!-- 我的名片 -->
 <view wx:if="{{userInfo.has_card}}" class="container container-index">
   <view class="fixed">
-    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" tabbarPage="{{tabbarPage}}" />
+    <top-navigation bindawakenDialogAuth="awakenDialogAuth" navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" tabbarPage="{{tabbarPage}}" type="{{type}}" />
   </view>
   <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
     <!-- <view class="content"> -->
@@ -50,11 +50,11 @@
         <text>递名片</text>
       </button>
       <!-- 0:没有对方名片 1:有对方名片 2:双方互存 -->
-      <button wx:if="{{type==2&&allData.card_status!=2}}" class="btn btn-reply">
+      <button wx:if="{{type==2&&allData.card_status!=2}}" class="btn btn-reply" bindtap="replyHandle">
         <image src="/assets/images/card_back.png" mode="aspectFill"></image>
         <text>回递名片</text>
       </button>
-      <button wx:if="{{type==2&&allData.card_status==2}}" class="btn btn-contact">
+      <button wx:if="{{type==2&&allData.card_status==2}}" class="btn btn-contact" bindtap="contactHandle">
         <image src="/assets/images/card_calll.png" mode="aspectFill"></image>
         <text>联系Ta</text>
       </button>
@@ -93,14 +93,15 @@
                 {{allData.card_info.introduce_myself}}
               </view>
               <view wx:if="{{allData.card_info_label_list.length}}" class="tags">
-                <view class="tag btn btn-zan" wx:for="{{allData.card_info_label_list}}" wx:key="unique">{{item.name}} {{item.zan_num}}</view>
+                <view class="tag btn btn-zan" wx:for="{{allData.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}} {{item.zan_num}}</view>
               </view>
               <view wx:if="{{allData.card_info.hometown}}" class="hometown">
-                {{allData.card_info.hometown}}
+                <view class="text">{{allData.card_info.hometown}}</view>
+                <view wx:if="{{type==2}}" class="btn btn-hometown" bindtap="hometownHandle">是同乡</view>
               </view>
             </view>
             <view wx:if="{{allData.card_info.vidieo_url}}" class="sec2">
-              <view class="tit">TA的视频</view>
+              <view class="tit">{{type==1?'我':'TA'}}的视频</view>
               <video src="{{allData.card_info.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
             </view>
           </view>

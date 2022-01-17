@@ -52,10 +52,12 @@
 
 .dropdown-item-down__content .text {
   margin: 26rpx auto 0;
-  color: #333333;
-  width: 330rpx;
-  font-size: 30rpx;
+}
+
+.dropdown-item-down__content .text view {
   line-height: 38rpx;
+  font-size: 30rpx;
+  color: #333333;
 }
 
 .dropdown-item-down__content .btn-auth {

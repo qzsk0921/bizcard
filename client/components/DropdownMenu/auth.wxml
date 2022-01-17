@@ -2,12 +2,12 @@
 <!-- <text>components/DropdownMenu/auth.wxml</text> -->
 <view class="dropdown-item-down {{opened?'opened':''}}">
   <view class="mask"></view>
-  <view class="dropdown-item-down__content" style="{{opened?'transform:translateY('+(-height)+'px)':''}}">
+  <view class="dropdown-item-down__content" style="{{opened?'transform:translateY('+(-height)+'px)':''}}" catchtap="dropdownItemTapHandle">
     <block class="userinfo">
       <view class="avatar" bindtap="bindViewTap">
         <open-data type="userAvatarUrl" default-avatar="../../assets/images/my share_img_head_close@2x.png"></open-data>
       </view>
-      <view class="text">为了保护他人的隐私授权后可查看对方的星片</view>
+      <view class="text"><view>为了保护他人的隐私</view><view>授权后可查看对方的星片</view></view>
       <!-- <open-data class="text" type="userNickName"></open-data> -->
     </block>
     <button class="btn-auth btn" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 授权微信 </button>

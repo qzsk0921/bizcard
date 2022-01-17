@@ -1,7 +1,7 @@
 // src/components/dialog/auth.js
-// import {
-//   update
-// } from '../../api/user'
+import {
+  updateUserInfo
+} from '../../api/user'
 import store from '../../store/common'
 import create from '../../utils/create'
 
@@ -25,16 +25,17 @@ create({
       if (val === 1) {
         const query = wx.createSelectorQuery().in(this)
         query.select('.dropdown-item-down__content').boundingClientRect(rect => {
-          // 如果是switchTab页面，加tabbar高度
-          const tabbarRoutes = this.getTabBar().data.list
-          const currentRoute = getCurrentPages()[getCurrentPages().length - 1].route
-          const res = tabbarRoutes.some(item =>
-            item.pagePath === currentRoute || item.pagePath === '/' + currentRoute
-          )
-
           let height = rect.height
-          if (res) {
-            height += store.data.compatibleInfo.tabbarH
+
+          // 如果是switchTab页面，加tabbar高度
+          if (this.getTabBar().data.list) {
+            const tabbarRoutes = this.getTabBar().data.list
+            const currentRoute = getCurrentPages()[getCurrentPages().length - 1].route
+            const res = tabbarRoutes.some(item => item.pagePath === currentRoute || item.pagePath === '/' + currentRoute)
+
+            if (res) {
+              height += store.data.compatibleInfo.tabbarH
+            }
           }
 
           this.setData({
@@ -43,13 +44,6 @@ create({
         }).exec()
       }
     },
-  },
-  attached() {
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
-    }
   },
   /**
    * 组件的初始数据
@@ -64,6 +58,9 @@ create({
    * 组件的方法列表
    */
   methods: {
+    dropdownItemTapHandle() {
+
+    },
     toRuleHandle(e) {
       // console.log(e)
       const id = e.target.dataset.id
@@ -81,13 +78,21 @@ create({
           // console.log(res)
           this.setData({
             userInfo: res.userInfo,
-            hasUserInfo: true
+            // hasUserInfo: true
           })
 
-          this.update(res.userInfo).then(res => {
+          this.updateUserInfo(res.userInfo).then(res => {
             this.setData({
-              dialogVisible: false
+              opened: 0
             })
+            store.data.userInfo['avatar_url'] = res.userInfo.avatarUrl
+            store.data.userInfo['city'] = res.userInfo.city
+            store.data.userInfo['country'] = res.userInfo.country
+            store.data.userInfo['gender'] = res.userInfo.gender
+            store.data.userInfo['language'] = res.userInfo.language
+            store.data.userInfo['nick_name'] = res.userInfo.nickName
+            store.data.userInfo['province'] = res.userInfo.province
+            store.update()
             // 授权成功
             this.triggerEvent('updated', true)
             setTimeout(() => {
@@ -125,15 +130,12 @@ create({
     },
     nosigninHandle() {
       this.setData({
-        dialogVisible: false
+        opened: 0
       })
-      setTimeout(() => {
-        this.triggerEvent('nosignin', false)
-      }, 400)
     },
-    update(data) {
+    updateUserInfo(data) {
       return new Promise((resolve, reject) => {
-        update(data).then(res => {
+        updateUserInfo(data).then(res => {
           resolve(res)
         }).catch(res => {
           reject(res)
