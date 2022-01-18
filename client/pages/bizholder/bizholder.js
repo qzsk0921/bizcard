@@ -1,10 +1,14 @@
 // pages/bizholder/bizholder.js
+import store from '../../store/common'
+import create from '../../utils/create'
 import {
   setTabBar
 } from '../../utils/business'
-import store from '../../store/common'
-import create from '../../utils/create'
-
+import {
+  getCardList,
+  getCardMsgNum,
+  delCardList
+} from '../../api/cardHolder'
 // Page({
 create(store, {
 
@@ -12,6 +16,7 @@ create(store, {
    * 页面的初始数据
    */
   data: {
+    isOverShare: true,
     navStatus: 'bizholder',
     navigationBarTitleText: '星片夹',
     userInfo: null,
@@ -19,39 +24,34 @@ create(store, {
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
     listData: {
-      cache: [{
-        id: 1,
-        avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        nickname: '昵称',
-        company: '厦门星辰追梦科技有限公司',
-        position: '产品经理',
-        date: '2021/05/14',
-        precent: '80%'
-      }, {
-        id: 2,
-        avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        nickname: '昵称',
-        company: '厦门星辰追梦科技有限公司打到几点第九大队京东到家的角度讲',
-        position: '产品经理',
-        date: '2021/05/14',
-        precent: '60%'
-      }, {
-        id: 3,
-        avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        nickname: '昵称',
-        company: '厦门星辰追梦科技有限公司',
-        position: '产品经理',
-        date: '2021/05/14',
-        precent: '60%'
-      }, {
-        id: 4,
-        avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        nickname: '昵称',
-        company: '厦门星辰追梦科技有限公司',
-        position: '产品经理',
-        date: '2021/05/14',
-        precent: '60%'
-      }],
+      cache: [
+        //   {
+        //   "id": 1,
+        //   "user_id": 1,
+        //   "sq_business_card_id": 2,
+        //   "avatar": "/assets/images/card_share_popup_wechat.png",
+        //   "name": "任剑飞",
+        //   "profession": "",
+        //   "company": "未来健康",
+        //   "status": 1,
+        //   "update_time": 1641960017,
+        //   "create_time": 0,
+        //   intention_num: 70
+        // },
+        // {
+        //   "id": 2,
+        //   "user_id": 1,
+        //   "sq_business_card_id": 2,
+        //   "avatar": "/assets/images/card_share_popup_wechat.png",
+        //   "name": "任剑飞",
+        //   "profession": "",
+        //   "company": "未来健康",
+        //   "status": 1,
+        //   "update_time": 1641960017,
+        //   "create_time": 0,
+        //   intention_num: 10
+        // }
+      ],
       count: 1,
       total_page: 1,
     },
@@ -59,7 +59,7 @@ create(store, {
     page_size: 10,
 
     remind: 1, //有新的朋友发来名片 0没有 1有
-    searchKeyword: '',
+    searchKeyword: '', //搜索关键字
     selectArr: [], //选中的id数组
     isSelectAll: 0, //默认非全选 0未全选 1全选
     status: 'edit' //edit 待编辑,editing 编辑中
@@ -77,7 +77,7 @@ create(store, {
           isSelectAll
         })
       },
-    }
+    },
   },
   // 完成按钮
   completeHandle() {
@@ -93,12 +93,24 @@ create(store, {
   },
   // 底部删除按钮
   delHandle() {
+    const that = this
     wx.showModal({
       title: '提示',
       content: '确定删除吗',
       success(res) {
         if (res.confirm) {
           console.log('用户点击确定')
+          // 删除选中名片
+          that.delCardList({
+            ids: that.data.selectArr
+          }).then(res => {
+            // 若列表数据删空，显示空数据时的样式，样式还原回未编辑状态
+            that.setData({
+              status: 'edit',
+              'listData.count': 1
+            })
+            that.getCardList()
+          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -147,19 +159,24 @@ create(store, {
       searchKeyword: e.detail.value
     })
   },
-  // 搜索
+  // 搜索-按钮
   btnSearchHandle() {
     // console.log('搜索')
     console.log(this.data.searchKeyword)
     this.setData({
+      'listData.count': 1,
       status: 'edit'
     })
+    this.getCardList()
   },
+  // 搜索-回车
   bindconfirmHandle(e) {
     console.log(e.detail.value)
     this.setData({
+      'listData.count': 1,
       status: 'edit'
     })
+    this.getCardList()
   },
   scrollToLower() {
     console.log(e)
@@ -173,18 +190,14 @@ create(store, {
       'listData.count': ++listData.count
     })
 
-    // this.getGoodsList('scrollToLower').then(res => {
-    //   listData.cache.push(...res.data.data)
-    //   this.setData({
-    //     [`listData.cache`]: listData.cache
-    //   })
-    // })
+    this.getCardList('scrollToLower')
   },
 
-  getGoodsList(dataObj) {
+  getCardList(dataObj) {
     const tempData = {
       page: this.data.listData.count,
       page_size: this.data.page_size,
+      keyword: this.data.searchKeyword
     }
 
     if (typeof dataObj === 'object') {
@@ -194,7 +207,7 @@ create(store, {
     }
 
     return new Promise((resolve, reject) => {
-      getGoodsList(tempData).then(res => {
+      getCardList(tempData).then(res => {
         if (dataObj === 'scrollToLower') {
           this.data.listData.cache.push(...res.data.data)
           this.setData({
@@ -206,7 +219,8 @@ create(store, {
         } else {
           this.setData({
             'listData.cache': res.data.data,
-            'listData.total_page': res.data.last_page
+            'listData.total_page': res.data.last_page,
+            'listData.total': res.data.total
           })
         }
       }).catch(err => {
@@ -214,11 +228,43 @@ create(store, {
       })
     })
   },
+  getCardMsgNum() {
+    return new Promise((resolve, reject) => {
+      getCardMsgNum().then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  delCardList(data) {
+    return new Promise((resolve, reject) => {
+      delCardList(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  // 隐藏消息提醒
+  navHandle() {
+    this.setData({
+      remind: 0
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     getApp().setWatcher(this) //设置监听器
+    this.getCardList()
+    this.getCardMsgNum().then(res => {
+      if (res.data.total_number) {
+        this.setData({
+          remind: 1
+        })
+      }
+    })
   },
 
   /**
@@ -307,7 +353,22 @@ create(store, {
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    // console.log(res)
+    if (res.from === 'button') {
+      // const imageUrl = await drawCanvas(this, this.data.cid, this.data.allData)
+      // 来自页面内转发按钮
+      return {
+        title: ' ',
+        path: `pages/index/index?type=2&b=${this.store.data.card.data.id}&s=${this.store.data.userInfo.id}`,
+        imageUrl: '/assets/images/share_send.png',
+        success(res) {
+          console.log('分享成功', res)
+        },
+        fail(res) {
+          console.log(res)
+        }
+      }
+    }
   }
 })

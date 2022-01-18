@@ -1,5 +1,7 @@
 /* pages/ta/evaluate/list.wxss */
-.container-ta-evaluate {}
+.container-ta-evaluate {
+  background: #ffffff;
+}
 
 .content {
   padding: 0 35rpx;
@@ -82,5 +84,9 @@
 .content .item .row1 .col2 .thumb-box .num {
   margin-left: 10rpx;
   font-size: 24rpx;
+  color: #E2E2E2;
+}
+
+.content .item .row1 .col2 .thumb-box.active .num {
   color: #FFB70F;
 }

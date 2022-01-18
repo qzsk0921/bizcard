@@ -42,6 +42,8 @@ create({
             height
           })
         }).exec()
+      } else {
+        this.triggerEvent('close')
       }
     },
   },

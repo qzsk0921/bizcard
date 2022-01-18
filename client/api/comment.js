@@ -33,7 +33,7 @@ export function setCommentZan(data) {
  * @param {sting} comment require 评论内容
  * @param {int} score require 评分
  */
-export function addComment(data) {
+export function addZanComment(data) {
   return request({
     url: '/small/Comment/add_comment',
     method: 'post',

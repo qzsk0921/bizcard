@@ -1,8 +1,10 @@
 <!--pages/index/index.wxml-->
 <!-- <text>pages/index/index.wxml</text> -->
+<wxs src="../../wxs/common.wxs" module="tools"></wxs>
+
 <dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.telephone.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephone.telephoneObj}}" />
-<dropdown-auth bindtap="dropdownAuthMaskTap" opened="{{dialog.auth.opened}}" />
-<dropdown-diy bindtap="dropdownDiyMaskTap" opened="{{dialog.diy.opened}}" />
+<dropdown-auth bindtap="dropdownAuthMaskTap" bindclose="authCloseHandle" opened="{{dialog.auth.opened}}" />
+<dropdown-diy bindtap="dropdownDiyMaskTap" bindawakenDialogAuth="awakenDialogAuth" opened="{{dialog.diy.opened}}" />
 <dropdown-share bindawakenBizcodeHandle="awakenBizcodeHandle" bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
 <!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
 <!-- <scan /> -->
@@ -19,6 +21,7 @@
   </view>
   <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
     <!-- <view class="content"> -->
+
     <view class="section1 card">
       <card cid="{{cid}}" navbarFixed="1" carddata="{{allData.card_info}}" cardstyle="{{allData.card_style}}" />
     </view>
@@ -93,11 +96,11 @@
                 {{allData.card_info.introduce_myself}}
               </view>
               <view wx:if="{{allData.card_info_label_list.length}}" class="tags">
-                <view class="tag btn btn-zan" wx:for="{{allData.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}} {{item.zan_num}}</view>
+                <view class="tag btn btn-zan {{item.zan_status?'active':''}}" wx:for="{{allData.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
               </view>
               <view wx:if="{{allData.card_info.hometown}}" class="hometown">
                 <view class="text">{{allData.card_info.hometown}}</view>
-                <view wx:if="{{type==2}}" class="btn btn-hometown" bindtap="hometownHandle">是同乡</view>
+                <view wx:if="{{type==2}}" class="btn btn-hometown {{allData.hometown_status?'active':''}}" bindtap="hometownHandle">是同乡</view>
               </view>
             </view>
             <view wx:if="{{allData.card_info.vidieo_url}}" class="sec2">
@@ -136,7 +139,7 @@
               </view>
               <view wx:if="{{allData.card_info.company_introduce_image_arr.length}}" class="sec3">
                 <view class="image-box hide-scrollbar">
-                  <image wx:for="{{allData.card_info.company_introduce_image_arr}}" src="{{item}}" mode="aspectFill"></image>
+                  <image wx:for="{{allData.card_info.company_introduce_image_arr}}" wx:key="unique" src="{{item}}" mode="aspectFill"></image>
                 </view>
               </view>
             </view>
@@ -156,7 +159,7 @@
                     <view class="left">
                       <image class="col1 avatar" src="{{item.avatar}}" mode="aspectFill"></image>
                       <view class="col2">
-                        <view class="nickname">{{item.nick_name}}</view>
+                        <view class="nickname">{{tools.parseUnicode(item.nick_name)}}</view>
                         <van-rate value="{{item.score}}" count="{{item.score}}" color="#FFB70F" />
                       </view>
                     </view>
@@ -169,10 +172,6 @@
                   <view class="row3">{{item.create_time}}</view>
                 </view>
               </view>
-            </view>
-            <view class="btn btn-comment" bindtap="toEvaluatesubmitHandle">
-              <image src="/assets/images/card_evaluate.png" mode="aspectFill"></image>
-              <text>立即评价</text>
             </view>
           </scroll-view>
         </view>
@@ -228,3 +227,9 @@
 </view>
 
 <json-add dialogVisible="{{jsonAddDialogVisibile}}" navHeight="{{compatibleInfo.navHeight}}" />
+
+<!-- 他的评价-选项底部 -->
+<view wx:if="{{tabIndex==3&&type==2}}" class="btn btn-comment" bindtap="toEvaluatesubmitHandle">
+  <image src="/assets/images/card_evaluate.png" mode="aspectFill"></image>
+  <text>立即评价</text>
+</view>

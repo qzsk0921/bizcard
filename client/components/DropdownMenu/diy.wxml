@@ -8,6 +8,6 @@
       <text>仅需20秒</text>
       <text>-即可制作个人数字星片</text>
     </view>
-    <view class="row3 btn btn-diy">制作我的星片</view>
+    <view class="row3 btn btn-diy" bindtap="makeCardHandle">制作我的星片</view>
   </view>
 </view>

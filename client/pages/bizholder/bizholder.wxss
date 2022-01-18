@@ -175,6 +175,7 @@
 .card .left .col2 {
   flex: 8;
   margin-left: 24rpx;
+  max-width: 423rpx;
 }
 
 .card .left .col2 .row1 {

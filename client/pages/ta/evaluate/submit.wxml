@@ -16,5 +16,5 @@
       <textarea placeholder-class="placeholder-style" placeholder="请填写您对Ta的评价……" value="{{content}}" name="content" bindinput="inputHandle" maxlength="300" />
     </view>
   </view>
-  <view class="btn btn-submit">评价</view>
+  <view class="btn btn-submit" bindtap="submitHandle">评价</view>
 </view>

@@ -67,6 +67,6 @@ export function getCard(data) {
     url: '/small/UserCardList/save_business_card',
     method: 'post',
     data,
-    load: 'noload'
+    // load: 'noload'
   })
 }

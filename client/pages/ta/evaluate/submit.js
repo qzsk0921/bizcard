@@ -1,8 +1,10 @@
 // pages/ta/evaluate/submit.js
-
 import store from '../../../store/common'
 import create from '../../../utils/create'
-
+import {
+  addZanComment
+} from '../../../api/comment'
+const duration = 2000
 // Page({
 create(store, {
 
@@ -21,7 +23,7 @@ create(store, {
   },
   inputHandle(e) {
     // console.log(e)
-    // let content = e.detail.value
+    let content = e.detail.value
     let len = e.detail.value.length
     if (len > 300) {
       len = 300
@@ -30,7 +32,34 @@ create(store, {
 
     this.setData({
       currentCount: len,
-      // content
+      content
+    })
+  },
+  // 提交评价
+  submitHandle() {
+    const temp = {
+      sq_business_card_id: this.store.data.card.data.id,
+      comment: this.data.content,
+      score: this.data.starNum
+    }
+    // 评价成功：toast:评价成功，显示2s后，返回上一级页面
+    this.addZanComment(temp).then(res => {
+      wx.showToast({
+        icon: 'none',
+        title: '评价成功',
+        duration
+      })
+
+      setTimeout(() => {
+        wx.navigateBack({
+          delta: 0,
+        })
+      }, duration)
+    })
+  },
+  onChange(e) {
+    this.setData({
+      starNum: e.detail
     })
   },
   /**
@@ -87,5 +116,14 @@ create(store, {
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  addZanComment(data) {
+    return new Promise((resolve, reject) => {
+      addZanComment(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
 })

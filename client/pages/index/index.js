@@ -669,8 +669,8 @@ create(store, {
   // 他的名片-回递名片
   replyHandle() {
     if (this.businessCheck()) return
-    // 1.点击跳转至回递名片页面2.若用户没有创建名片，显示制作名片弹窗3.若制作名片弹窗已经显示，点击toast:请先制作您的数字名片
-    if (this.data.allData.card_info.status == -1) {
+    //若用户没有创建名片，显示制作名片弹窗3.若制作名片弹窗已经显示，点击toast:请先制作您的数字名片
+    if (this.store.data.userInfo.has_card == 0) {
       if (this.data.tipcount != 1) {
         this.setData({
           'dialog.diy.opened': 1,
@@ -682,7 +682,7 @@ create(store, {
           title: '请先制作您的数字名片',
         })
       }
-    } else if (this.data.allData.card_info.status == 1) {
+    } else if (this.store.data.userInfo.has_card == 1) {
       // 点击跳转至回递名片页面
       wx.navigateTo({
         url: '/pages/returnbiz/returnbiz',
@@ -718,7 +718,7 @@ create(store, {
   labelZanHandle(e) {
     const item = e.currentTarget.dataset.item
 
-    const type = item.zan_status ? 0 : 1
+    const type = !item.zan_status
     const temp = {
       type,
       sq_business_card_id: this.data.allData.card_info.id,
@@ -843,6 +843,12 @@ create(store, {
   awakenBizcodeHandle() {
     wx.navigateTo({
       url: '/pages/bizcode/bizcode',
+    })
+  },
+  // 他人名片-授权弹窗关闭-立即弹出diy名片制作弹窗
+  authCloseHandle() {
+    this.setData({
+      'dialog.diy.opened': 1
     })
   },
   businessCheck() {
@@ -1106,6 +1112,8 @@ create(store, {
       userInfo
     })
 
+    this.businessCheck()
+
     if (this.data.type == 1) {
       // 我的名片
       if (userInfo.has_card) {
@@ -1117,7 +1125,6 @@ create(store, {
       }
     } else {
       //他的名片
-
     }
 
 
@@ -1248,13 +1255,11 @@ create(store, {
         }
         temp.navStatus = 'isEntryWithShare'
         temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
-        temp['dialog.auth.opened'] = 1
       } else {
         // 非扫码
         temp = options
         // 以下调试后删除（type=2&b=4269&s=3452）--------------------------------------------
         temp.navStatus = 'isEntryWithShare'
-        temp['dialog.auth.opened'] = 1
         temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
       }
     }
@@ -1350,9 +1355,6 @@ create(store, {
 
       const imageUrl = await drawCanvas(this, this.data.cid, this.data.allData)
       console.log(imageUrl)
-      this.setData({
-        tttt: imageUrl
-      })
       // 来自页面内转发按钮
       return {
         title: ' ',

@@ -1,10 +1,12 @@
 <!--pages/ta/evaluate/list.wxml-->
 <!-- <text>pages/ta/evaluate/list.wxml</text> -->
+<wxs src="/wxs/common.wxs" module="tools"></wxs>
+
 <view class="container container-ta-evaluate">
   <view class="fixed">
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="#FFFFFF" />
   </view>
-  <scroll-view class="scroll-box item-box" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height:{{compatibleInfo.isIphoneX?compatibleInfo.systemInfo.screenHeight-(fixed+32)+'px':compatibleInfo.systemInfo.screenHeight-(fixed)+'px'}};">
+  <scroll-view class="scroll-box item-box" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height:{{compatibleInfo.systemInfo.screenHeight-compatibleInfo.navHeight+'px'}}">
     <!--这里是下拉显示的效果-->
     <!-- <view slot="refresher" class="refresh-container disf faic" style="display:block;width: 100%; height: 80px;  display: flex; align-items:center;justify-content:center;box-sizing: border-box;border-bottom:1px solid #f5f5f5"></view> -->
     <view class="content">
@@ -13,23 +15,21 @@
           <view class="col1">
             <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
             <view class="col1-l">
-              <view class="name">{{item.name}}</view>
+              <view class="name">{{tools.parseUnicode(item.nick_name)}}</view>
               <view class="start">
-                <van-rate readonly value="{{ item.starNum }}" count="{{ item.starNum }}" color="#FFB70F" bind:change="onChange" />
+                <van-rate readonly value="{{ item.score }}" count="{{ item.score }}" color="#FFB70F" />
               </view>
             </view>
           </view>
           <view class="col2">
-            <view class="thumb-box">
-              <image src="/assets/images/card_evaluate_like.png" mode="aspectFill"></image>
-              <view class="num">8</view>
+            <view class="thumb-box {{item.is_zan?'active':''}}">
+              <image src="{{item.is_zan?'/assets/images/card_evaluate_like.png':'/assets/images/card_evaluate_like_f.png'}}" mode="aspectFill" bindtap="commentZanHandle" data-item="{{item}}"></image>
+              <view class="num">{{item.zan_num}}</view>
             </view>
           </view>
         </view>
-        <view class="row2">
-          {{item.content}}
-        </view>
-        <view class="row3">{{item.date}}</view>
+        <view class="row2">{{item.comment}}</view>
+        <view class="row3">{{item.create_time}}</view>
       </view>
     </view>
   </scroll-view>

@@ -44,7 +44,8 @@ create(store, {
     }).then(res => {
       wx.showToast({
         icon: 'none',
-        title: res.msg,
+        // title: res.msg,
+        title: '回递成功',
         duration
       })
 

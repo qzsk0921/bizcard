@@ -344,7 +344,7 @@
   width: 55rpx;
   height: 8rpx;
   border-radius: 10rpx;
-  background: #333333;
+  background: #4980F9;
 }
 
 .cont {
@@ -382,6 +382,12 @@
   color: #555555;
 }
 
+.section5 .introduce .sec1 .tag.active {
+  border-color: #2B67EB;
+  color: #4980F9;
+  background: rgba(239, 245, 255);
+}
+
 .section5 .introduce .sec1 .hometown {
   height: 98rpx;
   font-size: 26rpx;
@@ -403,6 +409,11 @@
   font-weight: 500;
   line-height: 60rpx;
   color: #333333;
+}
+
+.section5 .introduce .sec1 .hometown .btn-hometown.active {
+  background: rgba(73, 128, 249);
+  color: #FFFFFF;
 }
 
 .section5 .introduce .sec2 {
@@ -530,6 +541,8 @@
 
 .section5 .comment {
   height: 100%;
+  /* padding-bottom: env(safe-area-inset-bottom); */
+  padding-bottom: 134rpx;
 }
 
 .section5 .comment .sec-box {
@@ -644,7 +657,11 @@
   width: 100%;
 }
 
-.section5 .comment .btn-comment {
+.btn-comment {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -652,9 +669,12 @@
   font-size: 30rpx;
   color: #4980F9;
   background: #ffffff;
+  z-index: 1;
+  box-sizing: content-box;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-.section5 .comment .btn-comment image {
+.btn-comment image {
   width: 44rpx;
   height: 44rpx;
   margin-left: 10rpx;

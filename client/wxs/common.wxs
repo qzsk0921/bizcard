@@ -3,6 +3,16 @@ function formatNumber(n) {
   return n[1] ? n : 0 + n
 }
 module.exports = {
+  // unicode码转换
+  parseUnicode: function (unicode) {
+    var res = null
+    if (unicode.indexOf('"') != -1) {
+      res = JSON.parse(unicode)
+    } else {
+      res = unicode
+    }
+    return res
+  },
   formatTime: function (date, mode) {
     var date = getDate(date)
     var year = date.getFullYear()
@@ -45,7 +55,7 @@ module.exports = {
   },
   parseAddress: function (addr, province, city) {
     // 地址解析 删除省市
-    var reg = getRegExp(province+city)
+    var reg = getRegExp(province + city)
     var newstr = addr.replace(reg, "");
 
     return newstr
