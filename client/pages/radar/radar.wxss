@@ -1,6 +1,10 @@
 /* pages/radar/radar.wxss */
 .container-radar {}
 
+.scroll-box {
+  background: #FFFFFF;
+}
+
 .picker {
   padding-left: 24rpx;
   display: flex;
@@ -11,6 +15,7 @@
   font-size: 38rpx;
   font-weight: bold;
   color: #444444;
+  background: #FFFFFF;
 }
 
 .picker .arrow {
@@ -89,11 +94,20 @@
   text-align: center;
   width: 116rpx;
   height: 36rpx;
-  border: 2rpx solid #4DA6FF;
+  border: 2rpx solid transparent;
   border-radius: 8rpx;
   font-size: 22rpx;
   line-height: 32rpx;
+}
+
+.row3 .col2.status1 {
+  border-color: #3766FF;
   color: #3766FF;
+}
+
+.row3 .col2.status2 {
+  border-color: #00B41E;
+  color: #00B41E;
 }
 
 .no-data {

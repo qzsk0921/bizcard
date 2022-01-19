@@ -1,10 +1,12 @@
 // pages/radar/radar.js
+import store from '../../store/common'
+import create from '../../utils/create'
 import {
   setTabBar
 } from '../../utils/business'
-import store from '../../store/common'
-import create from '../../utils/create'
-
+import {
+  getCardRadarList
+} from '../../api/cardHolder'
 // Page({
 create(store, {
   /**
@@ -19,28 +21,72 @@ create(store, {
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
     listData: {
-      cache: [{
-        avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        nickname: '昵称',
-        company: '厦门星辰追梦科技有限公司',
-        position: '产品经理',
-        info: '第2次查看了你的名片“厦门星辰追梦科技有限公司-产品经理',
-        date: '08-24  10:16',
-        turn: '被存名片'
-      }, {
-        avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        nickname: '昵称',
-        company: '厦门星辰追梦科技有限公司',
-        position: '产品经理',
-        info: '第2次查看了你的名片“厦门星辰追梦科技有限公司-产品经理',
-        date: '08-24  10:16',
-        turn: '被存名片'
-      }],
+      cache: [
+        //   {
+        //   avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
+        //   nickname: '昵称',
+        //   company: '厦门星辰追梦科技有限公司',
+        //   position: '产品经理',
+        //   info: '第2次查看了你的名片“厦门星辰追梦科技有限公司-产品经理',
+        //   date: '08-24  10:16',
+        //   turn: '被存名片'
+        // }, {
+        //   avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
+        //   nickname: '昵称',
+        //   company: '厦门星辰追梦科技有限公司',
+        //   position: '产品经理',
+        //   info: '第2次查看了你的名片“厦门星辰追梦科技有限公司-产品经理',
+        //   date: '08-24  10:16',
+        //   turn: '被存名片'
+        // }
+        
+        // {
+        //   "id": 12,
+        //   "user_id": 2,
+        //   "card_user_id": 1,
+        //   "sq_business_card_id": 23,
+        //   "nick_name": "任剑飞",
+        //   "avatar_url": 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
+        //   "create_time": 1641950535,
+        //   "num": 13,
+        //   "company": "未来健康",
+        //   "profession": "",
+        //   "card_status": 1,
+        //   "content": "第13次查看了你的名片“厦门星辰追梦-技术"
+        // }, {
+        //   "id": 13,
+        //   "user_id": 2,
+        //   "card_user_id": 1,
+        //   "sq_business_card_id": 23,
+        //   "nick_name": "任剑飞",
+        //   "avatar_url": 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
+        //   "create_time": 1641950535,
+        //   "num": 13,
+        //   "company": "未来健康",
+        //   "profession": "",
+        //   "card_status": 2,
+        //   "content": "第13次查看了你的名片“厦门星辰追梦-技术"
+        // }
+      ],
       count: 1,
       total_page: 1,
     },
     page: 1,
     page_size: 10,
+  },
+  watch: {
+    date: {
+      handler(nv, ov, obj) {
+        // console.log(nv)
+        this.getCardRadarList({
+          time: nv
+        }).then(res => {
+          this.setData({
+            'listData.cache': res.data.data
+          })
+        })
+      }
+    }
   },
   dateChandeHandle(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -61,18 +107,14 @@ create(store, {
       'listData.count': ++listData.count
     })
 
-    // this.getGoodsList('scrollToLower').then(res => {
-    //   listData.cache.push(...res.data.data)
-    //   this.setData({
-    //     [`listData.cache`]: listData.cache
-    //   })
-    // })
+    this.getCardRadarList('scrollToLower')
   },
 
-  getGoodsList(dataObj) {
+  getCardRadarList(dataObj) {
     const tempData = {
       page: this.data.listData.count,
       page_size: this.data.page_size,
+      time: this.data.dete
     }
 
     if (typeof dataObj === 'object') {
@@ -82,7 +124,7 @@ create(store, {
     }
 
     return new Promise((resolve, reject) => {
-      getGoodsList(tempData).then(res => {
+      getCardRadarList(tempData).then(res => {
         if (dataObj === 'scrollToLower') {
           this.data.listData.cache.push(...res.data.data)
           this.setData({
@@ -102,6 +144,7 @@ create(store, {
       })
     })
   },
+  // 设置日期
   setDate() {
     if (!this.data.date) {
       const dateObj = new Date()
@@ -113,6 +156,7 @@ create(store, {
         startDate: `${year-5}-${month}`,
         endDate: `${year}-${month}`
       })
+
     }
   },
   formatNumber(n) {
@@ -126,10 +170,20 @@ create(store, {
       date: value
     })
   },
+  getCardRadarList(data) {
+    return new Promise((resolve, reject) => {
+      getCardRadarList(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    getApp().setWatcher(this) //设置监听器
     this.setDate()
   },
 
@@ -140,6 +194,15 @@ create(store, {
     setTabBar.call(this, {
       selected: 1
     })
+
+    const that = this
+    const query = wx.createSelectorQuery();
+
+    query.select('.picker').boundingClientRect(function (rect) {
+      that.setData({
+        pickH: rect.height
+      })
+    }).exec();
   },
 
   /**

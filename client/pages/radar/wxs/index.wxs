@@ -1,0 +1,32 @@
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : 0 + n
+}
+module.exports = {
+  // unicode码转换
+  parseUnicode: function (unicode) {
+    var res = null
+    if (unicode.indexOf('"') != -1) {
+      res = JSON.parse(unicode)
+    } else {
+      res = unicode
+    }
+    return res
+  },
+  formatTime: function (date, mode) {
+    var date = getDate(date)
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hour = date.getHours()
+    var minute = date.getMinutes()
+    var second = date.getSeconds()
+    if (mode === 'yy-mm-dd') {
+      return [year, month, day].map(formatNumber).join('-')
+    }
+    if (mode === 'mm-dd hh-mm') {
+      return [month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':')
+    }
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  }
+}

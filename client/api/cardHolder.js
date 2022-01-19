@@ -52,7 +52,7 @@ export function getCardMsgNum(data) {
  */
 export function getCardRadarList(data) {
   return request({
-    url: '/small/BusinessCard/get_card_total_list',
+    url: '/small/BusinessCard/card_total_list',
     method: 'get',
     data,
   })

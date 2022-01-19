@@ -30,5 +30,7 @@ export default {
         "selectedIconPath": "/assets/images/btn_shop_n.png"
       }
     ]
-  }
+  },
+  qnUrl: 'https://sharepuls.xcmbkj.com/',
+  qnUpdateUrl: 'https://upload-z2.qiniup.com/'
 }

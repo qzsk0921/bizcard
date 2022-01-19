@@ -102,11 +102,13 @@
           </view>
           <view class="form-item form-item-position arrow">
             <label class="label-require">职位</label>
-            <input name="profession_id" placeholder="请输入职位" placeholder-class="input-placeholder" value="{{formData.profession_name}}" disabled="true" bindtap="positionHandle" />
+            <!-- profession_id -->
+            <input name="" placeholder="请输入职位" placeholder-class="input-placeholder" value="{{formData.profession_name}}" disabled="true" bindtap="positionHandle" />
           </view>
           <view class="form-item form-item-industry arrow">
             <label>行业</label>
-            <input name="industry_id" placeholder="请选择行业" placeholder-class="input-placeholder" value="{{formData.industry_name}}" disabled="true" bindtap="industryHandle" />
+            <!-- industry_id -->
+            <input name="" placeholder="请选择行业" placeholder-class="input-placeholder" value="{{formData.industry_name}}" disabled="true" bindtap="industryHandle" />
           </view>
           <view class="form-item form-item-cadress arrow">
             <label>公司地址</label>

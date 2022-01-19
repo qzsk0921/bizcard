@@ -3,7 +3,7 @@ import {
   setTabBar,
   drawCanvas
 } from '../../utils/business'
-import config from '../../config/index'
+// import config from '../../config/index'
 import store from '../../store/common'
 import create from '../../utils/create'
 import {
@@ -449,133 +449,133 @@ create(store, {
       }
     ],
     allData: {
-      "card_info": {
-        "id": 23,
-        "sq_jinzhu_id": 782,
-        "template_card_id": 2,
-        "name": "胡椒",
-        "title": "UI",
-        "mobile": "18046143570",
-        "email": "2505655@qq.com",
-        "wx_number": "2222333",
-        "company": "厦门星辰追梦",
-        "address": "厦门金海湾",
-        "avatar": "https://wms.com/upload/20200922/f632f471db0dc259edfe0f08a4cea312.jpg",
-        "wx_qr_code": "https://wms.com/upload/20200922/f632f471db0dc259edfe0f08a4cea312.jpg",
-        "introduce_myself": "设计是最大的幸福",
-        "personal_label": "a:2:{i:0;s:1:\"2\";i:1;s:1:\"5\";}",
-        "personal_style": "a:2:{i:0;s:54:\"http://image.wms.wljkxys.com/201910305db95969e222e.png\";i:1;s:54:\"http://image.wms.wljkxys.com/201910305db959966fa68.png\";}",
-        "create_time": 1554875788,
-        "update_time": 1601432828,
-        "del_flag": 0,
-        "type": 1,
-        "is_public": 0,
-        "hometown": '福建厦门',
-        "landline": null,
-        "vidieo_url": 'https://vd3.bdstatic.com/mda-khqh5jcid4bgkur1/sc/mda-khqh5jcid4bgkur1.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1641983487-0-0-7704cdf23332db70415117a14553259b&bcevod_channel=searchbox_feed&pd=1&pt=3&logid=0086888447&vid=7450474287727338224&abtest=&klogid=0086888447',
-        "profession_id": 1,
-        "industry_id": 1,
-        "company_avatar": 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png',
-        "company_introduce": '厦门脉呗科技营销有限公司于2019年04月10日成立。法定代表人陈先生，公司经营范围包括：软件开发；电影和影视节目发行；互联网信息服务（不含药品信息服务和网吧）；信息系统集成服务；信息技术咨询服务；数据处理和存储服务…',
-        "company_introduce_image": null,
-        "company_introduce_image_arr": ['http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png'],
-        "user_id": 1,
-        "status": 1,
-        "profession": "技术",
-        "industry": "互联网/IT/电子/通信"
-      },
-      "is_me": 1,
-      "card_info_label_list": [{
-        id: 1,
-        name: '活泼开朗',
-        zan_status: true,
-        zan_num: 34
-      }, {
-        id: 2,
-        name: '乐观',
-        zan_status: true,
-        zan_num: 3
-      }, {
-        id: 3,
-        name: '活泼开朗',
-        zan_status: true,
-        zan_num: 1
-      }, {
-        id: 4,
-        name: '活泼',
-        zan_status: true,
-        zan_num: 1
-      }, {
-        id: 5,
-        name: '活泼开朗',
-        zan_status: true,
-        zan_num: 1
-      }, {
-        id: 6,
-        name: '活泼开朗',
-        zan_status: true,
-        zan_num: 1
-      }, {
-        id: 7,
-        name: '活泼开朗',
-        zan_status: true,
-        zan_num: 1
-      }],
-      "view_user_list": [{
-          "avatar": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTI9A7pz9icibBKLFGHLN9Z8wDnRRw4apoq16EWXzZictmuUZaNyY3PiaW8Xo3p1IHkoiaEqkQr3RZ8u0jQ/132",
-          "user_id": 2
-        },
-        {
-          "avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLkibgRehIkVWlZjqKFCmvZWIBs57mh8A89iaJ8VHTibnjqqPIm7sIgSNp2cjdmMlL61Uu44cCLx1E1w/132",
-          "user_id": 1
-        },
-        {
-          "avatar": "http://thirdwx.qlogo.cn/mmopen/vi_32/j7QrfoC6aHSiaJ2eOH6Yick99WZHESib7k73oXre7WemI4rgnSMCsL8GheuhUvbXaAza1uoUlng9icETibolAG5CruA/132",
-          "user_id": 0
-        }
-      ],
-      "view_user_number": 3,
-      "card_style": {
-        "card_image": "http://image.wms.wljkxys.com/2022011061dbcddf655db.png",
-        "name_color": "22",
-        "name_transparent": "22",
-        "is_name_show": 0,
-        "avatar_color": "22",
-        "avatar_transparent": "22",
-        "is_avatar_show": 0,
-        "phone_color": "22",
-        "phone_transparent": "22",
-        "is_phone_show": 0,
-        "profession_color": "22",
-        "profession_transparent": "22",
-        "is_profession_show": 0,
-        "company_color": "22",
-        "company_transparent": "22",
-        "is_company_show": 0,
-        "address_color": "22",
-        "address_transparent": "22",
-        "is_address_show": 0,
-        "phone_image": "http://image.wms.wljkxys.com/2022011061dbcdf1a6735.png",
-        "email_image": "http://image.wms.wljkxys.com/2022011061dbcdf59c769.png",
-        "address_image": "http://image.wms.wljkxys.com/2022011061dbcdf9d2de4.png",
-        "background_image": "http://image.wms.wljkxys.com/2022011061dbcdfd8c26e.png",
-        "create_time": 1641795085,
-        "email_color": "22",
-        "email_transparent": "22",
-        "is_email_show": 0,
-        "style_id": 4,
-        "name": "高级",
-        "is_customize_set": 0,
-        "card_image_preview": "http://image.wms.wljkxys.com/2022011261de7d9bdf9fc.png",
-        "user_id": 1,
-        "sq_business_card_id": 23,
-        "style_image_id": 0,
-        "style_image_customize": ""
-      },
-      "card_zan": 1,
-      "card_is_zan": 0,
-      "hometown_status": 1,
-      "card_status": 0
+      // "card_info": {
+      //   "id": 23,
+      //   "sq_jinzhu_id": 782,
+      //   "template_card_id": 2,
+      //   "name": "胡椒",
+      //   "title": "UI",
+      //   "mobile": "18046143570",
+      //   "email": "2505655@qq.com",
+      //   "wx_number": "2222333",
+      //   "company": "厦门星辰追梦",
+      //   "address": "厦门金海湾",
+      //   "avatar": "https://wms.com/upload/20200922/f632f471db0dc259edfe0f08a4cea312.jpg",
+      //   "wx_qr_code": "https://wms.com/upload/20200922/f632f471db0dc259edfe0f08a4cea312.jpg",
+      //   "introduce_myself": "设计是最大的幸福",
+      //   "personal_label": "a:2:{i:0;s:1:\"2\";i:1;s:1:\"5\";}",
+      //   "personal_style": "a:2:{i:0;s:54:\"http://image.wms.wljkxys.com/201910305db95969e222e.png\";i:1;s:54:\"http://image.wms.wljkxys.com/201910305db959966fa68.png\";}",
+      //   "create_time": 1554875788,
+      //   "update_time": 1601432828,
+      //   "del_flag": 0,
+      //   "type": 1,
+      //   "is_public": 0,
+      //   "hometown": '福建厦门',
+      //   "landline": null,
+      //   "vidieo_url": 'https://vd3.bdstatic.com/mda-khqh5jcid4bgkur1/sc/mda-khqh5jcid4bgkur1.mp4?v_from_s=hkapp-haokan-nanjing&auth_key=1641983487-0-0-7704cdf23332db70415117a14553259b&bcevod_channel=searchbox_feed&pd=1&pt=3&logid=0086888447&vid=7450474287727338224&abtest=&klogid=0086888447',
+      //   "profession_id": 1,
+      //   "industry_id": 1,
+      //   "company_avatar": 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png',
+      //   "company_introduce": '厦门脉呗科技营销有限公司于2019年04月10日成立。法定代表人陈先生，公司经营范围包括：软件开发；电影和影视节目发行；互联网信息服务（不含药品信息服务和网吧）；信息系统集成服务；信息技术咨询服务；数据处理和存储服务…',
+      //   "company_introduce_image": null,
+      //   "company_introduce_image_arr": ['http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png', 'http://image.wms.wljkxys.com/2022011061dbcddf655db.png'],
+      //   "user_id": 1,
+      //   "status": 1,
+      //   "profession": "技术",
+      //   "industry": "互联网/IT/电子/通信"
+      // },
+      // "is_me": 1,
+      // "card_info_label_list": [{
+      //   id: 1,
+      //   name: '活泼开朗',
+      //   zan_status: true,
+      //   zan_num: 34
+      // }, {
+      //   id: 2,
+      //   name: '乐观',
+      //   zan_status: true,
+      //   zan_num: 3
+      // }, {
+      //   id: 3,
+      //   name: '活泼开朗',
+      //   zan_status: true,
+      //   zan_num: 1
+      // }, {
+      //   id: 4,
+      //   name: '活泼',
+      //   zan_status: true,
+      //   zan_num: 1
+      // }, {
+      //   id: 5,
+      //   name: '活泼开朗',
+      //   zan_status: true,
+      //   zan_num: 1
+      // }, {
+      //   id: 6,
+      //   name: '活泼开朗',
+      //   zan_status: true,
+      //   zan_num: 1
+      // }, {
+      //   id: 7,
+      //   name: '活泼开朗',
+      //   zan_status: true,
+      //   zan_num: 1
+      // }],
+      // "view_user_list": [{
+      //     "avatar": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTI9A7pz9icibBKLFGHLN9Z8wDnRRw4apoq16EWXzZictmuUZaNyY3PiaW8Xo3p1IHkoiaEqkQr3RZ8u0jQ/132",
+      //     "user_id": 2
+      //   },
+      //   {
+      //     "avatar": "https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLkibgRehIkVWlZjqKFCmvZWIBs57mh8A89iaJ8VHTibnjqqPIm7sIgSNp2cjdmMlL61Uu44cCLx1E1w/132",
+      //     "user_id": 1
+      //   },
+      //   {
+      //     "avatar": "http://thirdwx.qlogo.cn/mmopen/vi_32/j7QrfoC6aHSiaJ2eOH6Yick99WZHESib7k73oXre7WemI4rgnSMCsL8GheuhUvbXaAza1uoUlng9icETibolAG5CruA/132",
+      //     "user_id": 0
+      //   }
+      // ],
+      // "view_user_number": 3,
+      // "card_style": {
+      //   "card_image": "http://image.wms.wljkxys.com/2022011061dbcddf655db.png",
+      //   "name_color": "22",
+      //   "name_transparent": "22",
+      //   "is_name_show": 0,
+      //   "avatar_color": "22",
+      //   "avatar_transparent": "22",
+      //   "is_avatar_show": 0,
+      //   "phone_color": "22",
+      //   "phone_transparent": "22",
+      //   "is_phone_show": 0,
+      //   "profession_color": "22",
+      //   "profession_transparent": "22",
+      //   "is_profession_show": 0,
+      //   "company_color": "22",
+      //   "company_transparent": "22",
+      //   "is_company_show": 0,
+      //   "address_color": "22",
+      //   "address_transparent": "22",
+      //   "is_address_show": 0,
+      //   "phone_image": "http://image.wms.wljkxys.com/2022011061dbcdf1a6735.png",
+      //   "email_image": "http://image.wms.wljkxys.com/2022011061dbcdf59c769.png",
+      //   "address_image": "http://image.wms.wljkxys.com/2022011061dbcdf9d2de4.png",
+      //   "background_image": "http://image.wms.wljkxys.com/2022011061dbcdfd8c26e.png",
+      //   "create_time": 1641795085,
+      //   "email_color": "22",
+      //   "email_transparent": "22",
+      //   "is_email_show": 0,
+      //   "style_id": 4,
+      //   "name": "高级",
+      //   "is_customize_set": 0,
+      //   "card_image_preview": "http://image.wms.wljkxys.com/2022011261de7d9bdf9fc.png",
+      //   "user_id": 1,
+      //   "sq_business_card_id": 23,
+      //   "style_image_id": 0,
+      //   "style_image_customize": ""
+      // },
+      // "card_zan": 1,
+      // "card_is_zan": 0,
+      // "hometown_status": 1,
+      // "card_status": 0
     }
   },
   watch: {
@@ -689,10 +689,14 @@ create(store, {
       })
     }
   },
-  // 联系他
+  // 联系Ta点击，同点击电话，弹出电话弹窗
   contactHandle() {
     if (this.businessCheck()) return
-
+    
+    this.setData({
+      'dialog.telephone.telephoneObj': this.data.section4[0],
+      'dialog.telephone.opened': 1
+    })
   },
   zanHandle() {
     if (this.businessCheck()) return
@@ -1182,7 +1186,7 @@ create(store, {
       }
 
       this.setData({
-        // allData: res.data,
+        allData: res.data,
         tabIndex: this.data.tabIndex,
         section4
       })

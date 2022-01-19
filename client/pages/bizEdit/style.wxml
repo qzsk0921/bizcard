@@ -46,7 +46,7 @@
       </view>
       <view class="sec4-shim"></view>
       <view class="sec4">
-        <view wx:if="{{currentStyleImageObj.is_buy}}" class="btn btn-save" bindtap="saveHandle">保存</view>
+        <view wx:if="{{currentStyleImageObj.is_buy||currentStyleImageObj.price==0||!currentStyleImageObj.price}}" class="btn btn-save" bindtap="saveHandle">保存</view>
         <block wx:else>
           <view class="pay-box">
             <view class="row1">

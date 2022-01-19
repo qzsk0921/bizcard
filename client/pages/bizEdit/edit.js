@@ -1,6 +1,8 @@
 // pages/bizEdit/edit.js
 import store from '../../store/common'
 import create from '../../utils/create'
+import config from '../../config/index'
+
 import {
   addCard,
   getStyleList
@@ -8,7 +10,15 @@ import {
 import {
   getCardDetail
 } from '../../api/card'
-const duration = 500
+import {
+  getQnToken
+} from '../../api/oss'
+import qiniuTools from '../../utils/oss'
+import {
+  checkMobile
+} from '../../utils/util'
+
+const duration = 1500
 
 // Page({
 create(store, {
@@ -32,28 +42,28 @@ create(store, {
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
     formData: {
-      sq_business_card_id: '', //名片id 必须
-      is_public: '', //是否曝光 1:曝光 0：否
-      avatar: '', //头像 必须
-      name: '', //name 必须
-      hometown: '', //是否家乡
-      mobile: '', //电话 必须
-      landline: '', //座机
-      email: '', //邮箱
-      introduce_myself: '', //个人简介
-      label_str: '', //标签id 逗号分割
-      vidieo_url: '', //视频地址
-      company: '', //公司名 必须
-      profession_id: '', //职业id 必须
-      profession_name: '', //职位名称 否
-      industry_id: '', //行业id
-      industry_name: '', //行业名称 否
-      address: '', //公司地址
-      address_longitude: '', //公司地址经度
-      address_latitude: '', //公司地址纬度
-      company_avatar: '', //公司Logo
-      company_introduce: '', //公司介绍
-      company_introduce_image_arr: [], //公司介绍图片
+      "sq_business_card_id": '', //名片id 必须
+      "is_public": '', //是否曝光 1:曝光 0：否
+      "avatar": '', //头像 必须
+      "name": '', //name 必须
+      "hometown": '', //是否家乡
+      "mobile": '', //电话 必须
+      "landline": '', //座机
+      "email": '', //邮箱
+      "introduce_myself": '', //个人简介
+      "label_str": '', //标签id 逗号分割
+      "vidieo_url": '', //视频地址
+      "company": '', //公司名 必须
+      "profession_id": '', //职业id 必须
+      "profession_name": '', //职位名称 否
+      "industry_id": '', //行业id
+      "industry_name": '', //行业名称 否
+      "address": '', //公司地址
+      "address_longitude": '', //公司地址经度
+      "address_latitude": '', //公司地址纬度
+      "company_avatar": '', //公司Logo
+      "company_introduce": '', //公司介绍
+      "company_introduce_image_arr": [], //公司介绍图片
     },
   },
   // 跳转至选择名片样式页
@@ -266,15 +276,66 @@ create(store, {
     });
   },
   // 保存名片信息
-  formSubmit(e) {
-    console.log(e)
+  async formSubmit(e) {
+    // console.log(e)
+    // console.log(this.data.formData)
     const formData = e.detail.value
 
+    Object.keys(formData).forEach(key => {
+      this.data.formData[key] = formData[key]
+    })
     // 校验
-    if (!this.formValidate(formData)) return
+    if (!this.formValidate(this.data.formData)) return
 
+    const tempUpdate = {
+      'formData.avatar': http_avatar,
+      'formData.vidieo_url': http_vidieo_url,
+      'formData.company_avatar': http_company_avatar,
+      'formData.company_introduce_image_arr': http_company_introduce_image_arr
+    }
+
+    let http_avatar = null,
+      http_vidieo_url = null,
+      http_company_avatar = null,
+      http_company_introduce_image_arr = null
+      
+    // 头像
+    http_avatar = await this.updateQiniu(this.data.formData.avatar)
+    if (http_avatar) {
+      tempUpdate['formData.avatar'] = http_avatar
+    } else {
+      console.log('http_avatar上传失败')
+      return
+    }
+
+    // 视频
+    if (this.data.formData.vidieo_url) {
+      http_vidieo_url = await this.updateQiniu(this.data.formData.vidieo_url)
+      if (http_vidieo_url) {
+        tempUpdate['formData.vidieo_url'] = http_vidieo_url
+      }
+    }
+    // 公司logo
+    if (this.data.formData.company_avatar) {
+      http_company_avatar = await this.updateQiniu(this.data.formData.company_avatar)
+      if (http_company_avatar) {
+        tempUpdate['formData.company_avatar'] = http_company_avatar
+      }
+    }
+    // 公司介绍图
+    if (this.data.formData.company_introduce_image_arr.length) {
+      http_company_introduce_image_arr = await this.updateQiniu(this.data.formData.company_introduce_image_arr)
+
+      if (http_company_introduce_image_arr) {
+        tempUpdate['formData.company_introduce_image_arr'] = http_company_introduce_image_arr
+      }
+    }
+
+    this.setData(tempUpdate)
+
+    console.log(this.data.formData)
     // 返回我的名片页面
-    this.addCard(formData).then(res => {
+    this.addCard(this.data.formData).then(res => {
       wx.showToast({
         icon: 'none',
         title: '保存成功',
@@ -282,7 +343,7 @@ create(store, {
       })
 
       setTimeout(() => {
-        wx.switchTab({
+        wx.reLaunch({
           url: '/pages/index/index',
         })
       }, duration)
@@ -291,33 +352,38 @@ create(store, {
   formValidate(formData) {
     const flag = Object.keys(formData).some(key => {
       if (!formData[key]) {
-        if (key === 'avatar') {
+        if (key == 'avatar') {
           wx.showToast({
             icon: 'none',
             title: '请上传头像',
           })
+          return true
         } else if (key === 'name') {
           wx.showToast({
             icon: 'none',
             title: '请输入姓名',
           })
+          return true
         } else if (key === 'mobile') {
           wx.showToast({
             icon: 'none',
             title: '请输入电话',
           })
+          return true
         } else if (key === 'company') {
           wx.showToast({
             icon: 'none',
             title: '请输入公司名称',
           })
+          return true
         } else if (key === 'profession_id') {
           wx.showToast({
             icon: 'none',
             title: '请选择职位',
           })
+          return true
         }
-        return true
+        return false
       }
       return false
     })
@@ -336,6 +402,23 @@ create(store, {
     } else {
       return false
     }
+  },
+  // 上传资源
+  updateQiniu(filePath) {
+    console.log(filePath)
+    return new Promise((resolve, reject) => {
+      if (this.data.qnToken) {
+        qiniuTools.uploadQiniu(filePath, this.data.qnToken, resolve, reject)
+      } else {
+        // return new Promise((resolve, reject) => {
+        getQnToken().then(res => {
+          const upToken = this.data.qnToken = res.data.upToken
+          // 介绍图
+          qiniuTools.uploadQiniu(filePath, upToken, resolve, reject)
+        })
+        // })
+      }
+    })
   },
   addCard(data) {
     return new Promise((resolve, reject) => {
@@ -370,7 +453,7 @@ create(store, {
   onLoad: function (options) {
     this.getStyleList().then(res => {
       this.setData({
-        editData: res.data
+        editData: res.data,
       })
     })
   },
