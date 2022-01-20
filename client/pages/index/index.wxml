@@ -76,6 +76,11 @@
     </view>
     <!-- ta的简介，ta的产品... -->
     <view class="section5 {{fixed?'fixed':''}}">
+      <!-- 他的评价-选项底部 -->
+      <view wx:if="{{tabIndex==3&&type==2}}" class="btn btn-comment" bindtap="toEvaluatesubmitHandle">
+        <image src="/assets/images/card_evaluate.png" mode="aspectFill"></image>
+        <text>立即评价</text>
+      </view>
       <view class="tabs-nav" bindtap='changeTab'>
         <view wx:for="{{tabbar}}" wx:key="unique" data-index="{{index}}" class="tab {{tabIndex==index?'active':''}}">
           <view calss="text" data-index="{{index}}">{{item}}</view>
@@ -177,9 +182,6 @@
         </view>
       </view>
     </view>
-    <view class="section6"></view>
-    <view class="section7"></view>
-    <view class="section8"></view>
     <!-- </view> -->
   </scroll-view>
 </view>
@@ -227,9 +229,3 @@
 </view>
 
 <json-add dialogVisible="{{jsonAddDialogVisibile}}" navHeight="{{compatibleInfo.navHeight}}" />
-
-<!-- 他的评价-选项底部 -->
-<view wx:if="{{tabIndex==3&&type==2}}" class="btn btn-comment" bindtap="toEvaluatesubmitHandle">
-  <image src="/assets/images/card_evaluate.png" mode="aspectFill"></image>
-  <text>立即评价</text>
-</view>

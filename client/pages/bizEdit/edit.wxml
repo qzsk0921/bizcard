@@ -6,7 +6,7 @@
   <view class="fixed">
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="{{tools.parseNavColor(cid)}}" bgColor="transparent" />
   </view>
-  <view class="content hide-scrollbar" style="height:{{compatibleInfo.isIphoneX?compatibleInfo.systemInfo.screenHeight+'px':compatibleInfo.systemInfo.screenHeight+'px'}}">
+  <view class="content hide-scrollbar">
     <view class="section1 section card">
       <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
     </view>
@@ -69,7 +69,7 @@
             <text>{{currentCountProfile}}/100</text>
           </view>
           <view class="form-item form-item-profile">
-            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="100" />
+            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="100"></textarea>
           </view>
         </view>
         <view class="form-section form-section-tag">
@@ -128,7 +128,7 @@
             <text>{{currentCountIntroduction}}/300</text>
           </view>
           <view class="form-item form-item-introduction">
-            <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="300" />
+            <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="300"></textarea>
           </view>
         </view>
         <view class="form-section form-section-companypic">

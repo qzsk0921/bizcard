@@ -484,12 +484,37 @@ create(store, {
     this.getCardDetail({
       type: 1
     }).then(res => {
-      this.store.data.card.data = res.data.card_info
-      this.store.data.card.style = res.data.card_style
+      const data = res.data
+      this.store.data.card.data = data.card_info
+      this.store.data.card.style = data.card_style
       this.update()
 
+
       this.setData({
-        card: this.store.data.card
+        card: this.store.data.card,
+        //回显
+        "sq_business_card_id": res.data.card_info.id,
+        'formData.is_public':res.data.card_info.is_public,
+        'formData.avatar':res.data.card_info.avatar,
+        'formData.name':res.data.card_info.name,
+        'formData.hometown':res.data.card_info.hometown,
+        'formData.mobile':res.data.card_info.mobile,
+        'formData.landline':res.data.card_info.landline,
+        'formData.email':res.data.card_info.email,
+        'formData.introduce_myself':res.data.card_info.introduce_myself,
+        'formData.label_str':res.data.card_info_label_list,
+        'formData.vidieo_url':res.data.card_info.vidieo_url,
+        'formData.company':res.data.card_info.company,
+        'formData.profession_id':res.data.card_info.profession_id,
+        'formData.profession_name':res.data.card_info.profession,
+        'formData.industry_id':res.data.card_info.industry_id,
+        'formData.industry_name':res.data.card_info.industry,
+        'formData.address':res.data.card_info.address,
+        'formData.address_longitude':res.data.card_info.address_longitude,
+        'formData.address_latitude':res.data.card_info.address_latitude,
+        'formData.company_avatar':res.data.card_info.company_avatar,
+        'formData.company_introduce':res.data.card_info.company_introduce,
+        'formData.company_introduce_image_arr':res.data.card_info.company_introduce_image_arr,
       })
     })
   },
