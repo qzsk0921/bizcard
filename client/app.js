@@ -45,7 +45,6 @@ App({
       this.globalData.userInfo = res.data
       store.data.userInfo = res.data
       store.update()
-
       if (this.getUserInfoCallback) {
         this.getUserInfoCallback(res.data)
       }

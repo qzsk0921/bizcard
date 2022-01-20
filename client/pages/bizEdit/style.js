@@ -10,6 +10,10 @@ import {
 import {
   addOrder
 } from '../../api/order'
+import {
+  getCardDetail
+} from '../../api/card'
+
 const duration = 500
 
 // Page({
@@ -1220,18 +1224,26 @@ create(store, {
       is_email_show: getShowStatus('email')
     }
     this.setStyleInfo(tempStyleInfo).then(res => {
+      // 更新store.card数据
+      this.getCardDetail({
+        type: 1
+      }).then(res => {
+        this.store.data.card.data = res.data.card_info
+        this.store.data.card.style = res.data.card_style
+        this.update()
 
-      wx.showToast({
-        title: '保存成功',
-        icon: 'none',
-        duration
-      })
-
-      setTimeout(() => {
-        wx.navigateBack({
-          delta: 0,
+        wx.showToast({
+          title: '保存成功',
+          icon: 'none',
+          duration
         })
-      }, duration)
+
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 0,
+          })
+        }, duration)
+      })
     })
   },
   // 购买并使用
@@ -1260,10 +1272,18 @@ create(store, {
       'paySign': payModel.paySign,
       'success': function (res) {
         console.log(res)
-        // 支付成功后，返回个人中心，刷新个人中心页面
-        wx.switchTab({
-          url: '/pages/profile/profile',
+        // 支付成功后 toast:购买成功，隐藏toast后返回上一级页面
+        wx.showToast({
+          icon: 'none',
+          title: '购买成功',
+          duration,
         })
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 0,
+          })
+        }, duration)
+
         // 获取消息下发权限(只在支付回调或tap手势事件能调用)
         // wx.requestSubscribeMessage({
         //   tmplIds: ['mtwGRB07oFL2fJgoiIipKVCYFFHS0vytiw2rTHqtAz8', 'gB9gMYOrOkLl-yTHdBP5vUS5rgwsTW1hjUYNml-57Go'],
@@ -1329,6 +1349,15 @@ create(store, {
   addOrder(data) {
     return new Promise((resolve, reject) => {
       addOrder(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  getCardDetail(data) {
+    return new Promise((resolve, reject) => {
+      getCardDetail(data).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)

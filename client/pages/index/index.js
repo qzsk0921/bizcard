@@ -448,7 +448,7 @@ create(store, {
         page_size: 10,
       }
     ],
-    allData: {
+    card: {
       // "card_info": {
       //   "id": 23,
       //   "sq_jinzhu_id": 782,
@@ -576,7 +576,7 @@ create(store, {
       // "card_is_zan": 0,
       // "hometown_status": 1,
       // "card_status": 0
-    }
+    },
   },
   watch: {
     tabIndex: {
@@ -584,7 +584,7 @@ create(store, {
         // console.log(nv)
         if (nv === 0) {
           // 简介
-          const data = this.data.allData
+          const data = this.data.card
           if (!data.card_info.introduce_myself &&
             !data.card_info_label_list.length &&
             !data.card_info.hometown &&
@@ -595,16 +595,16 @@ create(store, {
           }
 
           this.setData({
-            'tadeOptions[0].cache': this.data.allData.card_info,
+            'tadeOptions[0].cache': this.data.card.card_info,
           })
         } else if (nv === 1) {
           // 产品
           this.getGoodList({
-            sq_business_card_id: this.data.allData.card_info.sq_jinzhu_id
+            sq_business_card_id: this.data.card.card_info.sq_jinzhu_id
           })
         } else if (nv === 2) {
           // 企业
-          const data = this.data.allData
+          const data = this.data.card
           if (!data.card_info.company_avatar &&
             !data.card_info.company &&
             !data.card_info.hometown &&
@@ -615,13 +615,13 @@ create(store, {
           }
 
           this.setData({
-            'tadeOptions[2].cache': this.data.allData.card_info,
+            'tadeOptions[2].cache': this.data.card.card_info,
           })
         } else if (nv === 3) {
           // 评价
           if (!this.data.tadeOptions[3].cache.length) {
             this.getCommentList({
-              sq_business_card_id: this.data.allData.card_info.id
+              sq_business_card_id: this.data.card.card_info.id
             })
           }
         }
@@ -636,8 +636,8 @@ create(store, {
   },
   // 滚动时触发
   scrollHandle(e) {
-    console.log(e.detail.scrollTop)
-    console.log(this.data.TASrollTop)
+    // console.log(e.detail.scrollTop)
+    // console.log(this.data.TASrollTop)
 
     const fixed = this.data.fixed
     if (this.data.TASrollTop <= e.detail.scrollTop) {
@@ -692,7 +692,7 @@ create(store, {
   // 联系Ta点击，同点击电话，弹出电话弹窗
   contactHandle() {
     if (this.businessCheck()) return
-    
+
     this.setData({
       'dialog.telephone.telephoneObj': this.data.section4[0],
       'dialog.telephone.opened': 1
@@ -701,18 +701,18 @@ create(store, {
   zanHandle() {
     if (this.businessCheck()) return
 
-    const type = this.data.allData.card_is_zan ? 0 : 1
+    const type = this.data.card.card_is_zan ? 0 : 1
     this.setCardZan({
       type,
-      sq_business_card_id: this.data.allData.card_info.id
+      sq_business_card_id: this.data.card.card_info.id
     }).then(res => {
       const tempData = {
-        'allData.card_is_zan': type
+        'card.card_is_zan': type
       }
       if (type) {
-        tempData['allData.card_zan'] = this.data.allData.card_zan + 1
+        tempData['card.card_zan'] = this.data.card.card_zan + 1
       } else {
-        tempData['allData.card_zan'] = this.data.allData.card_zan - 1
+        tempData['card.card_zan'] = this.data.card.card_zan - 1
       }
 
       this.setData(tempData)
@@ -725,15 +725,15 @@ create(store, {
     const type = !item.zan_status
     const temp = {
       type,
-      sq_business_card_id: this.data.allData.card_info.id,
+      sq_business_card_id: this.data.card.card_info.id,
       user_new_label_id: item.id
     }
     this.setCardLabelZan(temp).then(res => {
-      this.data.allData.card_info_label_list.some((it, index) => {
+      this.data.card.card_info_label_list.some((it, index) => {
         if (it.id === item.id) {
           this.setData({
-            [`allData.card_info_label_list[${index}].zan_status`]: type,
-            [`allData.card_info_label_list[${index}].zan_num`]: it.zan_num + (type ? 1 : -1)
+            [`card.card_info_label_list[${index}].zan_status`]: type,
+            [`card.card_info_label_list[${index}].zan_num`]: it.zan_num + (type ? 1 : -1)
           })
         }
       })
@@ -741,11 +741,11 @@ create(store, {
   },
   // 同乡
   hometownHandle() {
-    const type = this.data.allData.hometown_status ? 0 : 1
+    const type = this.data.card.hometown_status ? 0 : 1
 
     const temp = {
       type,
-      sq_business_card_id: this.data.allData.card_info.id
+      sq_business_card_id: this.data.card.card_info.id
     }
     this.setTownsman(temp).then(res => {
       wx.showToast({
@@ -753,7 +753,7 @@ create(store, {
         title: res.msg,
       })
       const tempData = {
-        'allData.hometown_status': type
+        'card.hometown_status': type
       }
       this.setData(tempData)
     })
@@ -774,6 +774,7 @@ create(store, {
 
   },
   getUserProfile(e) {
+    const that = this
     if (!this.data.is_select) {
       wx.showToast({
         icon: 'none',
@@ -787,14 +788,14 @@ create(store, {
       success: (res) => {
         console.log(res)
         // this.store.data.userInfo = res.userInfo
-        this.store.data.userInfo['avatar_url'] = res.userInfo.avatarUrl
-        this.store.data.userInfo['city'] = res.userInfo.city
-        this.store.data.userInfo['country'] = res.userInfo.country
-        this.store.data.userInfo['gender'] = res.userInfo.gender
-        this.store.data.userInfo['language'] = res.userInfo.language
-        this.store.data.userInfo['nick_name'] = res.userInfo.nickName
-        this.store.data.userInfo['province'] = res.userInfo.province
-        this.update()
+        that.store.data.userInfo['avatar_url'] = res.userInfo.avatarUrl
+        that.store.data.userInfo['city'] = res.userInfo.city
+        that.store.data.userInfo['country'] = res.userInfo.country
+        that.store.data.userInfo['gender'] = res.userInfo.gender
+        that.store.data.userInfo['language'] = res.userInfo.language
+        that.store.data.userInfo['nick_name'] = res.userInfo.nickName
+        that.store.data.userInfo['province'] = res.userInfo.province
+        that.update()
 
         // 上传用户信息
         updateUserInfo(res.userInfo).then(res => {
@@ -851,10 +852,16 @@ create(store, {
   },
   // 他人名片-授权弹窗关闭-立即弹出diy名片制作弹窗
   authCloseHandle() {
-    this.setData({
-      'dialog.diy.opened': 1
-    })
+    if (!this.store.data.userInfo.has_card) {
+      this.setData({
+        'dialog.diy.opened': 1
+      })
+    }
   },
+  // // 授权组件授权成功触发
+  // signinedHandle(e) {
+  //   console.log(e)
+  // },
   businessCheck() {
     // 除Ta的简介、Ta的产品、Ta的企业、Ta的评价可点击切换内容以外，其他可点击内容，用户未授权微信，直接显示微信授权弹窗
     if (this.data.type == 2 && !this.store.data.userInfo.avatar_url) {
@@ -883,8 +890,8 @@ create(store, {
           wx.openLocation({
             // latitude: 24.44579,
             // longitude: 118.08243
-            latitude: this.datal.allData.card_info.address_latitude,
-            longitude: this.datal.allData.card_info.address_longitude
+            latitude: this.datal.card.card_info.address_latitude,
+            longitude: this.datal.card.card_info.address_longitude
           })
         }, 100)
       }
@@ -963,6 +970,7 @@ create(store, {
   },
   // 跳转至立即评论页
   toEvaluatesubmitHandle() {
+    if (this.businessCheck()) return
     wx.navigateTo({
       url: '/pages/ta/evaluate/submit',
     })
@@ -1025,7 +1033,7 @@ create(store, {
     const tempData = {
       page: this.data.tadeOptions[1].count,
       page_size: this.data.tadeOptions[1].page_size,
-      sq_business_card_id: this.data.allData.card_info.sq_business_card_id
+      sq_business_card_id: this.data.card.card_info.sq_business_card_id
     }
 
     if (typeof dataObj === 'object') {
@@ -1079,7 +1087,7 @@ create(store, {
     const tempData = {
       page: this.data.tadeOptions[3].count,
       page_size: this.data.tadeOptions[3].page_size,
-      sq_business_card_id: this.data.allData.card_info.sq_business_card_id
+      sq_business_card_id: this.data.card.card_info.sq_business_card_id
     }
 
     if (typeof dataObj === 'object') {
@@ -1112,6 +1120,11 @@ create(store, {
     })
   },
   initRequest(userInfo) {
+    console.log(userInfo)
+    // 更新userInfo
+    this.store.data.userInfo = userInfo
+    this.update()
+
     this.setData({
       userInfo
     })
@@ -1128,7 +1141,7 @@ create(store, {
         })
       }
     } else {
-      //他的名片
+      //他的名片 不用设置
     }
 
 
@@ -1186,13 +1199,24 @@ create(store, {
       }
 
       this.setData({
-        allData: res.data,
+        card: res.data,
         tabIndex: this.data.tabIndex,
-        section4
+        section4,
+        'card.data': res.data.card_info,
+        'card.style': res.data.card_style
       })
 
       this.store.data.card.data = res.data.card_info
       this.store.data.card.style = res.data.card_style
+      this.store.data.card.card_info_label_list = res.data.card_info_label_list
+      this.store.data.card.card_is_zan = res.data.card_is_zan
+      this.store.data.card.card_status = res.data.card_status
+      this.store.data.card.card_zan = res.data.card_zan
+      this.store.data.card.hometown_status = res.data.hometown_status
+      this.store.data.card.is_me = res.data.is_me
+      this.store.data.card.view_user_list = res.data.view_user_list
+      this.store.data.card.view_user_number = res.data.view_user_number
+
       this.update()
 
       // 动态元素加载完成之后执行
@@ -1314,6 +1338,13 @@ create(store, {
       })
     }
 
+    // 评价后返回评价页更新数据
+    if (this.data.tabIndex===3) {
+      this.getCommentList({
+        sq_business_card_id: this.data.card.card_info.id
+      })
+    }
+
     // if (!this.data.userInfo) {
     //   this.setData({
     //     userInfo: this.store.data.userInfo
@@ -1357,12 +1388,12 @@ create(store, {
 
       if (this.businessCheck()) return
 
-      const imageUrl = await drawCanvas(this, this.data.cid, this.data.allData)
+      const imageUrl = await drawCanvas(this, this.data.cid, this.data.card)
       console.log(imageUrl)
       // 来自页面内转发按钮
       return {
         title: ' ',
-        path: `pages/index/index`,
+        path: `pages/index/index?type=2&b=${this.data.card.card_info.id}&s=${this.store.data.userInfo.id}`,
         // imageUrl: 'https://sharepuls.xcmbkj.com/img_enrollment.png',
         imageUrl,
         success(res) {

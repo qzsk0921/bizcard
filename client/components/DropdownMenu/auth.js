@@ -83,7 +83,7 @@ create({
             // hasUserInfo: true
           })
 
-          this.updateUserInfo(res.userInfo).then(res => {
+          this.updateUserInfo(res.userInfo).then(rres => {
             this.setData({
               opened: 0
             })
@@ -96,17 +96,14 @@ create({
             store.data.userInfo['province'] = res.userInfo.province
             store.update()
             // 授权成功
-            this.triggerEvent('updated', true)
-            setTimeout(() => {
-              this.triggerEvent('signined', false)
-            }, 400)
+            // this.triggerEvent('updated', true)
+            // setTimeout(() => {
+            //   this.triggerEvent('signined', {
+            //     userInfo: res.userInfo
+            //   })
+            // }, 400)
           }).catch(res => {
             this.triggerEvent('signined', false)
-            setTimeout(() => {
-              _this.setData({
-                dialogVisible: true
-              })
-            }, 400)
 
             wx.showToast({
               title: res,

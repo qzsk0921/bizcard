@@ -112,7 +112,7 @@
           </view>
           <view class="form-item form-item-cadress arrow">
             <label>公司地址</label>
-            <input name="address" placeholder="请在地图上选择您的公司地址" placeholder-class="input-placeholder" value="{{formData.address}}" disabled="true" bindtap="addressHandle" />
+            <input class="one-txt-cut" name="address" placeholder="请在地图上选择您的公司地址" placeholder-class="input-placeholder" value="{{formData.address}}" disabled="true" bindtap="addressHandle" />
           </view>
           <view class="form-item form-item-logo arrow">
             <label>公司Logo</label>

@@ -95,6 +95,12 @@
           "pathName": "pages/index/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/index/index",
+          "query": "type=2&b=301&s=3453",
+          "scene": null
         }
       ]
     }

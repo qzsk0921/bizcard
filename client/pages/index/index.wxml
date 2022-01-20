@@ -3,7 +3,7 @@
 <wxs src="../../wxs/common.wxs" module="tools"></wxs>
 
 <dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.telephone.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephone.telephoneObj}}" />
-<dropdown-auth bindtap="dropdownAuthMaskTap" bindclose="authCloseHandle" opened="{{dialog.auth.opened}}" />
+<dropdown-auth bindtap="dropdownAuthMaskTap" bindclose="authCloseHandle" bindsignined="signinedHandle" opened="{{dialog.auth.opened}}" />
 <dropdown-diy bindtap="dropdownDiyMaskTap" bindawakenDialogAuth="awakenDialogAuth" opened="{{dialog.diy.opened}}" />
 <dropdown-share bindawakenBizcodeHandle="awakenBizcodeHandle" bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
 <!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
@@ -15,7 +15,7 @@
   </canvas> -->
 </view>
 <!-- 我的名片 -->
-<view wx:if="{{userInfo.has_card}}" class="container container-index">
+<view wx:if="{{type==1&&userInfo.has_card||type==2}}" class="container container-index">
   <view class="fixed">
     <top-navigation bindawakenDialogAuth="awakenDialogAuth" navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" tabbarPage="{{tabbarPage}}" type="{{type}}" />
   </view>
@@ -23,19 +23,19 @@
     <!-- <view class="content"> -->
 
     <view class="section1 card">
-      <card cid="{{cid}}" navbarFixed="1" carddata="{{allData.card_info}}" cardstyle="{{allData.card_style}}" />
+      <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
     </view>
     <!-- 浏览和赞 -->
     <view class="section2">
       <view class="left">
         <view class="avatar_box">
-          <image wx:for="{{allData.view_user_list}}" wx:key="unique" class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+          <image wx:for="{{card.view_user_list}}" wx:key="unique" class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
         </view>
-        <view class="text">{{allData.view_user_number}}人浏览</view>
+        <view class="text">{{card.view_user_number}}人浏览</view>
       </view>
       <view class="right">
         <image class="icon_liked" src="/assets/images/card_like.png" mode="aspectFill" bindtap="zanHandle"></image>
-        <view class="text">{{allData.card_zan}}人赞</view>
+        <view class="text">{{card.card_zan}}人赞</view>
       </view>
     </view>
     <!-- 推荐和联系等按钮 -->
@@ -53,11 +53,11 @@
         <text>递名片</text>
       </button>
       <!-- 0:没有对方名片 1:有对方名片 2:双方互存 -->
-      <button wx:if="{{type==2&&allData.card_status!=2}}" class="btn btn-reply" bindtap="replyHandle">
+      <button wx:if="{{type==2&&card.card_status!=2}}" class="btn btn-reply" bindtap="replyHandle">
         <image src="/assets/images/card_back.png" mode="aspectFill"></image>
         <text>回递名片</text>
       </button>
-      <button wx:if="{{type==2&&allData.card_status==2}}" class="btn btn-contact" bindtap="contactHandle">
+      <button wx:if="{{type==2&&card.card_status==2}}" class="btn btn-contact" bindtap="contactHandle">
         <image src="/assets/images/card_calll.png" mode="aspectFill"></image>
         <text>联系Ta</text>
       </button>
@@ -96,21 +96,21 @@
         <view class='ta' wx:else>
           <view wx:if="{{tabIndex===0}}" class="introduce">
             <view class="sec1">
-              <view wx:if="{{allData.card_info.introduce_myself}}" class="des">
+              <view wx:if="{{card.card_info.introduce_myself}}" class="des">
                 <!-- {{tadeOptions[tabIndex].cache.introduce_myself}} -->
-                {{allData.card_info.introduce_myself}}
+                {{card.card_info.introduce_myself}}
               </view>
-              <view wx:if="{{allData.card_info_label_list.length}}" class="tags">
-                <view class="tag btn btn-zan {{item.zan_status?'active':''}}" wx:for="{{allData.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
+              <view wx:if="{{card.card_info_label_list.length}}" class="tags">
+                <view class="tag btn btn-zan {{item.zan_status?'active':''}}" wx:for="{{card.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
               </view>
-              <view wx:if="{{allData.card_info.hometown}}" class="hometown">
-                <view class="text">{{allData.card_info.hometown}}</view>
-                <view wx:if="{{type==2}}" class="btn btn-hometown {{allData.hometown_status?'active':''}}" bindtap="hometownHandle">是同乡</view>
+              <view wx:if="{{card.card_info.hometown}}" class="hometown">
+                <view class="text">{{card.card_info.hometown}}</view>
+                <view wx:if="{{type==2}}" class="btn btn-hometown {{card.hometown_status?'active':''}}" bindtap="hometownHandle">是同乡</view>
               </view>
             </view>
-            <view wx:if="{{allData.card_info.vidieo_url}}" class="sec2">
+            <view wx:if="{{card.card_info.vidieo_url}}" class="sec2">
               <view class="tit">{{type==1?'我':'TA'}}的视频</view>
-              <video src="{{allData.card_info.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
+              <video src="{{card.card_info.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
             </view>
           </view>
           <!-- <view wx:if="{{tabIndex===1}}" class="product">产品</view> -->
@@ -130,21 +130,21 @@
           <view wx:if="{{tabIndex===2}}" class="company">
             <view class="sec-box">
               <view class="sec1">
-                <image wx:if="{{allData.card_info.company_avatar}}" class="logo left" src="{{allData.card_info.company_avatar}}" mode="aspectFill"></image>
+                <image wx:if="{{card.card_info.company_avatar}}" class="logo left" src="{{card.card_info.company_avatar}}" mode="aspectFill"></image>
                 <view class="right">
-                  <view wx:if="{{allData.card_info.company}}" class="row1">
-                    {{allData.card_info.company}}
+                  <view wx:if="{{card.card_info.company}}" class="row1">
+                    {{card.card_info.company}}
                   </view>
-                  <view wx:if="{{allData.card_info.hometown}}" class="row2">{{allData.card_info.hometown}}</view>
+                  <view wx:if="{{card.card_info.hometown}}" class="row2">{{card.card_info.hometown}}</view>
                 </view>
               </view>
-              <view wx:if="{{allData.card_info.company_introduce}}" class="sec2">
-                {{allData.card_info.company_introduce}}
+              <view wx:if="{{card.card_info.company_introduce}}" class="sec2">
+                {{card.card_info.company_introduce}}
                 <!-- 展开 -->
               </view>
-              <view wx:if="{{allData.card_info.company_introduce_image_arr.length}}" class="sec3">
+              <view wx:if="{{card.card_info.company_introduce_image_arr.length}}" class="sec3">
                 <view class="image-box hide-scrollbar">
-                  <image wx:for="{{allData.card_info.company_introduce_image_arr}}" wx:key="unique" src="{{item}}" mode="aspectFill"></image>
+                  <image wx:for="{{card.card_info.company_introduce_image_arr}}" wx:key="unique" src="{{item}}" mode="aspectFill"></image>
                 </view>
               </view>
             </view>
@@ -186,8 +186,8 @@
   </scroll-view>
 </view>
 
-<!-- 无铭牌信息页面 -->
-<view wx:if="{{userInfo.has_card===0}}" class="container container-welcome">
+<!-- 无名片信息页面 -->
+<view wx:if="{{userInfo.has_card==0&&type==1}}" class="container container-welcome">
   <view wx:if="{{compatibleInfo.systemInfo.safeArea}}" class="compatibleIphoneXEl"></view>
   <view class="section1">
     <image src="/assets/images/home_bk.png" mode="aspectFill"></image>

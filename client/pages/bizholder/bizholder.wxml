@@ -69,6 +69,6 @@
       </view>
       <!-- <view class="nothing" wx:if="listData.total_page===listData.count">没有更多了~</view> -->
     </view>
-    <view wx:if="{{status==='editing'&&selectArr.length}}" class="btn btn-delete" bindtap="delHandle">删除</view>
+    <view wx:if="{{(status==='editing'&&selectArr.length)}}" class="btn btn-delete" bindtap="delHandle">删除</view>
   </scroll-view>
 </view>

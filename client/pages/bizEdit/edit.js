@@ -18,7 +18,7 @@ import {
   checkMobile
 } from '../../utils/util'
 
-const duration = 1500
+const duration = 1000
 
 // Page({
 create(store, {
@@ -195,6 +195,7 @@ create(store, {
       tagArr: this.data.tagArr,
       'formData.label_str': this.data.tagArr.join()
     })
+
   },
   // 公司简介
   textareaInputIntroductionHandle(e) {
@@ -287,44 +288,70 @@ create(store, {
     // 校验
     if (!this.formValidate(this.data.formData)) return
 
-    const tempUpdate = {
-      'formData.avatar': http_avatar,
-      'formData.vidieo_url': http_vidieo_url,
-      'formData.company_avatar': http_company_avatar,
-      'formData.company_introduce_image_arr': http_company_introduce_image_arr
-    }
+
 
     let http_avatar = null,
       http_vidieo_url = null,
       http_company_avatar = null,
       http_company_introduce_image_arr = null
-      
-    // 头像
-    http_avatar = await this.updateQiniu(this.data.formData.avatar)
-    if (http_avatar) {
-      tempUpdate['formData.avatar'] = http_avatar
-    } else {
-      console.log('http_avatar上传失败')
-      return
+
+    const tempUpdate = {
+      'formData.avatar': this.data.formData.avatar,
+      'formData.vidieo_url': this.data.formData.vidieo_url,
+      'formData.company_avatar': this.data.formData.http_company_avatar,
+      'formData.company_introduce_image_arr': this.data.formData.http_company_introduce_image_arr
     }
+
+    // 头像
+    //https协议的资源 不重复上传（未修改）
+    if (!/^https/.test(this.data.formData.avatar)) {
+      http_avatar = await this.updateQiniu(this.data.formData.avatar)
+      if (http_avatar) {
+        tempUpdate['formData.avatar'] = http_avatar
+      } else {
+        console.log('http_avatar上传失败')
+        return
+      }
+    }
+
 
     // 视频
     if (this.data.formData.vidieo_url) {
-      http_vidieo_url = await this.updateQiniu(this.data.formData.vidieo_url)
-      if (http_vidieo_url) {
-        tempUpdate['formData.vidieo_url'] = http_vidieo_url
+      //https协议的资源 不重复上传（未修改）
+      if (!/^https/.test(this.data.formData.vidieo_url)) {
+        http_vidieo_url = await this.updateQiniu(this.data.formData.vidieo_url)
+        if (http_vidieo_url) {
+          tempUpdate['formData.vidieo_url'] = http_vidieo_url
+        }
       }
     }
+
     // 公司logo
     if (this.data.formData.company_avatar) {
-      http_company_avatar = await this.updateQiniu(this.data.formData.company_avatar)
-      if (http_company_avatar) {
-        tempUpdate['formData.company_avatar'] = http_company_avatar
+      if (!/^https/.test(this.data.formData.http_company_avatar)) {
+        http_company_avatar = await this.updateQiniu(this.data.formData.company_avatar)
+        if (http_company_avatar) {
+          tempUpdate['formData.company_avatar'] = http_company_avatar
+        }
       }
     }
     // 公司介绍图
     if (this.data.formData.company_introduce_image_arr.length) {
-      http_company_introduce_image_arr = await this.updateQiniu(this.data.formData.company_introduce_image_arr)
+      http_company_introduce_image_arr = this.data.formData.company_introduce_image_arr
+      // 取出修改的公司介绍图数组
+      let tempArr = []
+      this.data.formData.company_introduce_image_arr.forEach((item, index) => {
+        if (!/^https/.test(item)) {
+          this.data.formData.company_introduce_image_arr.splice(index, 1)
+          tempArr.push(item)
+        }
+      })
+
+      if (tempArr.length) {
+        // 有修改则上传
+        const temp_http_company_introduce_image_arr = await this.updateQiniu(tempArr)
+        http_company_introduce_image_arr = this.data.formData.company_introduce_image_arr.concat(temp_http_company_introduce_image_arr)
+      }
 
       if (http_company_introduce_image_arr) {
         tempUpdate['formData.company_introduce_image_arr'] = http_company_introduce_image_arr
@@ -456,6 +483,43 @@ create(store, {
         editData: res.data,
       })
     })
+
+    this.getCardDetail({
+      type: 1
+    }).then(res => {
+      const data = res.data
+      this.store.data.card.data = data.card_info
+      this.store.data.card.style = data.card_style
+      this.update()
+
+      this.setData({
+        card: this.store.data.card,
+        //回显
+        tagArr: data.card_info_label_list.map(res => res.id), //标签高亮
+        "formData.sq_business_card_id": res.data.card_info.id,
+        'formData.is_public': res.data.card_info.is_public,
+        'formData.avatar': res.data.card_info.avatar,
+        'formData.name': res.data.card_info.name,
+        'formData.hometown': res.data.card_info.hometown,
+        'formData.mobile': res.data.card_info.mobile,
+        'formData.landline': res.data.card_info.landline,
+        'formData.email': res.data.card_info.email,
+        'formData.introduce_myself': res.data.card_info.introduce_myself,
+        'formData.label_str': res.data.card_info_label_list.map(item => item.id).join(),
+        'formData.vidieo_url': res.data.card_info.vidieo_url,
+        'formData.company': res.data.card_info.company,
+        'formData.profession_id': res.data.card_info.profession_id,
+        'formData.profession_name': res.data.card_info.profession,
+        'formData.industry_id': res.data.card_info.industry_id,
+        'formData.industry_name': res.data.card_info.industry,
+        'formData.address': res.data.card_info.address,
+        'formData.address_longitude': res.data.card_info.address_longitude,
+        'formData.address_latitude': res.data.card_info.address_latitude,
+        'formData.company_avatar': res.data.card_info.company_avatar,
+        'formData.company_introduce': res.data.card_info.company_introduce,
+        'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr,
+      })
+    })
   },
 
   /**
@@ -480,43 +544,6 @@ create(store, {
         userInfo: this.store.data.userInfo
       })
     }
-
-    this.getCardDetail({
-      type: 1
-    }).then(res => {
-      const data = res.data
-      this.store.data.card.data = data.card_info
-      this.store.data.card.style = data.card_style
-      this.update()
-
-
-      this.setData({
-        card: this.store.data.card,
-        //回显
-        "sq_business_card_id": res.data.card_info.id,
-        'formData.is_public':res.data.card_info.is_public,
-        'formData.avatar':res.data.card_info.avatar,
-        'formData.name':res.data.card_info.name,
-        'formData.hometown':res.data.card_info.hometown,
-        'formData.mobile':res.data.card_info.mobile,
-        'formData.landline':res.data.card_info.landline,
-        'formData.email':res.data.card_info.email,
-        'formData.introduce_myself':res.data.card_info.introduce_myself,
-        'formData.label_str':res.data.card_info_label_list,
-        'formData.vidieo_url':res.data.card_info.vidieo_url,
-        'formData.company':res.data.card_info.company,
-        'formData.profession_id':res.data.card_info.profession_id,
-        'formData.profession_name':res.data.card_info.profession,
-        'formData.industry_id':res.data.card_info.industry_id,
-        'formData.industry_name':res.data.card_info.industry,
-        'formData.address':res.data.card_info.address,
-        'formData.address_longitude':res.data.card_info.address_longitude,
-        'formData.address_latitude':res.data.card_info.address_latitude,
-        'formData.company_avatar':res.data.card_info.company_avatar,
-        'formData.company_introduce':res.data.card_info.company_introduce,
-        'formData.company_introduce_image_arr':res.data.card_info.company_introduce_image_arr,
-      })
-    })
   },
 
   /**

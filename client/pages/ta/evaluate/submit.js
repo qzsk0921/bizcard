@@ -4,7 +4,7 @@ import create from '../../../utils/create'
 import {
   addZanComment
 } from '../../../api/comment'
-const duration = 2000
+const duration = 1000
 // Page({
 create(store, {
 
@@ -12,7 +12,7 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    starNum: 4, //星星数量
+    starNum: 5, //星星数量
     currentCount: 0,
     content: '',
 

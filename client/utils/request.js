@@ -40,10 +40,10 @@ class Request {
           method,
           url,
           data
-        }).then(res => {
-          res => {
-            resolve(res.data)
-          }
+        }).then(ress => {
+          // res => {
+            resolve(ress)
+          // }
         })
       })
     })
