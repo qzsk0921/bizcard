@@ -104,8 +104,13 @@ create(store, {
   // 保存名片信息
   formSubmit(e) {
     console.log(e)
-    const formdata = e.detail.value
-    const res = Object.keys(formdata).some(key => !formdata[key])
+    const formData = e.detail.value
+
+    Object.keys(formData).forEach(key => {
+      this.data.formData[key] = formData[key]
+    })
+
+    const res = Object.keys(this.data.formData).some(key => !this.data.formData[key])
 
     if (res) {
       wx.showToast({
@@ -114,7 +119,7 @@ create(store, {
       })
     } else {
       // 校验手机号
-      if (!checkMobile(formdata.mobile)) {
+      if (!checkMobile(this.data.formData.mobile)) {
         wx.showToast({
           title: '请输入正确手机号',
           icon: 'none'
@@ -139,8 +144,9 @@ create(store, {
       //     }, duration)
       //   })
       // } else {
+
       // 新增
-      this.addEasyCard(formdata).then(res => {
+      this.addEasyCard(this.data.formData).then(res => {
         wx.showToast({
           icon: 'none',
           title: res.msg,
@@ -152,11 +158,15 @@ create(store, {
           // wx.navigateBack({
           //   delta: 0,
           // })
-          wx.switchTab({
+          this.store.data.userInfo.has_card = 1
+          this.update()
+          
+          wx.reLaunch({
             url: '/pages/index/index',
           })
         }, duration)
       })
+
       // }
     }
   },

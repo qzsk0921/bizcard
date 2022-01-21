@@ -1,5 +1,12 @@
 module.exports = {
-  parseUnicode: function(unicode) {
-    return JSON.parse(unicode)
+  parseUnicode: function (unicode) {
+    // return JSON.parse(unicode)
+    var res = null
+    if (unicode.indexOf('"') != -1) {
+      res = JSON.parse(unicode)
+    } else {
+      res = unicode
+    }
+    return res
   }
 }

@@ -218,7 +218,6 @@ create(store, {
     const {
       file
     } = event.detail;
-
     // file.forEach((item, index) => {
     //   item.deletable = true
     // })
@@ -298,19 +297,21 @@ create(store, {
     const tempUpdate = {
       'formData.avatar': this.data.formData.avatar,
       'formData.vidieo_url': this.data.formData.vidieo_url,
-      'formData.company_avatar': this.data.formData.http_company_avatar,
-      'formData.company_introduce_image_arr': this.data.formData.http_company_introduce_image_arr
+      'formData.company_avatar': this.data.formData.company_avatar,
+      'formData.company_introduce_image_arr': this.data.formData.company_introduce_image_arr
     }
 
     // 头像
     //https协议的资源 不重复上传（未修改）
-    if (!/^https/.test(this.data.formData.avatar)) {
-      http_avatar = await this.updateQiniu(this.data.formData.avatar)
-      if (http_avatar) {
-        tempUpdate['formData.avatar'] = http_avatar
-      } else {
-        console.log('http_avatar上传失败')
-        return
+    if (this.data.formData.avatar) {
+      if (!/^https/.test(this.data.formData.avatar)) {
+        http_avatar = await this.updateQiniu(this.data.formData.avatar)
+        if (http_avatar) {
+          tempUpdate['formData.avatar'] = http_avatar
+        } else {
+          console.log('http_avatar上传失败')
+          return
+        }
       }
     }
 
@@ -328,7 +329,7 @@ create(store, {
 
     // 公司logo
     if (this.data.formData.company_avatar) {
-      if (!/^https/.test(this.data.formData.http_company_avatar)) {
+      if (!/^https/.test(this.data.formData.company_avatar)) {
         http_company_avatar = await this.updateQiniu(this.data.formData.company_avatar)
         if (http_company_avatar) {
           tempUpdate['formData.company_avatar'] = http_company_avatar
@@ -379,13 +380,14 @@ create(store, {
   formValidate(formData) {
     const flag = Object.keys(formData).some(key => {
       if (!formData[key]) {
-        if (key == 'avatar') {
-          wx.showToast({
-            icon: 'none',
-            title: '请上传头像',
-          })
-          return true
-        } else if (key === 'name') {
+        // if (key == 'avatar') {
+        //   wx.showToast({
+        //     icon: 'none',
+        //     title: '请上传头像',
+        //   })
+        //   return true
+        // } else 
+        if (key === 'name') {
           wx.showToast({
             icon: 'none',
             title: '请输入姓名',
@@ -478,48 +480,55 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getStyleList().then(res => {
+    this.getStyleList().then(ress => {
       this.setData({
-        editData: res.data,
+        editData: ress.data,
+      })
+
+      this.getCardDetail({
+        type: 1
+      }).then(res => {
+        const data = res.data
+        this.store.data.card.data = data.card_info
+        this.store.data.card.style = data.card_style
+        this.update()
+
+        const tempTags = ress.data.select_tag_list.filter(item => item.select_status)
+        let myTagarr
+        if (tempTags.length) {
+          myTagarr = tempTags.map(it => it.id).join()
+        }
+
+        this.setData({
+          card: this.store.data.card,
+          //回显
+          tagArr: myTagarr, //标签高亮
+          "formData.sq_business_card_id": res.data.card_info.id,
+          'formData.is_public': res.data.card_info.is_public,
+          'formData.avatar': res.data.card_info.avatar,
+          'formData.name': res.data.card_info.name,
+          'formData.hometown': res.data.card_info.hometown,
+          'formData.mobile': res.data.card_info.mobile,
+          'formData.landline': res.data.card_info.landline,
+          'formData.email': res.data.card_info.email,
+          'formData.introduce_myself': res.data.card_info.introduce_myself,
+          'formData.label_str': tempTags.join(),
+          'formData.vidieo_url': res.data.card_info.vidieo_url,
+          'formData.company': res.data.card_info.company,
+          'formData.profession_id': res.data.card_info.profession_id,
+          'formData.profession_name': res.data.card_info.profession,
+          'formData.industry_id': res.data.card_info.industry_id,
+          'formData.industry_name': res.data.card_info.industry,
+          'formData.address': res.data.card_info.address,
+          'formData.address_longitude': res.data.card_info.address_longitude,
+          'formData.address_latitude': res.data.card_info.address_latitude,
+          'formData.company_avatar': res.data.card_info.company_avatar,
+          'formData.company_introduce': res.data.card_info.company_introduce,
+          'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr ? res.data.card_info.company_introduce_image_arr : [],
+        })
       })
     })
 
-    this.getCardDetail({
-      type: 1
-    }).then(res => {
-      const data = res.data
-      this.store.data.card.data = data.card_info
-      this.store.data.card.style = data.card_style
-      this.update()
-
-      this.setData({
-        card: this.store.data.card,
-        //回显
-        tagArr: data.card_info_label_list.map(res => res.id), //标签高亮
-        "formData.sq_business_card_id": res.data.card_info.id,
-        'formData.is_public': res.data.card_info.is_public,
-        'formData.avatar': res.data.card_info.avatar,
-        'formData.name': res.data.card_info.name,
-        'formData.hometown': res.data.card_info.hometown,
-        'formData.mobile': res.data.card_info.mobile,
-        'formData.landline': res.data.card_info.landline,
-        'formData.email': res.data.card_info.email,
-        'formData.introduce_myself': res.data.card_info.introduce_myself,
-        'formData.label_str': res.data.card_info_label_list.map(item => item.id).join(),
-        'formData.vidieo_url': res.data.card_info.vidieo_url,
-        'formData.company': res.data.card_info.company,
-        'formData.profession_id': res.data.card_info.profession_id,
-        'formData.profession_name': res.data.card_info.profession,
-        'formData.industry_id': res.data.card_info.industry_id,
-        'formData.industry_name': res.data.card_info.industry,
-        'formData.address': res.data.card_info.address,
-        'formData.address_longitude': res.data.card_info.address_longitude,
-        'formData.address_latitude': res.data.card_info.address_latitude,
-        'formData.company_avatar': res.data.card_info.company_avatar,
-        'formData.company_introduce': res.data.card_info.company_introduce,
-        'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr,
-      })
-    })
   },
 
   /**

@@ -627,6 +627,43 @@ create(store, {
         }
       },
       // immediate: true
+    },
+    type: {
+      handler(nv, ov, obj) {
+        const temp = {}
+
+        if (nv == 1) {
+          temp.navigationBarTitleText = '我的名片'
+          temp.navStatus = 'isEmpty'
+          temp.tabbar = ['我的简介', '我的产品', '我的企业', '我的评价']
+          // 我的名片
+          if (this.data.userInfo.has_card) {
+            setTabBar.call(this)
+          } else {
+            setTabBar.call(this, {
+              list
+            })
+          }
+        } else {
+          //他的名片 不用设置
+        }
+
+        if (nv == 2) {
+          temp.navStatus = 'isEntryWithShare'
+          temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
+          // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
+          wx.showToast({
+            icon: 'none',
+            title: '已为您将该名片至名片夹',
+          })
+        }
+
+        this.setData(temp)
+        // 动态元素加载完成之后执行
+        setTimeout(() => {
+          this.elOnReady()
+        }, 0)
+      }
     }
   },
   awakenDialogAuth(e) {
@@ -890,8 +927,8 @@ create(store, {
           wx.openLocation({
             // latitude: 24.44579,
             // longitude: 118.08243
-            latitude: this.datal.card.card_info.address_latitude,
-            longitude: this.datal.card.card_info.address_longitude
+            latitude: this.data.card.card_info.address_latitude,
+            longitude: this.data.card.card_info.address_longitude
           })
         }, 100)
       }
@@ -1119,30 +1156,18 @@ create(store, {
       })
     })
   },
-  initRequest(userInfo) {
+  initRequest(userInfo, options) {
     console.log(userInfo)
     // 更新userInfo
     this.store.data.userInfo = userInfo
     this.update()
 
     this.setData({
-      userInfo
+      userInfo,
+      ...options
     })
 
     this.businessCheck()
-
-    if (this.data.type == 1) {
-      // 我的名片
-      if (userInfo.has_card) {
-        setTabBar.call(this)
-      } else {
-        setTabBar.call(this, {
-          list
-        })
-      }
-    } else {
-      //他的名片 不用设置
-    }
 
 
     const temp = {}
@@ -1156,14 +1181,27 @@ create(store, {
     }
 
     this.getCardDetail(temp).then(res => {
-      if (temp.type == 2) {
-        // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
-        wx.showToast({
-          icon: 'none',
-          title: '已为您将该名片至名片夹',
-        })
-      }
 
+      // if (this.data.type == 1) {
+      //   // 我的名片
+      //   if (userInfo.has_card) {
+      //     setTabBar.call(this)
+      //   } else {
+      //     setTabBar.call(this, {
+      //       list
+      //     })
+      //   }
+      // } else {
+      //   //他的名片 不用设置
+      // }
+
+      // if (temp.type == 2) {
+      //   // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
+      //   wx.showToast({
+      //     icon: 'none',
+      //     title: '已为您将该名片至名片夹',
+      //   })
+      // }
       let section4 = []
       if (res.data.card_info.mobile) {
         section4.push({
@@ -1173,7 +1211,8 @@ create(store, {
           content: res.data.card_info.mobile,
           toast: '',
         })
-      } else if (res.data.card_info.email) {
+      }
+      if (res.data.card_info.email) {
         section4.push({
           id: 2,
           img: '/assets/images/card_email.png',
@@ -1181,7 +1220,9 @@ create(store, {
           content: res.data.card_info.email,
           toast: '已为您复制Ta的邮箱至您的粘贴板',
         })
-      } else if (res.data.card_info.address) {
+      }
+
+      if (res.data.card_info.address) {
         section4.push({
           id: 3,
           img: '/assets/images/card_location.png',
@@ -1189,7 +1230,8 @@ create(store, {
           content: res.data.card_info.address,
           toast: '已将地址存至手机粘贴板' //然后，跳转至地图导航
         })
-      } else if (res.data.card_info.landline) {
+      }
+      if (res.data.card_info.landline) {
         section4.push({
           id: 4,
           img: '/assets/images/card_call.png',
@@ -1198,13 +1240,29 @@ create(store, {
         })
       }
 
-      this.setData({
+      const tempSetdata = {
         card: res.data,
         tabIndex: this.data.tabIndex,
         section4,
         'card.data': res.data.card_info,
         'card.style': res.data.card_style
-      })
+      }
+
+      // 自己查看自己的分享名片
+      if (res.data.is_me) {
+        tempSetdata.type = 1
+        // tempSetdata.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
+      }
+
+      // 名片被禁用 分查看自己名片时 他人查看自己名片时
+      if (res.data.card_info.status === 0) {
+        tempSetdata['dialog.forbidden.opened'] = 1
+        tempSetdata['dialog.forbidden.forbiddenObj'] = {
+          text1: this.data.type == 1 ? '您已被停用使用数字星片' : '该数字星片已被停用',
+          text2: this.data.type == 1 ? '详情请联系客服：0592-5239124' : '无法进行查看'
+        }
+      }
+      this.setData(tempSetdata)
 
       this.store.data.card.data = res.data.card_info
       this.store.data.card.style = res.data.card_style
@@ -1218,18 +1276,11 @@ create(store, {
       this.store.data.card.view_user_number = res.data.view_user_number
 
       this.update()
-
-      // 动态元素加载完成之后执行
-      this.elOnReady()
     })
   },
   elOnReady() {
     const that = this;
     const query = wx.createSelectorQuery();
-
-    query.select('.section5').boundingClientRect(function (rect) {
-      that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
-    })
 
     query.select('.tab').boundingClientRect(function (rect) {
       that.setData({
@@ -1237,6 +1288,10 @@ create(store, {
         tabHeight: rect.height
       })
     }).exec();
+
+    query.select('.section5').boundingClientRect(function (rect) {
+      that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -1281,21 +1336,19 @@ create(store, {
         } else {
           temp = options
         }
-        temp.navStatus = 'isEntryWithShare'
-        temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
+
+        // temp.navStatus = 'isEntryWithShare'
+        // temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
       } else {
         // 非扫码
         temp = options
         // 以下调试后删除（type=2&b=4269&s=3452）--------------------------------------------
-        temp.navStatus = 'isEntryWithShare'
-        temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
       }
     }
     options = temp
 
     // {type: "2", b: "4269", s: "3452"}
     console.log(options)
-    this.setData(options)
 
     if (wx.getUserProfile) {
       this.setData({
@@ -1304,10 +1357,10 @@ create(store, {
     }
 
     if (this.store.data.userInfo) {
-      this.initRequest(this.store.data.userInfo)
+      this.initRequest(this.store.data.userInfo, options)
     } else {
       getApp().getUserInfoCallback = (res => {
-        this.initRequest(res)
+        this.initRequest(res, options)
       })
     }
 
@@ -1339,7 +1392,7 @@ create(store, {
     }
 
     // 评价后返回评价页更新数据
-    if (this.data.tabIndex===3) {
+    if (this.data.tabIndex === 3) {
       this.getCommentList({
         sq_business_card_id: this.data.card.card_info.id
       })

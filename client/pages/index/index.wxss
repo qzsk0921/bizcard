@@ -273,7 +273,7 @@
 
 .section4 .item {
   /* height: 120rpx; */
-  background: rgba(255, 255, 255, 0.39);
+  background: rgba(255, 255, 255);
   border: 1rpx solid #EDF0F5;
   border-radius: 6rpx;
   margin-right: 16rpx;
@@ -301,7 +301,8 @@
 }
 
 .section5 {
-  background: #EDF0F5;
+  /* background: #EDF0F5; */
+  background: #FFFFFF;
 }
 
 .section5.fixed {
@@ -498,6 +499,10 @@
   border-radius: 8rpx;
 }
 
+.section5 .company .sec1 .right {
+  margin-left: 40rpx;
+}
+
 .section5 .company .sec1 .right .row1 {
   margin-top: 5rpx;
   font-size: 32rpx;
@@ -517,10 +522,11 @@
   font-size: 28rpx;
   line-height: 48rpx;
   color: #555555;
+  padding-bottom: 20rpx;
 }
 
 .section5 .company .sec3 {
-  margin-top: 30rpx;
+  margin-top: 10rpx;
   padding-bottom: 80rpx;
 }
 
@@ -549,6 +555,7 @@
 .section5 .comment .sec-box {
   padding: 0 35rpx 0;
   background: #ffffff;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .section5 .comment .sec1 {
@@ -584,7 +591,6 @@
   font-size: 26rpx;
   color: #747888;
 }
-
 .section5 .comment .sec2 .item .row1 {
   padding: 44rpx 0 9rpx;
   display: flex;

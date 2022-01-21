@@ -13,7 +13,7 @@ create(store, {
    */
   data: {
     card: null,
-    navStatus: 'isEmpty',
+    navStatus: '',
     userInfo: null,
     navigationBarTitleText: '',
     systemInfo: null,

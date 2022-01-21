@@ -50,9 +50,9 @@
       <button class="btn btn-invite" open-type="share">立即邀请使用</button>
     </view>
     <view class='radar-list business' wx:else>
-      <view class="card" wx:for="{{listData.cache}}" wx:key="unique">
+      <view class="card" wx:for="{{listData.cache}}" wx:key="unique" data-item="{{item}}" bindtap="cardHandle">
         <view class="left">
-          <view wx:if="{{status==='editing'}}" class="select-box" bindtap="selectHandle" data-id="{{item.id}}">
+          <view wx:if="{{status==='editing'}}" class="select-box" catchtap="selectHandle" data-id="{{item.id}}">
             <image class="icon-select" src="{{tools.checkSelectSituation(item.id, selectArr)?'/assets/images/edit_exposure_n.png':'/assets/images/holder_f.png'}}" mode="aspectFill"></image>
           </view>
           <image class="col1 avatar" src="{{item.avatar}}" mode="aspectFill"></image>

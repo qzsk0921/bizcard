@@ -28,12 +28,12 @@
         </view>
         <view class="form-item form-item-position arrow">
           <label>职位</label>
-          <input name="profession_id" placeholder="请选择职位" placeholder-class="input-placeholder" value="{{formData.profession_name}}" bindtap="positionHandle" disabled="true" />
+          <input placeholder="请选择职位" placeholder-class="input-placeholder" value="{{formData.profession_name}}" bindtap="positionHandle" disabled="true" />
         </view>
         <view class="form-item form-item-style">
           <label>名片样式</label>
           <!-- <input name="style_id" placeholder="" placeholder-class="input-placeholder" value="{{card.style}}" disabled="true" bindtap="styleHandle" disabled="true" /> -->
-          <radio-group name="style_image_id">
+          <radio-group>
             <label class="style-item {{item.id==formData.style_image_id?'active':''}}" wx:for="{{styleList}}" wx:key="unique" bindtap="styleHandle" data-id="{{item.id}}">
               <radio value="{{formData.style_image_id}}" /><text>{{item.name}}</text>
             </label>

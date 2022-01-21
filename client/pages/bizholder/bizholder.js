@@ -58,7 +58,7 @@ create(store, {
     page: 1,
     page_size: 10,
 
-    remind: 1, //有新的朋友发来名片 0没有 1有
+    remind: 0, //有新的朋友发来名片 0没有 1有
     searchKeyword: '', //搜索关键字
     selectArr: [], //选中的id数组
     isSelectAll: 0, //默认非全选 0未全选 1全选
@@ -78,6 +78,14 @@ create(store, {
         })
       },
     },
+  },
+  // 实物名片点击跳转至实物名片详情
+  cardHandle(e) {
+    const dataset = e.currentTarget.dataset
+
+    wx.reLaunch({
+      url: `/pages/index/index?type=2&b=${dataset.item.sq_business_card_id}&s=${dataset.item.id}`
+    })
   },
   // 完成按钮
   completeHandle() {
@@ -257,21 +265,14 @@ create(store, {
    */
   onLoad: function (options) {
     getApp().setWatcher(this) //设置监听器
-    this.getCardList()
-    this.getCardMsgNum().then(res => {
-      if (res.data.total_number) {
-        this.setData({
-          remind: 1
-        })
-      }
-    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    if (this.store.data.has_card) {
+
+    if (this.store.data.userInfo.has_card) {
       setTabBar.call(this, {
         selected: 2
       })
@@ -320,6 +321,15 @@ create(store, {
         userInfo: this.store.data.userInfo
       })
     }
+
+    this.getCardList()
+    this.getCardMsgNum().then(res => {
+      if (res.data.total_number) {
+        this.setData({
+          remind: 1
+        })
+      }
+    })
   },
 
   /**

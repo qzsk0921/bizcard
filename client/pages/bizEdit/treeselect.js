@@ -84,7 +84,6 @@ create(store, {
     this.setData({
       activeId
     });
-
     this.updatePrevpageData(detail)
   },
   // 更新上一个页面数据

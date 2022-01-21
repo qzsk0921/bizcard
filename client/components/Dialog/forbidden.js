@@ -15,34 +15,7 @@ Component({
       type: Boolean,
       value: false
     },
-    title: {
-      // 提示的标题
-      type: String,
-      value: '',
-    },
-    content: {
-      // 提示的内容
-      type: String,
-      value: ''
-    },
-    confirmText: {
-      // 确认按钮的文字
-      type: String,
-      value: '确定'
-    },
-    confirmBgColor: {
-      type: String,
-      value: '#F23D32'
-    },
-    cancelText: {
-      // 取消按钮的文字
-      type: String,
-      value: '取消'
-    },
-    cancelBgColor: {
-      type: String,
-      value: '#FFFFFF'
-    }
+    forbiddenObj: Object
   },
 
   /**
@@ -57,10 +30,9 @@ Component({
    */
   methods: {
     dialogTapHandle() {
-      // this.triggerEvent('signup', false)
-      this.setData({
-        dialogVisible: false
-      })
+      // this.setData({
+      //   dialogVisible: false
+      // })
     },
     cancelHandle() {
       this.setData({

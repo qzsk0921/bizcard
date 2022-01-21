@@ -6,7 +6,7 @@
 <dropdown-auth bindtap="dropdownAuthMaskTap" bindclose="authCloseHandle" bindsignined="signinedHandle" opened="{{dialog.auth.opened}}" />
 <dropdown-diy bindtap="dropdownDiyMaskTap" bindawakenDialogAuth="awakenDialogAuth" opened="{{dialog.diy.opened}}" />
 <dropdown-share bindawakenBizcodeHandle="awakenBizcodeHandle" bindtap="dropdownShareMaskTap" opened="{{dialog.share.opened}}" />
-<!-- <dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" bindconfirm="diaConfirmHandle" /> -->
+<dialog-forbidden dialogVisible="{{dialog.forbidden.opened}}" forbiddenObj="{{dialog.forbidden.forbiddenObj}}" bindconfirm="diaConfirmHandle" />
 <!-- <scan /> -->
 <!--canvas盒子-->
 <view class="canvas-box">
@@ -158,14 +158,14 @@
                   <view class="arrow"></view>
                 </view>
               </view>
-              <view class="sec2">
+              <view class="sec2" style="{{type==2?'padding-bottom:100rpx':'0'}}">
                 <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}">
                   <view class="row1">
                     <view class="left">
                       <image class="col1 avatar" src="{{item.avatar}}" mode="aspectFill"></image>
                       <view class="col2">
                         <view class="nickname">{{tools.parseUnicode(item.nick_name)}}</view>
-                        <van-rate value="{{item.score}}" count="{{item.score}}" color="#FFB70F" />
+                        <van-rate readonly value="{{item.score}}" count="{{item.score}}" color="#FFB70F" />
                       </view>
                     </view>
                     <view class="right {{item.is_zan?'active':''}}">

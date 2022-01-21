@@ -34,7 +34,7 @@
 .option-box .sec2-nft .image-box .img-item .icon-nft {
   width: 148rpx;
   height: 94rpx;
-  border-radius: 4rpx;
+  border-radius: 8rpx;
   border: 4rpx solid transparent;
 }
 
