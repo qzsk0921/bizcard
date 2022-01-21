@@ -14,6 +14,9 @@ import {
   setTownsman
 } from '../../api/card'
 import {
+  getStyleList
+} from '../../api/cardEdit'
+import {
   getCommentList,
   setCommentZan
 } from '../../api/comment'
@@ -582,12 +585,24 @@ create(store, {
     tabIndex: {
       handler(nv, ov, obj) {
         // console.log(nv)
+        if (this.data.type == 2) {
+          this.getStyleList().then(ress => {
+            this.setData({
+              editData: ress.data,
+            })
+
+            // const tempTags = ress.data.select_tag_list.filter(item => item.select_status)
+            // let myTagarr = []
+            // if (tempTags.length) {
+            //   myTagarr = tempTags.map(it => it.id).join()
+            // }
+          })
+        }
         if (nv === 0) {
           // 简介
           const data = this.data.card
           if (!data.card_info.introduce_myself &&
             !data.card_info_label_list.length &&
-            !data.card_info.hometown &&
             !data.card_info.hometown &&
             !data.card_info.vidieo_url
           ) {
@@ -759,18 +774,17 @@ create(store, {
   labelZanHandle(e) {
     const item = e.currentTarget.dataset.item
 
-    const type = !item.zan_status
+    const type = item.status ? 0 : 1
     const temp = {
       type,
       sq_business_card_id: this.data.card.card_info.id,
       user_new_label_id: item.id
     }
     this.setCardLabelZan(temp).then(res => {
-      this.data.card.card_info_label_list.some((it, index) => {
+      this.data.editData.select_tag_list.some((it, index) => {
         if (it.id === item.id) {
           this.setData({
-            [`card.card_info_label_list[${index}].zan_status`]: type,
-            [`card.card_info_label_list[${index}].zan_num`]: it.zan_num + (type ? 1 : -1)
+            [`editData.select_tag_list[${index}].status`]: type,
           })
         }
       })
@@ -1066,6 +1080,15 @@ create(store, {
       })
     })
   },
+  getStyleList(data) {
+    return new Promise((resolve, reject) => {
+      getStyleList(data).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
   getGoodList(dataObj) {
     const tempData = {
       page: this.data.tadeOptions[1].count,
@@ -1210,6 +1233,7 @@ create(store, {
           title: '电话',
           content: res.data.card_info.mobile,
           toast: '',
+          name: res.data.card_info.name
         })
       }
       if (res.data.card_info.email) {
@@ -1219,6 +1243,7 @@ create(store, {
           title: '邮箱',
           content: res.data.card_info.email,
           toast: '已为您复制Ta的邮箱至您的粘贴板',
+          name: res.data.card_info.name
         })
       }
 
@@ -1228,7 +1253,8 @@ create(store, {
           img: '/assets/images/card_location.png',
           title: '地址',
           content: res.data.card_info.address,
-          toast: '已将地址存至手机粘贴板' //然后，跳转至地图导航
+          toast: '已将地址存至手机粘贴板', //然后，跳转至地图导航
+          name: res.data.card_info.name
         })
       }
       if (res.data.card_info.landline) {
@@ -1236,7 +1262,8 @@ create(store, {
           id: 4,
           img: '/assets/images/card_call.png',
           title: '座机',
-          content: res.data.card_info.landline
+          content: res.data.card_info.landline,
+          name: res.data.card_info.name
         })
       }
 

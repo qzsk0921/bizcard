@@ -494,7 +494,7 @@ create(store, {
         this.update()
 
         const tempTags = ress.data.select_tag_list.filter(item => item.select_status)
-        let myTagarr
+        let myTagarr = []
         if (tempTags.length) {
           myTagarr = tempTags.map(it => it.id).join()
         }

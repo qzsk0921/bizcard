@@ -1,6 +1,8 @@
 <!--pages/index/index.wxml-->
 <!-- <text>pages/index/index.wxml</text> -->
 <wxs src="../../wxs/common.wxs" module="tools"></wxs>
+<wxs module="tool" src="/pages/bizEdit/wxs/index.wxs"></wxs>
+
 
 <dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.telephone.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephone.telephoneObj}}" />
 <dropdown-auth bindtap="dropdownAuthMaskTap" bindclose="authCloseHandle" bindsignined="signinedHandle" opened="{{dialog.auth.opened}}" />
@@ -100,8 +102,18 @@
                 <!-- {{tadeOptions[tabIndex].cache.introduce_myself}} -->
                 {{card.card_info.introduce_myself}}
               </view>
-              <view wx:if="{{card.card_info_label_list.length}}" class="tags">
-                <view class="tag btn btn-zan {{item.zan_status?'active':''}}" wx:for="{{card.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
+              <view class="tags">
+                <view wx:if="{{type==1}}">
+                  <view wx:if="{{card.card_info_label_list.length}}" class="tags">
+                    <view class="tag btn btn-zan" wx:for="{{card.card_info_label_list}}" wx:key="unique" data-item="{{item}}">{{item.name}} {{item.zan_num}}</view>
+                  </view>
+                </view>
+                <view wx:if="{{type==2}}">
+                  <view class="tags">
+                    <view class="tag btn btn-zan {{item.status?'active':''}}" wx:for="{{editData.select_tag_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
+                    <!-- <view class="tag btn btn-zan {{tool.parseLabelStr(item.id,tagArr)?'active':''}}" wx:for="{{editData.select_tag_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view> -->
+                  </view>
+                </view>
               </view>
               <view wx:if="{{card.card_info.hometown}}" class="hometown">
                 <view class="text">{{card.card_info.hometown}}</view>
