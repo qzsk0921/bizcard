@@ -186,7 +186,7 @@ create(store, {
     })
     this.getCardList()
   },
-  scrollToLower() {
+  scrollToLower(e) {
     console.log(e)
     console.log('scrollToLower')
 

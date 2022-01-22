@@ -69,7 +69,11 @@ create(store, {
     this.getCard({
       message_id: dataset.item.id
     }).then(res => {
-      this.getCardMsgList()
+      this.getCardMsgList().then(ress => {
+        this.setData({
+          'listData.cache': ress.data.data
+        })
+      })
     })
   },
   scrollToLower() {
