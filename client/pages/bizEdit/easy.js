@@ -22,11 +22,11 @@ create(store, {
     cid: 4, //版式
     // currentStyleId: null, //样式id
     cardInfo: {
-      company: '厦门阿斯达克有安居房哈公司',
-      name: '林老师',
-      profession: '销售经理',
-      mobile: '13400055366',
-      address: '北京市东城区发几款方法啊的空间的是243北京市北'
+      company: '厦门星辰追梦科技有限公司',
+      name: '梅长苏',
+      profession: 'CEO',
+      mobile: '138xxxxxxxx',
+      address: '福建省厦门市思明区软件园二期'
     },
     styleList: [], //样式列表
 
