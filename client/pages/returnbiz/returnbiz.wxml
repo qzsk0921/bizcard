@@ -7,9 +7,9 @@
   </view>
   <view class="content">
     <view class="section1">
-      <image class="l avatar" src="{{userInfo.avatar_url}}" mode="aspectFill"></image>
+      <image class="l avatar" src="{{card.data.avatar}}" mode="aspectFill"></image>
       <view class="r">
-        <view class="row1">{{userInfo.nick_name}}</view>
+        <view class="row1">{{card.data.name}}</view>
         <view class="row2">{{card.data.profession}}</view>
         <view class="row3">{{card.data.company}}</view>
       </view>
@@ -21,6 +21,6 @@
       </view>
       <textarea placeholder-class="placeholder-style" placeholder="很高兴认识您，这是我的名片，请惠存~" value="{{content}}" name="content" bindinput="inputHandle" maxlength="100" />
     </view>
-    <view class="btn btn-returnbiz" bindtap="returnbizHandle">回递名片</view>
+    <view class="btn btn-returnbiz" bindtap="returnbizHandle">回递星片</view>
   </view>
 </view>

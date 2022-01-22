@@ -19,12 +19,12 @@ create(store, {
    * 页面的初始数据
    */
   data: {
-    cid: 1, //版式
+    cid: 4, //版式
     // currentStyleId: null, //样式id
     cardInfo: {
       company: '厦门阿斯达克有安居房哈公司',
       name: '林老师',
-      title: '销售经理',
+      profession: '销售经理',
       mobile: '13400055366',
       address: '北京市东城区发几款方法啊的空间的是243北京市北'
     },
@@ -34,8 +34,9 @@ create(store, {
       name: '',
       mobile: '',
       company: '',
-      profession_id: '',
-      profession_name: '', //职位名称
+      // profession_id: '',
+      // profession_name: '', //职位名称
+      profession: '',
       style_image_id: ''
     },
 

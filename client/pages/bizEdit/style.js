@@ -2,7 +2,7 @@
 import store from '../../store/common'
 import create from '../../utils/create'
 import {
-  getStyleList,
+  getStyleInfo,
   getStyleImageList,
   setStyleImage,
   setStyleInfo,
@@ -1319,9 +1319,9 @@ create(store, {
       })
     })
   },
-  getStyleList(data) {
+  getStyleInfo(data) {
     return new Promise((resolve, reject) => {
-      getStyleList(data).then(res => {
+      getStyleInfo(data).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -1373,7 +1373,9 @@ create(store, {
       currentStyleImageObj: this.store.data.card.style
     })
 
-    this.getStyleList().then(res => {
+    this.getStyleInfo({
+      sq_business_card_id: this.store.data.card.data.id
+    }).then(res => {
       this.setData({
         styleList: res.data,
       })

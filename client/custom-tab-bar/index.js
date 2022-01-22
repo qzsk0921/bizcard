@@ -46,7 +46,7 @@ create({
             store.update()
           }
         }).exec();
-      },500)
+      },900)
       
     },
     detached: function () {

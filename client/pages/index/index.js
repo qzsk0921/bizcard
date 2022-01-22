@@ -13,9 +13,9 @@ import {
   setCardLabelZan,
   setTownsman
 } from '../../api/card'
-import {
-  getStyleList
-} from '../../api/cardEdit'
+// import {
+//   getStyleInfo
+// } from '../../api/cardEdit'
 import {
   getCommentList,
   setCommentZan
@@ -586,7 +586,9 @@ create(store, {
       handler(nv, ov, obj) {
         // console.log(nv)
         if (this.data.type == 2) {
-          this.getStyleList().then(ress => {
+          this.getStyleInfo({
+            sq_business_card_id: this.data.card.card_info.id
+          }).then(ress => {
             this.setData({
               editData: ress.data,
             })
@@ -774,17 +776,17 @@ create(store, {
   labelZanHandle(e) {
     const item = e.currentTarget.dataset.item
 
-    const type = item.status ? 0 : 1
+    const type = item.zan_status ? 0 : 1
     const temp = {
       type,
       sq_business_card_id: this.data.card.card_info.id,
       user_new_label_id: item.id
     }
     this.setCardLabelZan(temp).then(res => {
-      this.data.editData.select_tag_list.some((it, index) => {
+      this.data.card.card_info_label_list.some((it, index) => {
         if (it.id === item.id) {
           this.setData({
-            [`editData.select_tag_list[${index}].status`]: type,
+            [`card.card_info_label_list[${index}].zan_status`]: type,
           })
         }
       })
@@ -925,6 +927,8 @@ create(store, {
   },
   // 电话 邮箱 地址 座机
   itemHandle(e) {
+    // 自己的点击不做响应
+    if (this.data.type == 1) return
 
     if (this.businessCheck()) return
 
@@ -1035,9 +1039,9 @@ create(store, {
       })
     })
   },
-  getStyleInfo() {
+  getStyleInfo(data) {
     return new Promise((resolve, reject) => {
-      getStyleInfo().then(res => {
+      getStyleInfo(data).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -1080,15 +1084,15 @@ create(store, {
       })
     })
   },
-  getStyleList(data) {
-    return new Promise((resolve, reject) => {
-      getStyleList(data).then(res => {
-        resolve(res)
-      }).catch(err => {
-        reject(err)
-      })
-    })
-  },
+  // getStyleInfo(data) {
+  //   return new Promise((resolve, reject) => {
+  //     getStyleInfo(data).then(res => {
+  //       resolve(res)
+  //     }).catch(err => {
+  //       reject(err)
+  //     })
+  //   })
+  // },
   getGoodList(dataObj) {
     const tempData = {
       page: this.data.tadeOptions[1].count,
@@ -1180,6 +1184,29 @@ create(store, {
     })
   },
   initRequest(userInfo, options) {
+    if (this.data.type == 1 && !userInfo.has_card) {
+      //第一次登陆且在无名片页 提示json动图 显示一次 来过吗 0 没来过 1 来过
+      const jsonAddDialogVisibile = wx.getStorageSync('jsonAddDialogVisibile')
+      // console.log(jsonAddDialogVisibile)
+      if (!jsonAddDialogVisibile) {
+        this.setData({
+          jsonAddDialogVisibile: 1
+        })
+        wx.setStorageSync('jsonAddDialogVisibile', 1)
+      }
+    }
+
+    if (!userInfo.avatar_url) {
+      const juideDialogVisibile = wx.getStorageSync('juideDialogVisibile')
+      // console.log(juideDialogVisibile)
+      if (!juideDialogVisibile) {
+        this.setData({
+          juideDialogVisibile: 1
+        })
+        wx.setStorageSync('juideDialogVisibile', 1)
+      }
+    }
+
     console.log(userInfo)
     // 更新userInfo
     this.store.data.userInfo = userInfo
@@ -1204,27 +1231,6 @@ create(store, {
     }
 
     this.getCardDetail(temp).then(res => {
-
-      // if (this.data.type == 1) {
-      //   // 我的名片
-      //   if (userInfo.has_card) {
-      //     setTabBar.call(this)
-      //   } else {
-      //     setTabBar.call(this, {
-      //       list
-      //     })
-      //   }
-      // } else {
-      //   //他的名片 不用设置
-      // }
-
-      // if (temp.type == 2) {
-      //   // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
-      //   wx.showToast({
-      //     icon: 'none',
-      //     title: '已为您将该名片至名片夹',
-      //   })
-      // }
       let section4 = []
       if (res.data.card_info.mobile) {
         section4.push({
@@ -1389,16 +1395,6 @@ create(store, {
       getApp().getUserInfoCallback = (res => {
         this.initRequest(res, options)
       })
-    }
-
-    //第一次登陆提示json动图 显示一次 来过吗 0 没来过 1 来过
-    const jsonAddDialogVisibile = wx.getStorageSync('jsonAddDialogVisibile')
-    // console.log(jsonAddDialogVisibile)
-    if (!jsonAddDialogVisibile) {
-      this.setData({
-        jsonAddDialogVisibile: 1
-      })
-      wx.setStorageSync('jsonAddDialogVisibile', 1)
     }
   },
   /**

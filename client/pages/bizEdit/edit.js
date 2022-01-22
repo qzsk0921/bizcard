@@ -5,7 +5,7 @@ import config from '../../config/index'
 
 import {
   addCard,
-  getStyleList
+  getStyleInfo
 } from '../../api/cardEdit'
 import {
   getCardDetail
@@ -264,7 +264,7 @@ create(store, {
     const currentThumb = e.detail.file.thumb
 
     this.data.formData.company_introduce_image_arr.some((item, index) => {
-      if (item.thumb === currentThumb) {
+      if (item.thumb == currentThumb) {
         this.data.formData.company_introduce_image_arr.splice(index, 1)
         return true
       }
@@ -338,24 +338,34 @@ create(store, {
     }
     // 公司介绍图
     if (this.data.formData.company_introduce_image_arr.length) {
-      http_company_introduce_image_arr = this.data.formData.company_introduce_image_arr
+      // http_company_introduce_image_arr = this.data.formData.company_introduce_image_arr
       // 取出修改的公司介绍图数组
-      let tempArr = []
+      let tempArr = [],
+        httpTempArr = []
       this.data.formData.company_introduce_image_arr.forEach((item, index) => {
-        if (!/^https/.test(item)) {
+        if (!/^https/.test(item.url)) {
           this.data.formData.company_introduce_image_arr.splice(index, 1)
           tempArr.push(item)
+        } else {
+          httpTempArr.push(item)
         }
       })
 
       if (tempArr.length) {
-        // 有修改则上传
-        const temp_http_company_introduce_image_arr = await this.updateQiniu(tempArr)
-        http_company_introduce_image_arr = this.data.formData.company_introduce_image_arr.concat(temp_http_company_introduce_image_arr)
-      }
+        // 有更换则上传
+        let temp_http_company_introduce_image_arr = await this.updateQiniu(tempArr)
+        // http_company_introduce_image_arr = this.data.formData.company_introduce_image_arr.concat(temp_http_company_introduce_image_arr).concat(httpTempArr.map(it => it.url))
+        http_company_introduce_image_arr = httpTempArr.concat(temp_http_company_introduce_image_arr.map(url => {
+          return {
+            url,
+            type: 'image',
+            thumb: url
+          }
+        }))
 
-      if (http_company_introduce_image_arr) {
         tempUpdate['formData.company_introduce_image_arr'] = http_company_introduce_image_arr
+      } else {
+        tempUpdate['formData.company_introduce_image_arr'] = this.data.formData.company_introduce_image_arr
       }
     }
 
@@ -458,9 +468,9 @@ create(store, {
       })
     })
   },
-  getStyleList(data) {
+  getStyleInfo(data) {
     return new Promise((resolve, reject) => {
-      getStyleList(data).then(res => {
+      getStyleInfo(data).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -480,7 +490,9 @@ create(store, {
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getStyleList().then(ress => {
+    this.getStyleInfo({
+      sq_business_card_id: this.store.data.card.data.id
+    }).then(ress => {
       this.setData({
         editData: ress.data,
       })
@@ -496,13 +508,15 @@ create(store, {
         const tempTags = ress.data.select_tag_list.filter(item => item.select_status)
         let myTagarr = []
         if (tempTags.length) {
-          myTagarr = tempTags.map(it => it.id).join()
+          myTagarr = tempTags.map(it => it.id)
         }
 
         this.setData({
           card: this.store.data.card,
           //回显
           tagArr: myTagarr, //标签高亮
+          currentCountProfile: res.data.card_info.introduce_myself.length,
+          currentCountIntroduction: res.data.card_info.company_introduce.length,
           "formData.sq_business_card_id": res.data.card_info.id,
           'formData.is_public': res.data.card_info.is_public,
           'formData.avatar': res.data.card_info.avatar,
@@ -512,11 +526,12 @@ create(store, {
           'formData.landline': res.data.card_info.landline,
           'formData.email': res.data.card_info.email,
           'formData.introduce_myself': res.data.card_info.introduce_myself,
-          'formData.label_str': tempTags.join(),
+          'formData.label_str': tempTags.length ? tempTags.join() : '',
           'formData.vidieo_url': res.data.card_info.vidieo_url,
           'formData.company': res.data.card_info.company,
           'formData.profession_id': res.data.card_info.profession_id,
           'formData.profession_name': res.data.card_info.profession,
+          'formData.profession': res.data.card_info.profession,
           'formData.industry_id': res.data.card_info.industry_id,
           'formData.industry_name': res.data.card_info.industry,
           'formData.address': res.data.card_info.address,
@@ -524,7 +539,7 @@ create(store, {
           'formData.address_latitude': res.data.card_info.address_latitude,
           'formData.company_avatar': res.data.card_info.company_avatar,
           'formData.company_introduce': res.data.card_info.company_introduce,
-          'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr ? res.data.card_info.company_introduce_image_arr : [],
+          'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr
         })
       })
     })

@@ -8,6 +8,7 @@
     "dialog-forbidden": "/components/Dialog/forbidden",
     "card": "/components/cardFormat/format",
     "json-add": "/components/Dialog/json-add",
+    "juide": "/components/Dialog/juide",
     "scan": "/components/scan/scan"
   },
   "navigationStyle": "custom",

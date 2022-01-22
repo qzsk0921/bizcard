@@ -35,7 +35,7 @@
           <view class="form-item form-item-avatar arrow">
             <label>头像</label>
             <view class="input-box" bindtap="inputAvatarHandle">
-              <image wx:if="{{formData.avatar}}" class="icon-avatar" src="{{formData.avatar}}" mode="aspectFill"></image>
+              <image wx:if="{{formData.avatar}}" class="icon-avatar" src="{{formData.avatar}}" mode="aspectFit"></image>
               <image wx:else class="icon-avatar" src="/assets/images/card_edit_head.png" mode="aspectFill"></image>
             </view>
           </view>
@@ -100,10 +100,13 @@
             <label class="label-require">公司</label>
             <input class="one-txt-cut" name="company" placeholder="请输入公司名称" placeholder-class="input-placeholder" value="{{formData.company}}" />
           </view>
-          <view class="form-item form-item-position arrow">
+          <!-- <view class="form-item form-item-position arrow">
             <label class="label-require">职位</label>
-            <!-- profession_id -->
             <input name="" placeholder="请输入职位" placeholder-class="input-placeholder" value="{{formData.profession_name}}" disabled="true" bindtap="positionHandle" />
+          </view> -->
+          <view class="form-item form-item-profession">
+            <label>职位</label>
+            <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" />
           </view>
           <view class="form-item form-item-industry arrow">
             <label>行业</label>
@@ -117,7 +120,7 @@
           <view class="form-item form-item-logo arrow">
             <label>公司Logo</label>
             <view class="input-box" bindtap="inputLogoHandle">
-              <image wx:if="{{formData.company_avatar}}" class="icon-logo" src="{{formData.company_avatar}}" mode="aspectFill"></image>
+              <image wx:if="{{formData.company_avatar}}" class="icon-logo" src="{{formData.company_avatar}}" mode="aspectFit"></image>
               <image wx:else class="icon-logo" src="/assets/images/edit_logo.png" mode="aspectFill"></image>
             </view>
           </view>

@@ -23,24 +23,6 @@ create(store, {
 
     listData: {
       cache: [
-        //   {
-        //   avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        //   nickname: '昵称',
-        //   company: '厦门星辰追梦科技有限公司',
-        //   position: '产品经理',
-        //   info: '第2次查看了你的名片“厦门星辰追梦科技有限公司-产品经理',
-        //   date: '08-24  10:16',
-        //   turn: '被存名片'
-        // }, {
-        //   avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP-C.IJZRiLGakfZpsHnhxtXqqwHaHa?w=216&h=216&c=7&r=0&o=5&pid=1.7',
-        //   nickname: '昵称',
-        //   company: '厦门星辰追梦科技有限公司',
-        //   position: '产品经理',
-        //   info: '第2次查看了你的名片“厦门星辰追梦科技有限公司-产品经理',
-        //   date: '08-24  10:16',
-        //   turn: '被存名片'
-        // }
-        
         // {
         //   "id": 12,
         //   "user_id": 2,

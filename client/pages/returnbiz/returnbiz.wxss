@@ -8,6 +8,7 @@
   border-radius: 8rpx;
   padding: 40rpx 0 40rpx 30rpx;
   display: flex;
+  background: #ffffff;
 }
 
 .section1 .avatar {
@@ -70,6 +71,7 @@
   background: #F7F8FA;
   margin-top: 32rpx;
   padding: 30rpx;
+  width: calc(100% - 56rpx);
 }
 
 .placeholder-style {

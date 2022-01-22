@@ -1,0 +1,8 @@
+<!--components/Dialog/juide.wxml-->
+<!-- <text>components/Dialog/juide.wxml</text> -->
+<view class="dialog-wrap {{dialogVisible?'':'fadeout'}}">
+  <view class="mask" bindtap="dialogTapHandle"></view>
+  <view class="dialog">
+    <image class="icon-popup" mode="aspectFill" src="/assets/images/popup_left.png"></image>
+  </view>
+</view>

@@ -3,7 +3,7 @@ import request from '../utils/request'
  * 名片编辑详情 small/BusinessCard/style_info_page
  * @param {int} sq_business_card_id 名片id
  */
-export function getStyleList(data) {
+export function getStyleInfo(data) {
   return request({
     url: '/small/BusinessCard/style_info_page',
     method: 'get',

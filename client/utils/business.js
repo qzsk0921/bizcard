@@ -62,7 +62,7 @@ async function drawCanvas1(that, drawData) {
   if (drawData.card_info.mobile) {
     const imgInfo = await getLocalImg(drawData.card_style.phone_image)
     ctx.setFontSize(18)
-    ctx.setFillStyle(drawData.card_style.mobile_color);
+    ctx.setFillStyle(drawData.card_style.phone_color);
     if (drawData.card_info.address) {
       ctx.drawImage(imgInfo.path, 26, 167 - imgInfo.height / 2 / 2, imgInfo.width / 2, imgInfo.height / 2);
       ctx.fillText(drawData.card_info.mobile, 46, 166 + 9);

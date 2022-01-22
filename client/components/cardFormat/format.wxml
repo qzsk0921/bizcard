@@ -2,25 +2,45 @@
 <!-- <text>components/cardFormat/format.wxml</text> -->
 <wxs module="tools" src="./format.wxs"></wxs>
 
-<!-- 名片版式 -->
+<!-- 极简版式 -->
 <view class="format">
+  <view wx:if="{{cid==4}}" class="f4 content" style="{{navbarFixed?'margin-top:'+(navHeight+10)+'px':''}}">
+    <view class="box">
+      <image class="icon-image" src="{{cardstyle.card_image}}" mode="aspectFill"></image>
+      <view class="top">
+        <view class="company">{{carddata.company}}</view>
+        <view class="name">{{carddata.name}}</view>
+        <view class="position">{{carddata.profession}}</view>
+      </view>
+      <view class="bottom">
+        <view class="phone">
+          <image src="{{cardstyle.phone_image}}" mode="aspectFill"></image>
+          <text style="color:{{tools.parseColor(cardstyle.phone_color)}}">{{carddata.mobile}}</text>
+        </view>
+        <view wx:if="{{carddata.address&&tools.parseShow('address', field, cardstyle.tag_list)}}" class="address">
+          <image src="{{cardstyle.address_image}}" mode="aspectFill"></image>
+          <text style="color:{{tools.parseColor(cardstyle.address_color)}}">{{carddata.address}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
   <!-- 1 -->
-  <!-- 极简版式 标准版式  -->
+  <!-- 标准版式  -->
   <!-- <view wx:if="{{cid==1}}" class="f1 content" style="margin-top:{{(navHeight+10)+'px'}};"> -->
   <view wx:if="{{cid==1}}" class="f1 content" style="{{navbarFixed?'margin-top:'+(navHeight+10)+'px':''}}">
     <view class="box">
       <image class="icon-image" src="{{cardstyle.card_image}}" mode="aspectFill"></image>
       <view class="top">
-        <view wx:if="{{tools.parseShow('company', field, cardstyle.tag_list)}}" class="company" style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.company}}</view>
-        <view wx:if="{{tools.parseShow('name', field, cardstyle.tag_list)}}" class="name" style="color:{{tools.parseColor(cardstyle.name_color)}}">{{carddata.name}}</view>
-        <view wx:if="{{tools.parseShow('profession', field, cardstyle.tag_list)}}" class="position" style="color:{{tools.parseColor(cardstyle.profession_color)}}">{{carddata.profession}}</view>
+        <view wx:if="{{tools.parseShow('company', field, cardstyle.tag_list)&&cardstyle.is_company_show}}" class="company" style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.company}}</view>
+        <view wx:if="{{tools.parseShow('name', field, cardstyle.tag_list)&&cardstyle.is_name_show}}" class="name" style="color:{{tools.parseColor(cardstyle.name_color)}}">{{carddata.name}}</view>
+        <view wx:if="{{tools.parseShow('profession', field, cardstyle.tag_list)&&cardstyle.is_profession_show}}" class="position" style="color:{{tools.parseColor(cardstyle.profession_color)}}">{{carddata.profession}}</view>
       </view>
       <view class="bottom">
-        <view wx:if="{{carddata.mobile&&tools.parseShow('phone', field, cardstyle.tag_list)}}" class="phone">
+        <view wx:if="{{carddata.mobile&&tools.parseShow('phone', field, cardstyle.tag_list)&&cardstyle.is_phone_show}}" class="phone">
           <image src="{{cardstyle.phone_image}}" mode="aspectFill"></image>
           <text style="color:{{tools.parseColor(cardstyle.phone_color)}}">{{carddata.mobile}}</text>
         </view>
-        <view wx:if="{{carddata.address&&tools.parseShow('address', field, cardstyle.tag_list)}}" class="address">
+        <view wx:if="{{carddata.address&&tools.parseShow('address', field, cardstyle.tag_list)&&cardstyle.is_address_show}}" class="address">
           <image src="{{cardstyle.address_image}}" mode="aspectFill"></image>
           <text style="color:{{tools.parseColor(cardstyle.address_color)}}">{{carddata.address}}</text>
         </view>

@@ -102,18 +102,18 @@
                 <!-- {{tadeOptions[tabIndex].cache.introduce_myself}} -->
                 {{card.card_info.introduce_myself}}
               </view>
-              <view class="tags">
-                <view wx:if="{{type==1}}">
+              <view class="tags-box">
+                <block wx:if="{{type==1}}">
                   <view wx:if="{{card.card_info_label_list.length}}" class="tags">
                     <view class="tag btn btn-zan" wx:for="{{card.card_info_label_list}}" wx:key="unique" data-item="{{item}}">{{item.name}} {{item.zan_num}}</view>
                   </view>
-                </view>
-                <view wx:if="{{type==2}}">
-                  <view class="tags">
-                    <view class="tag btn btn-zan {{item.status?'active':''}}" wx:for="{{editData.select_tag_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
+                </block>
+                <block wx:if="{{type==2}}">
+                  <view wx:if="{{card.card_info_label_list.length}}" class="tags">
+                    <view class="tag btn btn-zan {{item.zan_status?'active':''}}" wx:for="{{card.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
                     <!-- <view class="tag btn btn-zan {{tool.parseLabelStr(item.id,tagArr)?'active':''}}" wx:for="{{editData.select_tag_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view> -->
                   </view>
-                </view>
+                </block>
               </view>
               <view wx:if="{{card.card_info.hometown}}" class="hometown">
                 <view class="text">{{card.card_info.hometown}}</view>
@@ -142,7 +142,7 @@
           <view wx:if="{{tabIndex===2}}" class="company">
             <view class="sec-box">
               <view class="sec1">
-                <image wx:if="{{card.card_info.company_avatar}}" class="logo left" src="{{card.card_info.company_avatar}}" mode="aspectFill"></image>
+                <image wx:if="{{card.card_info.company_avatar}}" class="logo left" src="{{card.card_info.company_avatar}}" mode="aspectFit"></image>
                 <view class="right">
                   <view wx:if="{{card.card_info.company}}" class="row1">
                     {{card.card_info.company}}
@@ -156,7 +156,7 @@
               </view>
               <view wx:if="{{card.card_info.company_introduce_image_arr.length}}" class="sec3">
                 <view class="image-box hide-scrollbar">
-                  <image wx:for="{{card.card_info.company_introduce_image_arr}}" wx:key="unique" src="{{item}}" mode="aspectFill"></image>
+                  <image wx:for="{{card.card_info.company_introduce_image_arr}}" wx:key="unique" src="{{item.url}}" mode="aspectFill"></image>
                 </view>
               </view>
             </view>
@@ -241,3 +241,5 @@
 </view>
 
 <json-add dialogVisible="{{jsonAddDialogVisibile}}" navHeight="{{compatibleInfo.navHeight}}" />
+<juide dialogVisible="{{juideDialogVisibile}}" navHeight="{{compatibleInfo.navHeight}}" />
+<!-- popup_left -->

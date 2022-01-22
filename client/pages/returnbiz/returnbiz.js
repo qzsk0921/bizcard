@@ -16,7 +16,7 @@ create(store, {
     content: '',
 
     userInfo: null,
-    navigationBarTitleText: '回递名片',
+    navigationBarTitleText: '回递星片',
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
   },

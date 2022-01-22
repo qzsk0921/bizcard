@@ -74,9 +74,10 @@ export function returnCard(data) {
  * 名片编辑详情(style_id对应版式清单) small/BusinessCard/style_info_page
  * @param {int} sq_business_card_id 他人的名片id
  */
-export function getStyleInfo() {
+export function getStyleInfo(data) {
   return request({
     url: '/small/BusinessCard/style_info_page',
     method: 'get',
+    data
   })
 }

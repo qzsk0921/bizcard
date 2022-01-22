@@ -2,7 +2,7 @@
 .container-radar {}
 
 .scroll-box {
-  background: #FFFFFF;
+  background: #F2F4F7;
 }
 
 .picker {
@@ -15,7 +15,7 @@
   font-size: 38rpx;
   font-weight: bold;
   color: #444444;
-  background: #FFFFFF;
+  background: #F2F4F7;
 }
 
 .picker .arrow {
@@ -35,6 +35,7 @@
 
 .card {
   background: #FFFFFF;
+  border-radius: 8rpx;
 }
 
 .card:not(:first-child) {
