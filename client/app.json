@@ -8,10 +8,13 @@
     "pages/index/index",
     "pages/radar/radar",
     "pages/bizholder/bizholder",
+    "pages/shopping/shopping",
     "pages/welcome/welcome",
     "pages/returnbiz/returnbiz",
     "pages/ta/evaluate/list",
     "pages/ta/evaluate/submit",
+    "pages/wo/product/edit",
+    "pages/wo/product/detail",
     "pages/bizcode/bizcode",
     "pages/bizEdit/easy",
     "pages/bizEdit/edit",
@@ -54,7 +57,7 @@
         "selectedIconPath": "/assets/images/btn_data_n.png"
       },
       {
-        "pagePath": "pages/welcome/welcome",
+        "pagePath": "pages/shopping/shopping",
         "text": "专属商城",
         "iconPath": "/assets/images/btn_shop_f.png",
         "selectedIconPath": "/assets/images/btn_shop_n.png"

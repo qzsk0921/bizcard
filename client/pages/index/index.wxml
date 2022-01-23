@@ -23,7 +23,6 @@
   </view>
   <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(type==1?compatibleInfo.tabbarH:0)+'px'}};">
     <!-- <view class="content"> -->
-
     <view class="section1 card">
       <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
     </view>
@@ -127,7 +126,7 @@
           </view>
           <!-- <view wx:if="{{tabIndex===1}}" class="product">产品</view> -->
           <scroll-view wx:if="{{tabIndex===1}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
-            <view class="items">
+            <!-- <view class="items">
               <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}">
                 <image class="good-img left" src="{{item.cover}}" mode="aspectFill"></image>
                 <view class="right">
@@ -137,6 +136,21 @@
                   </view>
                 </view>
               </view>
+            </view> -->
+            <view class="content">
+              <view class="btn btn-product" bindtap="addProHandle">+添加我的产品</view>
+              <view class="items">
+                <view class="item" wx:for="{{tadeOptions[1].cache}}" wx:key="unique" data-item="{{item}}" bindtap="itemProHandle">
+                  <image class="icon-edit" src="/assets/images/card_product_edit.png" mode="aspectFill" data-id="{{item.id}}" bindtap="proEditHandle"></image>
+                  <image class="good-img left" src="{{item.image_url}}" mode="aspectFill"></image>
+                  <view class="tit">{{item.title}}</view>
+                  <view class="price">￥<text>{{item.price}}万</text></view>
+                  <view class="cont txt-cut">{{item.content}}</view>
+                </view>
+              </view>
+              <view class="btn btn-more">查看更多 <image src="/assets/images/nav_btn_return.png" mode="aspectFill"></image>
+              </view>
+              <view class="btn btn-nothing">暂无更多产品</view>
             </view>
           </scroll-view>
           <view wx:if="{{tabIndex===2}}" class="company">

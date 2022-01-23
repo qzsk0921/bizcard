@@ -1,0 +1,83 @@
+/* pages/wo/product/detail.wxss */
+.container-product-detail {
+  background: #FFFFFF;
+}
+
+.content {
+  padding: 33rpx 28rpx env(safe-area-inset-bottom) 28rpx;
+  overflow: auto;
+  /* padding-bottom: env(safe-area-inset-bottom); */
+}
+
+.section1 {
+  font-size: 42rpx;
+  font-weight: bold;
+  line-height: 55rpx;
+  color: #000000;
+  padding-bottom: 23rpx;
+  border-bottom: 2rpx solid #EEEEEE;
+}
+
+.section2 {
+  padding: 20rpx 0 30rpx;
+  font-size: 28rpx;
+  line-height: 48rpx;
+  color: #333333;
+}
+
+.section3 {
+  margin-bottom: 249rpx;
+}
+
+.section3 image {
+  width: 694rpx;
+  height: 389rpx;
+  background: rgba(0, 0, 0, 0);
+  border: 1rpx solid #DDDDDD;
+  border-radius: 8rpx;
+}
+
+.section4 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  border-top: 2rpx solid #E4E8EE;
+}
+
+.section4 .l1 {
+  box-sizing: content-box;
+  height: 98rpx;
+  padding-left: 28rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  flex: 1;
+  background: #FFFFFF;
+}
+
+.section4 .l1 text {
+  font-size: 28px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  line-height: 48px;
+  color: #FF5757;
+}
+
+.section4 .l1 text:last-child {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #F83A3A;
+}
+
+.section4 .l2 {
+  height: 98rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  width: 268rpx;
+  box-sizing: content-box;
+  background: rgba(73, 128, 249);
+  font-size: 32rpx;
+  line-height: 98rpx;
+  color: #FFFFFF;
+  text-align: center;
+}

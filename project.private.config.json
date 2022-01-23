@@ -113,6 +113,24 @@
           "pathName": "pages/index/index",
           "query": "type=2&b=4276&s=3455",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/wo/product/edit",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/wo/product/detail",
+          "query": "id=3",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/shopping/shopping",
+          "query": "",
+          "scene": null
         }
       ]
     }

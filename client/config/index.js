@@ -24,7 +24,7 @@ export default {
         "selectedIconPath": "/assets/images/btn_card_holder_n.png"
       },
       {
-        "pagePath": "/pages/index/index",
+        "pagePath": "/pages/shopping/shopping",
         "text": "专属商城",
         "iconPath": "/assets/images/btn_shop_f.png",
         "selectedIconPath": "/assets/images/btn_shop_n.png"

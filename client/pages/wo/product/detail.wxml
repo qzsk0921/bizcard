@@ -1,0 +1,18 @@
+<!--pages/wo/product/detail.wxml-->
+<!-- <text>pages/wo/product/detail.wxml</text> -->
+<view class="container container-product-detail">
+  <view class="fixed">
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="" color="#333" bgColor="#FFFFFF" />
+  </view>
+  <view class="content hide-scrollbar" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.navHeight)+'px'}};">
+    <view class="section1">{{dataDetail.title}}</view>
+    <view class="section2">{{dataDetail.content}}</view>
+    <view class="section3">
+      <image src="{{dataDetail.image_url}}" mode="aspectFill"></image>
+    </view>
+    <view class="section4">
+      <view class="l1"><text>￥</text><text>{{dataDetail.price}}</text></view>
+      <view class="l2 btn btn-call">立即联系</view>
+    </view>
+  </view>
+</view>
