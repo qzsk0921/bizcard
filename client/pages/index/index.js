@@ -661,8 +661,6 @@ create(store, {
               list
             })
           }
-        } else {
-          //他的名片 不用设置
         }
 
         if (nv == 2) {

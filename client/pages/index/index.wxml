@@ -21,7 +21,7 @@
   <view class="fixed">
     <top-navigation bindawakenDialogAuth="awakenDialogAuth" navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="#333" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" tabbarPage="{{tabbarPage}}" type="{{type}}" />
   </view>
-  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH)+'px'}};">
+  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(type==1?compatibleInfo.tabbarH:0)+'px'}};">
     <!-- <view class="content"> -->
 
     <view class="section1 card">

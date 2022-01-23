@@ -526,7 +526,7 @@ create(store, {
           'formData.landline': res.data.card_info.landline,
           'formData.email': res.data.card_info.email,
           'formData.introduce_myself': res.data.card_info.introduce_myself,
-          'formData.label_str': tempTags.length ? tempTags.join() : '',
+          'formData.label_str': myTagarr.length ? myTagarr.join() : '',
           'formData.vidieo_url': res.data.card_info.vidieo_url,
           'formData.company': res.data.card_info.company,
           'formData.profession_id': res.data.card_info.profession_id,
