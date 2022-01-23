@@ -136,6 +136,7 @@
   margin-left: 20rpx;
   font-size: 26rpx;
   color: #CCCCCC;
+  display: flex;
 }
 
 .container-welcome .section3 .agree .agreement {

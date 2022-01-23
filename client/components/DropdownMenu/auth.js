@@ -65,10 +65,13 @@ create({
     },
     toRuleHandle(e) {
       // console.log(e)
+      // 星片用户协议 8 星片隐私政策 9
       const id = e.target.dataset.id
-      wx.navigateTo({
-        url: `/src/pages/agreement/index?id=${id}`,
-      })
+      if (id) {
+        wx.navigateTo({
+          url: `/pages/richtext/purinstruction?id=${id}`,
+        })
+      }
     },
     getUserProfile(e) {
       const _this = this

@@ -1,1 +1,5 @@
 /* pages/richtext/purinstruction.wxss */
+.container-purinstruction {
+  background: #ffffff;
+  padding: 20rpx;
+}

@@ -14,3 +14,12 @@ export function getQRcode(data) {
     load: 'noload'
   })
 }
+
+// 协议
+export function getAgreement(data) {
+  return request({
+    url: '/usershare/RulePage/info',
+    method: 'get',
+    data
+  })
+}

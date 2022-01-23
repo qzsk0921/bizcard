@@ -649,6 +649,15 @@ create(store, {
       })
     }
   },
+  toAgreementHandle(e) {
+    // 星片用户协议 8 星片隐私政策 9
+    const id = e.target.dataset.id
+    if (id) {
+      wx.navigateTo({
+        url: `/pages/richtext/purinstruction?id=${id}`,
+      })
+    }
+  },
   // // 授权组件授权成功触发
   // signinedHandle(e) {
   //   console.log(e)
