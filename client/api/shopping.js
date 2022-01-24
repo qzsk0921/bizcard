@@ -9,6 +9,7 @@ export function getGoodList(data) {
     url: '/small/Shop/goods_list',
     method: 'get',
     data,
+    load: 'noload'
   })
 }
 

@@ -150,6 +150,12 @@ create(store, {
         count: 1,
         total_page: 1
       },
+       // 企业
+       {
+        cache: null,
+        count: 1,
+        total_page: 1
+      },
       // 产品
       {
         cache: [
@@ -177,12 +183,6 @@ create(store, {
         count: 1,
         total_page: 1,
         page_size: 10,
-      },
-      // 企业
-      {
-        cache: null,
-        count: 1,
-        total_page: 1
       },
       // 评价
       {
@@ -353,7 +353,7 @@ create(store, {
           }
 
           this.setData({
-            'tadeOptions[0].cache': this.data.card.card_info,
+            [`tadeOptions[${nv}].cache`]: this.data.card.card_info,
           })
         } else if (nv === 2) {
           // 产品
@@ -373,11 +373,11 @@ create(store, {
           }
 
           this.setData({
-            'tadeOptions[2].cache': this.data.card.card_info,
+            [`tadeOptions[${nv}].cache`]: this.data.card.card_info,
           })
         } else if (nv === 3) {
           // 评价
-          if (!this.data.tadeOptions[3].cache.length) {
+          if (!this.data.tadeOptions[nv].cache.length) {
             this.getCommentList({
               sq_business_card_id: this.data.card.card_info.id
             })
@@ -395,7 +395,7 @@ create(store, {
           temp.navStatus = 'isEmpty'
           temp.tabbar = ['我的简介', '我的企业', '我的产品', '我的评价']
           // 我的名片
-          if (this.data.userInfo.has_card) {
+          if (this.store.data.userInfo.has_card) {
             setTabBar.call(this)
           } else {
             setTabBar.call(this, {
@@ -415,9 +415,11 @@ create(store, {
         }
 
         this.setData(temp)
-        // 动态元素加载完成之后执行
+
         setTimeout(() => {
+          // 动态元素加载完成之后执行
           this.elOnReady()
+          this.businessCheck()
         }, 0)
       }
     }
@@ -430,7 +432,7 @@ create(store, {
   // 滚动时触发
   scrollHandle(e) {
     // console.log(e.detail.scrollTop)
-    console.log(this.data.TASrollTop)
+    // console.log(this.data.TASrollTop)
 
     const fixed = this.data.fixed
     if (this.data.TASrollTop <= e.detail.scrollTop) {
@@ -843,9 +845,9 @@ create(store, {
   // },
   getGoodList(dataObj) {
     const tempData = {
-      page: this.data.tadeOptions[1].count,
-      page_size: this.data.tadeOptions[1].page_size,
-      sq_business_card_id: this.data.card.card_info.sq_business_card_id
+      page: this.data.tadeOptions[2].count,
+      page_size: this.data.tadeOptions[2].page_size,
+      user_id: this.data.card.card_info.user_id
     }
 
     if (typeof dataObj === 'object') {
@@ -857,10 +859,10 @@ create(store, {
     return new Promise((resolve, reject) => {
       getGoodList(tempData).then(res => {
         if (dataObj === 'scrollToLower') {
-          this.data.tadeOptions[1].cache.push(...res.data.data)
+          this.data.tadeOptions[2].cache.push(...res.data.data)
           this.setData({
-            [`tadeOptions[1].cache`]: this.data.tadeOptions[1].cache,
-            [`tadeOptions[1].total_page`]: res.data.last_page,
+            'tadeOptions[2].cache': this.data.tadeOptions[2].cache,
+            'tadeOptions[2].total_page': res.data.last_page,
           })
           resolve(res)
         } else {
@@ -868,9 +870,9 @@ create(store, {
             // 测试数据
             // [`tadeOptions.cache`]: [].concat(res.data.data).concat(res.data.data).concat(res.data.data).concat(res.data.data),
 
-            [`tadeOptions[1].cache`]: res.data.data,
-            [`tadeOptions[1].total_page`]: res.data.last_page,
-            [`tadeOptions[1].appid`]: res.data.appid,
+            'tadeOptions[2].cache': res.data.data,
+            'tadeOptions[2].total_page': res.data.last_page,
+            'tadeOptions[2].appid': res.data.appid,
           })
         }
       }).catch(err => {
@@ -890,7 +892,7 @@ create(store, {
       [`tadeOptions[${this.data.tabIndex}].count`]: ++tadeOptions[this.data.tabIndex].count
     })
 
-    if (this.data.tabIndex === 1) {
+    if (this.data.tabIndex === 2) {
       this.getGoodList('scrollToLower')
     } else if (this.data.tabIndex === 3) {
       this.getCommentList('scrollToLower')
@@ -901,7 +903,7 @@ create(store, {
     const tempData = {
       page: this.data.tadeOptions[3].count,
       page_size: this.data.tadeOptions[3].page_size,
-      sq_business_card_id: this.data.card.card_info.sq_business_card_id
+      sq_business_card_id: this.data.card.card_info.id
     }
 
     if (typeof dataObj === 'object') {
@@ -915,16 +917,16 @@ create(store, {
         if (dataObj === 'scrollToLower') {
           this.data.tadeOptions[3].cache.push(...res.data.data)
           this.setData({
-            [`tadeOptions[3].cache`]: this.data.tadeOptions[3].cache,
-            [`tadeOptions[3].total_page`]: res.data.last_page
+            'tadeOptions[3].cache': this.data.tadeOptions[3].cache,
+            'tadeOptions[3].total_page': res.data.last_page
           })
           resolve(res)
         } else {
           this.setData({
             // 测试数据
             // [`tadeOptions.cache`]: [].concat(res.data.data).concat(res.data.data).concat(res.data.data).concat(res.data.data),
-            [`tadeOptions[3].cache`]: res.data.data,
-            [`tadeOptions[3].total_page`]: res.data.last_page,
+            'tadeOptions[3].cache': res.data.data,
+            'tadeOptions[3].total_page': res.data.last_page,
             commentNum: res.data.total //总数
           })
         }
@@ -934,7 +936,11 @@ create(store, {
     })
   },
   initRequest(userInfo, options) {
-    if (this.data.type == 1 && !userInfo.has_card) {
+    // 更新userInfo
+    this.store.data.userInfo = userInfo
+    this.update()
+
+    if (options.type == 1 && !userInfo.has_card) {
       //第一次登陆且在无名片页 提示json动图 显示一次 来过吗 0 没来过 1 来过
       const jsonAddDialogVisibile = wx.getStorageSync('jsonAddDialogVisibile')
       // console.log(jsonAddDialogVisibile)
@@ -957,27 +963,14 @@ create(store, {
       }
     }
 
-    console.log(userInfo)
-    // 更新userInfo
-    this.store.data.userInfo = userInfo
-    this.update()
-
-    this.setData({
-      userInfo,
-      ...options
-    })
-
-    this.businessCheck()
-
-
     const temp = {}
-    if (this.data.s) {
+    if (options.s) {
       // 通过扫码打开的他人的名片
-      temp.type = this.data.type
-      temp.sq_business_card_id = this.data.b
+      temp.type = options.type
+      temp.sq_business_card_id = options.b
     } else {
       // 自己的名片
-      temp.type = this.data.type
+      temp.type = options.type
     }
 
     this.getCardDetail(temp).then(res => {
@@ -1024,17 +1017,21 @@ create(store, {
       }
 
       const tempSetdata = {
+        // ...options,
+        userInfo,
         card: res.data,
         tabIndex: this.data.tabIndex,
         section4,
         'card.data': res.data.card_info,
-        'card.style': res.data.card_style
+        'card.style': res.data.card_style,
       }
 
       // 自己查看自己的分享名片
       if (res.data.is_me) {
         tempSetdata.type = 1
         // tempSetdata.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
+      } else {
+        tempSetdata.type = options.type
       }
 
       // 名片被禁用 分查看自己名片时 他人查看自己名片时
@@ -1045,6 +1042,7 @@ create(store, {
           text2: this.data.type == 1 ? '详情请联系客服：0592-5239124' : '无法进行查看'
         }
       }
+
       this.setData(tempSetdata)
 
       this.store.data.card.data = res.data.card_info
@@ -1057,7 +1055,6 @@ create(store, {
       this.store.data.card.is_me = res.data.is_me
       this.store.data.card.view_user_list = res.data.view_user_list
       this.store.data.card.view_user_number = res.data.view_user_number
-
       this.update()
     })
   },
@@ -1077,6 +1074,7 @@ create(store, {
       console.log(that.store.data.compatibleInfo.navHeight)
       // that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
       that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
+      console.log(that.data.TASrollTop)
     }).exec()
   },
   // 我的产品-添加
@@ -1096,7 +1094,7 @@ create(store, {
   // 跳转至专属商城
   toProMiniHandle() {
     wx.navigateToMiniProgram({
-      appId: this.data.tadeOptions[1].appid
+      appId: this.data.tadeOptions[this.data.tabIndex].appid
     })
   },
   // 点击产品进入详情
@@ -1158,12 +1156,7 @@ create(store, {
 
         // if (q && q != 'undefined') {
         if (scene && scene != 'undefined') {
-          // scene.split('?')[1].split('&').forEach(it => {
-          //   const i = it.split('=')
-          //   temp[i[0]] = i[1]
-          // })
-
-          scene.split('&').forEach(it => {
+          scene.split('?')[1].split('&').forEach(it => {
             const i = it.split('=')
             temp[i[0]] = i[1]
           })

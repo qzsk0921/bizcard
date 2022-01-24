@@ -443,7 +443,9 @@
   border-radius: 8rpx;
 }
 
-.section5 .product {}
+.section5 .product {
+  height: 100%;
+}
 
 .section5 .product .content {
   background: #F2F4F7;

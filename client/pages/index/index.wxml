@@ -89,7 +89,7 @@
         <view class="tabs-line" style="transform:translateX({{tabWidth*tabIndex+tabWidth/2+'px'}})translateX(-50%)">
         </view>
       </view>
-      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH+compatibleInfo.navHeight+tabHeight)+'px'}}">
+      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-((type==1?compatibleInfo.tabbarH:0)+compatibleInfo.navHeight)+'px'}}">
         <view class="no-data" wx:if="{{(tadeOptions[tabIndex].cache.length==0||!tadeOptions[tabIndex].cache)&&tabIndex!=2}}">
           <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
           <view class="text">这里是空的</view>
@@ -140,7 +140,7 @@
             <view class="content">
               <view wx:if="{{type==1}}" class="btn btn-product" bindtap="addProHandle">+添加我的产品</view>
               <view class="items">
-                <view class="item" wx:for="{{tadeOptions[1].cache}}" wx:key="unique" data-item="{{item}}" bindtap="itemProHandle">
+                <view class="item" wx:for="{{tadeOptions[2].cache}}" wx:key="unique" data-item="{{item}}" bindtap="itemProHandle">
                   <image wx:if="{{type==1}}" class="icon-edit" src="/assets/images/card_product_edit.png" mode="aspectFill" data-id="{{item.id}}" catchtap="proEditHandle"></image>
                   <image class="good-img left" src="{{item.image_url}}" mode="aspectFill"></image>
                   <view class="tit">{{item.title}}</view>
