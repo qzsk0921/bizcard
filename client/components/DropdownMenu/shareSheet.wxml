@@ -3,7 +3,7 @@
 <view class="dropdown-item-down {{opened?'opened':''}}">
   <view class="mask"></view>
   <view class="dropdown-item-down__content" catchtap="optionTapHandle" style="{{opened?'transform:translateY('+(-height)+'px)':''}}">
-    <view class="tit">递名片</view>
+    <view class="tit">递星片</view>
     <view class="l1 l share-sheet__options">
       <view class="share-sheet__option" wx:for="{{options}}" wx:key="unique">
         <block wx:if="{{index===0}}">

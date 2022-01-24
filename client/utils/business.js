@@ -43,22 +43,22 @@ async function drawCanvas1(that, drawData) {
   // 绘制背景
   const cardImageInfo = await getLocalImg(drawData.card_style.card_image)
   ctx.drawImage(cardImageInfo.path, 0, 0, 420, 244);
-  // 公司
+  // 公司 必须
   ctx.save(); // 先保存状态 已便于画完再用
   ctx.setFontSize(16)
   ctx.setFillStyle(drawData.card_style.company_color);
   ctx.fillText(drawData.card_info.company, 24, 26 + 8);
-  // 姓名
+  // 姓名 必须
   ctx.setFontSize(28)
   ctx.setFillStyle(drawData.card_style.name_color);
   ctx.fillText(drawData.card_info.name, 24, 60 + 14);
-  // 职位
+  // 职位 必须
   if (drawData.card_info.profession) {
     ctx.setFontSize(13)
     ctx.setFillStyle(drawData.card_style.profession_color);
     ctx.fillText(drawData.card_info.profession, 24, 102 + 6);
   }
-  // 电话
+  // 电话 必须
   if (drawData.card_info.mobile) {
     const imgInfo = await getLocalImg(drawData.card_style.phone_image)
     ctx.setFontSize(18)
@@ -71,8 +71,8 @@ async function drawCanvas1(that, drawData) {
       ctx.fillText(drawData.card_info.mobile, 46, 198 + 9);
     }
   }
-  // 地址
-  if (drawData.card_info.address) {
+  // 地址 非必须
+  if (drawData.card_info.address && drawData.card_style.is_address_show) {
     const imgInfo = await getLocalImg(drawData.card_style.address_image)
     ctx.drawImage(imgInfo.path, 26, 198 - imgInfo.height / 2 / 2, imgInfo.width / 2, imgInfo.height / 2);
     ctx.setFontSize(14)
@@ -206,7 +206,7 @@ async function drawCanvas1(that, drawData) {
             // });
           }
         }, that)
-      }, 300)
+      }, 800)
     })())
   })
 }

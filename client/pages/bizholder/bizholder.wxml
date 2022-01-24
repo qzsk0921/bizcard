@@ -42,10 +42,10 @@
     </view> -->
     <view class="no-data" wx:if="{{listData.cache.length==0}}">
       <image mode="aspectFill" src="/assets/images/holder_img_empty.png"></image>
-      <view class="text">您还未存入名片</view>
+      <view class="text">您还未存入星片</view>
       <view class="tip">
-        <view>快去邀请好友创建数字名片</view>
-        <view>把好友存入你的名片夹中吧~</view>
+        <view>快去邀请好友创建数字星片</view>
+        <view>把好友存入你的星片夹中吧~</view>
       </view>
       <button class="btn btn-invite" open-type="share">立即邀请使用</button>
     </view>

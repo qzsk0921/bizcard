@@ -25,7 +25,7 @@ create({
         mode: 'share'
       },
       {
-        name: '名片码',
+        name: '星片码',
         icon: '../../assets/images/card_share_popup_scan.png',
         mode: 'poster'
       }

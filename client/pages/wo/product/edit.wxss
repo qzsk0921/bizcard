@@ -146,6 +146,7 @@
   height: 30rpx;
   margin-right: 10rpx;
   color: #4980F9;
+  text-align: right;
 }
 
 .btn-submit {

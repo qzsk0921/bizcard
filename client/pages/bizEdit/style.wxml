@@ -23,7 +23,7 @@
         <view class="image-box hide-scrollbar">
           <view class="img-item" wx:for="{{styleList.style_image_list}}" wx:key="id">
             <image class="icon-pic {{item.id===currentStyleImageObj.id?'active':''}}" src="{{item.card_image}}" data-item="{{item}}" mode="aspectFill" bindtap="styleImageHandle"></image>
-            <view class="num">库存{{item.stock}}</view>
+            <view wx:if="{{item.price!=0}}" class="num">库存{{item.stock}}</view>
           </view>
         </view>
       </view>

@@ -9,18 +9,18 @@
       <view class="form-section section1">
         <view class="r1">
           <text class="tit">产品标题</text>
-          <text>0/20</text>
+          <text>{{currentCountTitle}}/20</text>
         </view>
         <view class="r2">
-          <input class="" name="title" placeholder="请输入产品标题" placeholder-class="input-placeholder" value="{{formData.title}}" />
+          <input class="" name="title" placeholder="请输入产品标题" placeholder-class="input-placeholder" value="{{formData.title}}" bindinput="inputTitleHandle" maxlength="20" />
         </view>
       </view>
       <view class="form-section section2">
         <view class="r1">
           <text class="tit">产品描述</text>
-          <text>0/200</text>
+          <text>{{currentCountDes}}/200</text>
         </view>
-        <textarea placeholder-class="placeholder-style" placeholder="请填写产品描述" value="{{formData.content}}" name="content" bindinput="textareaInputContentHandle" maxlength="300"></textarea>
+        <textarea placeholder-class="placeholder-style" placeholder="请填写产品描述" value="{{formData.content}}" name="content" bindinput="textareaInputContentHandle" maxlength="200"></textarea>
       </view>
       <view class="form-section section3">
         <view class="r1">
@@ -46,9 +46,9 @@
           </view>
         </view>
       </view>
-      <!-- <button class="btn-submit btn" form-type="submit">保存</button> -->
-      <view class="btn-box">
-        <button class="btn-a-del btn" form-type="submit">删除</button>
+      <button wx:if="{{type==='add'}}" class="btn-submit btn" form-type="submit">保存</button>
+      <view wx:if="{{type==='edit'}}" class="btn-box">
+        <button class="btn-a-del btn" bindtap="delProHandle">删除</button>
         <button class="btn-a-submit btn" form-type="submit">保存</button>
       </view>
     </form>

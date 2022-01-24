@@ -12,7 +12,7 @@
     </view>
     <view class="section4">
       <view class="l1"><text>￥</text><text>{{dataDetail.price}}</text></view>
-      <view class="l2 btn btn-call">立即联系</view>
+      <view class="l2 btn btn-call" bindtap="callHandle">立即联系</view>
     </view>
   </view>
 </view>

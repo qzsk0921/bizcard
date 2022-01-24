@@ -166,8 +166,8 @@ create(store, {
   textareaInputProfileHandle(e) {
     let len = e.detail.value.length
 
-    if (len > 100) {
-      len = 100
+    if (len > 300) {
+      len = 300
     }
     this.textareaInputHandle(len, 'currentCountProfile')
   },
@@ -201,8 +201,8 @@ create(store, {
   textareaInputIntroductionHandle(e) {
     let len = e.detail.value.length
 
-    if (len > 300) {
-      len = 300
+    if (len > 1000) {
+      len = 1000
     }
     this.textareaInputHandle(len, 'currentCountIntroduction')
   },
@@ -287,8 +287,6 @@ create(store, {
     // 校验
     if (!this.formValidate(this.data.formData)) return
 
-
-
     let http_avatar = null,
       http_vidieo_url = null,
       http_company_avatar = null,
@@ -344,7 +342,7 @@ create(store, {
         httpTempArr = []
       this.data.formData.company_introduce_image_arr.forEach((item, index) => {
         if (!/^https/.test(item.url)) {
-          this.data.formData.company_introduce_image_arr.splice(index, 1)
+          // this.data.formData.company_introduce_image_arr.splice(index, 1)
           tempArr.push(item)
         } else {
           httpTempArr.push(item)
@@ -355,6 +353,7 @@ create(store, {
         // 有更换则上传
         let temp_http_company_introduce_image_arr = await this.updateQiniu(tempArr)
         // http_company_introduce_image_arr = this.data.formData.company_introduce_image_arr.concat(temp_http_company_introduce_image_arr).concat(httpTempArr.map(it => it.url))
+
         http_company_introduce_image_arr = httpTempArr.concat(temp_http_company_introduce_image_arr.map(url => {
           return {
             url,
@@ -415,10 +414,10 @@ create(store, {
             title: '请输入公司名称',
           })
           return true
-        } else if (key === 'profession_id') {
+        } else if (key === 'profession') {
           wx.showToast({
             icon: 'none',
-            title: '请选择职位',
+            title: '请输入职位',
           })
           return true
         }
@@ -539,7 +538,7 @@ create(store, {
           'formData.address_latitude': res.data.card_info.address_latitude,
           'formData.company_avatar': res.data.card_info.company_avatar,
           'formData.company_introduce': res.data.card_info.company_introduce,
-          'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr
+          'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr ? res.data.card_info.company_introduce_image_arr : []
         })
       })
     })

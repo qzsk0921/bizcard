@@ -129,18 +129,15 @@ create(store, {
   },
   // 设置日期
   setDate() {
-    if (!this.data.date) {
-      const dateObj = new Date()
-      const year = dateObj.getFullYear()
-      const month = this.formatNumber(dateObj.getMonth() + 1)
+    const dateObj = new Date()
+    const year = dateObj.getFullYear()
+    const month = this.formatNumber(dateObj.getMonth() + 1)
 
-      this.setData({
-        date: `${year}-${month}`,
-        startDate: `${year-5}-${month}`,
-        endDate: `${year}-${month}`
-      })
-
-    }
+    this.setData({
+      date: `${year}-${month}`,
+      startDate: `${year-5}-${month}`,
+      endDate: `${year}-${month}`
+    })
   },
   formatNumber(n) {
     n = n.toString()
@@ -153,21 +150,11 @@ create(store, {
       date: value
     })
   },
-  getCardRadarList(data) {
-    return new Promise((resolve, reject) => {
-      getCardRadarList(data).then(res => {
-        resolve(res)
-      }).catch(err => {
-        reject(err)
-      })
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     getApp().setWatcher(this) //设置监听器
-    this.setDate()
   },
 
   /**
@@ -203,6 +190,9 @@ create(store, {
         userInfo: this.store.data.userInfo
       })
     }
+
+    this.setDate()
+
   },
 
   /**

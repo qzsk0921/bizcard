@@ -7,7 +7,7 @@
     <view class="content">
       <view class="l1">
         <view>点击“…”添加到我的小程序</view>
-        <view>微信首页下拉即可快速访问名片</view>
+        <view>微信首页下拉即可快速访问星片</view>
       </view>
       <view class="l2">
         <!-- <canvas id="canvas" type="2d"></canvas> -->

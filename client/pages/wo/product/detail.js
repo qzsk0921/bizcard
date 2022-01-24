@@ -1,7 +1,9 @@
 // pages/wo/product/detail.js
 import store from '../../../store/common'
 import create from '../../../utils/create'
-
+import {
+  getGoodDetail,
+} from '../../../api/shopping'
 // Page({
 create(store, {
 
@@ -16,22 +18,35 @@ create(store, {
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
     dataDetail: {
-      "id": 2,
-      "user_id": 3442,
-      "title": "产品3",
-      "content": "你好啊，产品3",
-      "image_url": "https://gimg3.baidu.com/search/src=http%3A%2F%2Fpics2.baidu.com%2Ffeed%2F7acb0a46f21fbe09cd8ac698c154c93a8644ad20.jpeg%3Ftoken%3D3f2966952acedd094567b2df4028ea52&refer=http%3A%2F%2Fwww.baidu.com&app=2021&size=f360,240&n=0&g=0n&q=75&fmt=auto?sec=1643043600&t=c635399bc099cb2607ceb833010c932d",
-      "price": "13.00",
-      "status": 1,
-      "create_time": 1642849512
+      // "id": 2,
+      // "user_id": 3442,
+      // "title": "产品3",
+      // "content": "你好啊，产品3",
+      // "image_url": "https://gimg3.baidu.com/search/src=http%3A%2F%2Fpics2.baidu.com%2Ffeed%2F7acb0a46f21fbe09cd8ac698c154c93a8644ad20.jpeg%3Ftoken%3D3f2966952acedd094567b2df4028ea52&refer=http%3A%2F%2Fwww.baidu.com&app=2021&size=f360,240&n=0&g=0n&q=75&fmt=auto?sec=1643043600&t=c635399bc099cb2607ceb833010c932d",
+      // "price": "13.00",
+      // "status": 1,
+      // "create_time": 1642849512
     }
   },
-
+  callHandle() {
+    wx.makePhoneCall({
+      phoneNumber: this.store.data.card.data.mobile,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const {
+      id
+    } = options
+    getGoodDetail({
+      id
+    }).then(res => {
+      this.setData({
+        dataDetail: res.data
+      })
+    })
   },
 
   /**

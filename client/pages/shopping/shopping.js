@@ -10,6 +10,15 @@ import {
   updatePhone
 } from '../../api/user'
 
+import {
+  getApplyShopInfo,
+  applyShop
+} from '../../api/shopping'
+
+import {
+  checkMobile
+} from '../../utils/util'
+
 // Page({
 create(store, {
   /**
@@ -17,15 +26,15 @@ create(store, {
    */
   data: {
     shopData: {
-      "id": 1,
-      "sq_jinzhu_id": 7795,
-      "user_id": 3442,
-      "phone": "13559570108",
-      "name": "姓名",
-      "status": 1, //0:待审核 1:已通过 2:已拒绝 3:已处理 （0和3都显示为待审核）-1未申请
-      "create_time": 1642849819,
-      "is_show": 1,
-      "appid": "dsaf"
+      // "id": 1,
+      // "sq_jinzhu_id": 7795,
+      // "user_id": 3442,
+      // "phone": "13559570108",
+      // "name": "姓名",
+      // "status": 3, //0:待审核 1:已通过 2:已拒绝 3:已处理 （0和3都显示为待审核）-1未申请
+      // "create_time": 1642849819,
+      // "is_show": 1,
+      // "appid": "dsaf"
     },
     formData: {
       phone: '',
@@ -91,7 +100,62 @@ create(store, {
   },
   // 查看我的专属商城
   toMiniShopHandle(e) {
+    wx.navigateToMiniProgram({
+      appId: this.data.shopData.appid
+    })
+  },
+  formSubmit(e) {
+    console.log(e)
+    const formData = e.detail.value
 
+    Object.keys(formData).forEach(key => {
+      this.data.formData[key] = formData[key]
+    })
+    // 校验
+    if (!this.formValidate(this.data.formData)) return
+
+    applyShop(this.data.formData).then(res => {
+      getApplyShopInfo().then(res => {
+        this.setData({
+          shopData: res.data
+        })
+      })
+    })
+  },
+  formValidate(formData) {
+    const flag = Object.keys(formData).some(key => {
+      if (!formData[key]) {
+        if (key === 'name') {
+          wx.showToast({
+            icon: 'none',
+            title: '请输入姓名',
+          })
+          return true
+        } else if (key === 'phone') {
+          wx.showToast({
+            icon: 'none',
+            title: '请输入联系方式',
+          })
+          return true
+        }
+        return false
+      }
+      return false
+    })
+
+    if (!flag) {
+      // 校验手机号
+      if (!checkMobile(this.data.formData.phone)) {
+        wx.showToast({
+          title: '请输入正确手机号',
+          icon: 'none'
+        })
+        return false
+      }
+      return true
+    } else {
+      return false
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -118,6 +182,12 @@ create(store, {
         userInfo: this.store.data.userInfo
       })
     }
+
+    getApplyShopInfo().then(res => {
+      this.setData({
+        shopData: res.data
+      })
+    })
   },
 
   /**

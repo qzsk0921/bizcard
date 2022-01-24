@@ -1177,7 +1177,7 @@ create(store, {
   // 阅读购买须知
   toPurinstruction() {
     wx.navigateTo({
-      url: '../richtext/purinstruction',
+      url: '../richtext/purinstruction?id=10',
     })
   },
   // 保存版式

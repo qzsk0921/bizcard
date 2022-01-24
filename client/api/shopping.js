@@ -21,7 +21,7 @@ export function getGoodList(data) {
  */
 export function addGood(data) {
   return request({
-    url: 'small/Shop/add_goods',
+    url: '/small/Shop/add_goods',
     method: 'post',
     data,
   })
@@ -33,7 +33,7 @@ export function addGood(data) {
  */
 export function getGoodDetail(data) {
   return request({
-    url: 'small/Shop/goods_info',
+    url: '/small/Shop/goods_info',
     method: 'get',
     data,
   })
@@ -49,7 +49,7 @@ export function getGoodDetail(data) {
  */
 export function editGood(data) {
   return request({
-    url: 'small/Shop/edit_goods',
+    url: '/small/Shop/edit_goods',
     method: 'post',
     data,
   })
@@ -61,7 +61,7 @@ export function editGood(data) {
  */
 export function delGood(data) {
   return request({
-    url: 'small/Shop/del_goods',
+    url: '/small/Shop/del_goods',
     method: 'get',
     data,
   })
@@ -74,7 +74,7 @@ export function delGood(data) {
  */
 export function applyShop(data) {
   return request({
-    url: 'small/Shop/apply_shop',
+    url: '/small/Shop/apply_shop',
     method: 'post',
     data,
   })
@@ -85,7 +85,7 @@ export function applyShop(data) {
  */
 export function getApplyShopInfo(data) {
   return request({
-    url: 'small/Shop/apply_info',
+    url: '/small/Shop/apply_info',
     method: 'get',
     data,
   })

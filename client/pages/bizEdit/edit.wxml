@@ -14,7 +14,7 @@
     <view class="section2 section">
       <view class="l">
         <image src="/assets/images/card_edit_change.png" mode="aspectFill"></image>
-        <text>更换名片样式</text>
+        <text>更换星片样式</text>
       </view>
       <view class="r" bindtap="toStyleHandle">
         <text>编辑</text>
@@ -24,7 +24,7 @@
     <view class="section3 section">
       <view class="l">
         <view class="row1">星片曝光</view>
-        <view class="row2">打开即表示您允许将名片信息展示在脉呗平台上</view>
+        <view class="row2">是否允许将星片信息公开展示，获取更多商业合作</view>
       </view>
       <image class="r icon-exposure" src="{{formData.is_public?'/assets/images/edit_exposure_n.png':'/assets/images/edit_exposure_f.png'}}" mode="aspectFill" bindtap="exposureHandle"></image>
     </view>
@@ -66,10 +66,10 @@
         <view class="form-section form-section-profile">
           <view class="tit">
             <text>个人简介</text>
-            <text>{{currentCountProfile}}/100</text>
+            <text>{{currentCountProfile}}/300</text>
           </view>
           <view class="form-item form-item-profile">
-            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="100"></textarea>
+            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="300"></textarea>
           </view>
         </view>
         <view class="form-section form-section-tag">
@@ -105,7 +105,7 @@
             <input name="" placeholder="请输入职位" placeholder-class="input-placeholder" value="{{formData.profession_name}}" disabled="true" bindtap="positionHandle" />
           </view> -->
           <view class="form-item form-item-profession">
-            <label>职位</label>
+            <label class="label-require">职位</label>
             <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" />
           </view>
           <view class="form-item form-item-industry arrow">
@@ -128,10 +128,10 @@
         <view class="form-section form-section-introduction">
           <view class="tit">
             <text>公司简介</text>
-            <text>{{currentCountIntroduction}}/300</text>
+            <text>{{currentCountIntroduction}}/1000</text>
           </view>
           <view class="form-item form-item-introduction">
-            <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="300"></textarea>
+            <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="1000"></textarea>
           </view>
         </view>
         <view class="form-section form-section-companypic">

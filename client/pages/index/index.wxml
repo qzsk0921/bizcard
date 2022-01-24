@@ -43,7 +43,7 @@
     <view class="section3">
       <button wx:if="{{type==1}}" class="btn btn-edit" bindtap="editHandle">
         <image src="/assets/images/card_edit.png" mode="aspectFill"></image>
-        <text>名片编辑</text>
+        <text>星片编辑</text>
       </button>
       <button wx:if="{{type==2}}" class="btn btn-share" open-type="share">
         <image src="/assets/images/card_recommend.png" mode="aspectFill"></image>
@@ -51,12 +51,12 @@
       </button>
       <button wx:if="{{type==1}}" class="btn btn-send" bindtap="sendHandle">
         <image src="/assets/images/card_back.png" mode="aspectFill"></image>
-        <text>递名片</text>
+        <text>递星片</text>
       </button>
       <!-- 0:没有对方名片 1:有对方名片 2:双方互存 -->
       <button wx:if="{{type==2&&card.card_status!=2}}" class="btn btn-reply" bindtap="replyHandle">
         <image src="/assets/images/card_back.png" mode="aspectFill"></image>
-        <text>回递名片</text>
+        <text>回递星片</text>
       </button>
       <button wx:if="{{type==2&&card.card_status==2}}" class="btn btn-contact" bindtap="contactHandle">
         <image src="/assets/images/card_calll.png" mode="aspectFill"></image>
@@ -90,7 +90,7 @@
         </view>
       </view>
       <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.tabbarH+compatibleInfo.navHeight+tabHeight)+'px'}}">
-        <view class="no-data" wx:if="{{tadeOptions[tabIndex].cache.length==0||!tadeOptions[tabIndex].cache}}">
+        <view class="no-data" wx:if="{{(tadeOptions[tabIndex].cache.length==0||!tadeOptions[tabIndex].cache)&&tabIndex!=2}}">
           <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
           <view class="text">这里是空的</view>
         </view>
@@ -115,7 +115,7 @@
                 </block>
               </view>
               <view wx:if="{{card.card_info.hometown}}" class="hometown">
-                <view class="text">{{card.card_info.hometown}}</view>
+                <view class="text">家乡：{{card.card_info.hometown}}</view>
                 <view wx:if="{{type==2}}" class="btn btn-hometown {{card.hometown_status?'active':''}}" bindtap="hometownHandle">是同乡</view>
               </view>
             </view>
@@ -124,8 +124,8 @@
               <video src="{{card.card_info.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
             </view>
           </view>
-          <!-- <view wx:if="{{tabIndex===1}}" class="product">产品</view> -->
-          <scroll-view wx:if="{{tabIndex===1}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+          <!-- 产品 -->
+          <scroll-view wx:if="{{tabIndex===2}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
             <!-- <view class="items">
               <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}">
                 <image class="good-img left" src="{{item.cover}}" mode="aspectFill"></image>
@@ -138,22 +138,23 @@
               </view>
             </view> -->
             <view class="content">
-              <view class="btn btn-product" bindtap="addProHandle">+添加我的产品</view>
+              <view wx:if="{{type==1}}" class="btn btn-product" bindtap="addProHandle">+添加我的产品</view>
               <view class="items">
                 <view class="item" wx:for="{{tadeOptions[1].cache}}" wx:key="unique" data-item="{{item}}" bindtap="itemProHandle">
-                  <image class="icon-edit" src="/assets/images/card_product_edit.png" mode="aspectFill" data-id="{{item.id}}" bindtap="proEditHandle"></image>
+                  <image wx:if="{{type==1}}" class="icon-edit" src="/assets/images/card_product_edit.png" mode="aspectFill" data-id="{{item.id}}" catchtap="proEditHandle"></image>
                   <image class="good-img left" src="{{item.image_url}}" mode="aspectFill"></image>
                   <view class="tit">{{item.title}}</view>
-                  <view class="price">￥<text>{{item.price}}万</text></view>
+                  <view class="price">￥<text>{{item.price}}</text></view>
                   <view class="cont txt-cut">{{item.content}}</view>
                 </view>
               </view>
-              <view class="btn btn-more">查看更多 <image src="/assets/images/nav_btn_return.png" mode="aspectFill"></image>
+              <view wx:if="{{tadeOptions[1].total_page==tadeOptions[1].count&&tadeOptions[1].appid}}" class="btn btn-more" bindtap="toProMiniHandle">查看更多 <image src="/assets/images/nav_btn_return.png" mode="aspectFill"></image>
               </view>
-              <view class="btn btn-nothing">暂无更多产品</view>
+              <view wx:if="{{tadeOptions[1].total_page==tadeOptions[1].count&&!tadeOptions[1].appid}}" class="btn btn-nothing">暂无更多产品</view>
             </view>
           </scroll-view>
-          <view wx:if="{{tabIndex===2}}" class="company">
+          <!-- 企业 -->
+          <view wx:if="{{tabIndex===1}}" class="company">
             <view class="sec-box">
               <view class="sec1">
                 <image wx:if="{{card.card_info.company_avatar}}" class="logo left" src="{{card.card_info.company_avatar}}" mode="aspectFit"></image>
@@ -161,7 +162,7 @@
                   <view wx:if="{{card.card_info.company}}" class="row1">
                     {{card.card_info.company}}
                   </view>
-                  <view wx:if="{{card.card_info.hometown}}" class="row2">{{card.card_info.hometown}}</view>
+                  <view wx:if="{{card.card_info.address}}" class="row2">{{card.card_info.address}}</view>
                 </view>
               </view>
               <view wx:if="{{card.card_info.company_introduce}}" class="sec2">

@@ -1,16 +1,17 @@
 <!--pages/shopping/shopping.wxml-->
 <!-- <text>pages/shopping/shopping.wxml</text> -->
 <view class="container container-shopping">
-  <block wx:if="{{shopData.status==-1}}">
+  <block wx:if="{{shopData.status==-1||shopData.status==2}}">
     <image class="icon-bg" src="/assets/images/shop_apply_bk.png"></image>
     <view class="content">
-      <image class="r1 icon-shop" src="/assets/images/shop_apply.png" mode="aspectFill"></image>
+      <image wx:if="{{shopData.status==-1}}" class="r1 icon-shop" src="/assets/images/shop_apply.png" mode="aspectFill"></image>
+      <image wx:if="{{shopData.status==2}}" class="r1 icon-shop" src="/assets/images/shop_apply_fail.png" mode="aspectFill"></image>
       <view class="r2">申请专属商城</view>
       <view class="form-box">
         <form class="r3" bindsubmit="formSubmit" bindreset="formReset">
           <view class="form-section form-section-name">
             <view class="label">姓名：</view>
-            <input class="" name="title" placeholder="请输入姓名" placeholder-class="input-placeholder" value="{{formData.title}}" />
+            <input class="" name="name" placeholder="请输入姓名" placeholder-class="input-placeholder" value="{{formData.title}}" />
           </view>
           <view class="form-section form-section-phone">
             <view class="label">联系方式：</view>
@@ -20,12 +21,12 @@
               <view wx:else class="btn btn-quick" bindtap="autoPhoneNumber">便捷填入</view>
             </view>
           </view>
-          <button class="btn-submit btn" form-type="submit">申请开通</button>
+          <button class="btn-submit btn" form-type="submit">{{shopData.status==-1?'申请开通':shopData.status==2?'再次申请':''}}</button>
         </form>
       </view>
     </view>
   </block>
-  <block wx:if="{{shopData.status==0}}">
+  <block wx:if="{{shopData.status==0||shopData.status==3}}">
     <view class="content-apply applying">
       <image src="/assets/images/shop_apply_audit.png" mode="aspectFill"></image>
       <view class="r1">您的申请正在审核中</view>
@@ -36,7 +37,7 @@
     <view class="content-apply applied">
       <image src="/assets/images/shop_apply_pass.png" mode="aspectFill"></image>
       <view class="r1">恭喜您，申请通过</view>
-      <view class="btn btn-see" bingtap="toMiniShopHandle">查看我的专属商城</view>
+      <view wx:if="{{shopData.appid}}" class="btn btn-see" bingtap="toMiniShopHandle">查看我的专属商城</view>
     </view>
   </block>
 </view>

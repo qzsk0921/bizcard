@@ -47,6 +47,10 @@ function uploadFile(tempFilePaths, token, resolve, reject) {
     tempFilePath = tempFilePaths
   }
 
+  wx.showLoading({
+    title: ''
+  })
+
   wx.uploadFile({
     url,
     name: 'file',
@@ -79,7 +83,9 @@ function uploadFile(tempFilePaths, token, resolve, reject) {
       reject(res)
     },
     complete(res) {
-      // console.log(res)
+      wx.hideLoading()
+      console.log('complete')
+      console.log(res)
       if (typeof tempFilePaths === 'object') {
         if (count >= tempFilePaths.length) {
           // 还原数据

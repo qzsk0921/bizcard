@@ -14,12 +14,6 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/welcome/welcome",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "",
           "pathName": "pages/returnbiz/returnbiz",
           "query": "",
           "scene": null

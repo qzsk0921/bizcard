@@ -35,6 +35,7 @@ class Request {
       wx.setStorage({
         key: 'token',
         data: res.data.token
+        // data: 'ab1488c2bd8444eb534241e7451a7676'
       }).then(res => {
         that.request({
           method,
@@ -42,7 +43,7 @@ class Request {
           data
         }).then(ress => {
           // res => {
-            resolve(ress)
+          resolve(ress)
           // }
         })
       })
@@ -74,6 +75,7 @@ class Request {
         data: data ? data : {},
         method,
         header: {
+          // token:'ab1488c2bd8444eb534241e7451a7676',
           token,
           'content-type': that.contentType ? that.contentType : 'application/x-www-form-urlencoded'
         },
@@ -84,7 +86,7 @@ class Request {
           // console.log(res)
           if (res.data.code !== 1) {
             // 错误次数大于5次不再请求
-            if (++errCount>10) {
+            if (++errCount > 10) {
               wx.showToast({
                 title: '请求出错，请重试',
                 icon: 'none'

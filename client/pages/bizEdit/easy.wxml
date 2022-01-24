@@ -35,7 +35,7 @@
           <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" />
         </view>
         <view class="form-item form-item-style">
-          <label>名片样式</label>
+          <label>星片样式</label>
           <!-- <input name="style_id" placeholder="" placeholder-class="input-placeholder" value="{{card.style}}" disabled="true" bindtap="styleHandle" disabled="true" /> -->
           <radio-group>
             <label class="style-item {{item.id==formData.style_image_id?'active':''}}" wx:for="{{styleList}}" wx:key="unique" bindtap="styleHandle" data-id="{{item.id}}">

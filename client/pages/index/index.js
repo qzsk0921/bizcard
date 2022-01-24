@@ -152,26 +152,27 @@ create(store, {
       },
       // 产品
       {
-        cache: [{
-            "id": 3,
-            "user_id": 3442,
-            "title": "产品3",
-            "content": "你好啊，产品3",
-            "image_url": "https://gimg3.baidu.com/search/src=http%3A%2F%2Fpics2.baidu.com%2Ffeed%2F7acb0a46f21fbe09cd8ac698c154c93a8644ad20.jpeg%3Ftoken%3D3f2966952acedd094567b2df4028ea52&refer=http%3A%2F%2Fwww.baidu.com&app=2021&size=f360,240&n=0&g=0n&q=75&fmt=auto?sec=1643043600&t=c635399bc099cb2607ceb833010c932d",
-            "price": "13",
-            "status": 1,
-            "create_time": 1642849647
-          },
-          {
-            "id": 2,
-            "user_id": 3442,
-            "title": "产品3",
-            "content": "你好啊，产品3",
-            "image_url": "https://gimg3.baidu.com/search/src=http%3A%2F%2Fpics2.baidu.com%2Ffeed%2F7acb0a46f21fbe09cd8ac698c154c93a8644ad20.jpeg%3Ftoken%3D3f2966952acedd094567b2df4028ea52&refer=http%3A%2F%2Fwww.baidu.com&app=2021&size=f360,240&n=0&g=0n&q=75&fmt=auto?sec=1643043600&t=c635399bc099cb2607ceb833010c932d",
-            "price": 13,
-            "status": 1,
-            "create_time": 1642849512
-          }
+        cache: [
+          // {
+          //   "id": 3,
+          //   "user_id": 3442,
+          //   "title": "产品3",
+          //   "content": "你好啊，产品3",
+          //   "image_url": "https://gimg3.baidu.com/search/src=http%3A%2F%2Fpics2.baidu.com%2Ffeed%2F7acb0a46f21fbe09cd8ac698c154c93a8644ad20.jpeg%3Ftoken%3D3f2966952acedd094567b2df4028ea52&refer=http%3A%2F%2Fwww.baidu.com&app=2021&size=f360,240&n=0&g=0n&q=75&fmt=auto?sec=1643043600&t=c635399bc099cb2607ceb833010c932d",
+          //   "price": "13",
+          //   "status": 1,
+          //   "create_time": 1642849647
+          // },
+          // {
+          //   "id": 2,
+          //   "user_id": 3442,
+          //   "title": "产品3",
+          //   "content": "你好啊，产品3",
+          //   "image_url": "https://gimg3.baidu.com/search/src=http%3A%2F%2Fpics2.baidu.com%2Ffeed%2F7acb0a46f21fbe09cd8ac698c154c93a8644ad20.jpeg%3Ftoken%3D3f2966952acedd094567b2df4028ea52&refer=http%3A%2F%2Fwww.baidu.com&app=2021&size=f360,240&n=0&g=0n&q=75&fmt=auto?sec=1643043600&t=c635399bc099cb2607ceb833010c932d",
+          //   "price": 13,
+          //   "status": 1,
+          //   "create_time": 1642849512
+          // }
         ],
         count: 1,
         total_page: 1,
@@ -354,12 +355,12 @@ create(store, {
           this.setData({
             'tadeOptions[0].cache': this.data.card.card_info,
           })
-        } else if (nv === 1) {
+        } else if (nv === 2) {
           // 产品
           this.getGoodList({
-            user_id: this.data.card.card_info.sq_jinzhu_id
+            user_id: this.data.card.card_info.user_id
           })
-        } else if (nv === 2) {
+        } else if (nv === 1) {
           // 企业
           const data = this.data.card
           if (!data.card_info.company_avatar &&
@@ -392,7 +393,7 @@ create(store, {
         if (nv == 1) {
           temp.navigationBarTitleText = '我的名片'
           temp.navStatus = 'isEmpty'
-          temp.tabbar = ['我的简介', '我的产品', '我的企业', '我的评价']
+          temp.tabbar = ['我的简介', '我的企业', '我的产品', '我的评价']
           // 我的名片
           if (this.data.userInfo.has_card) {
             setTabBar.call(this)
@@ -405,7 +406,7 @@ create(store, {
 
         if (nv == 2) {
           temp.navStatus = 'isEntryWithShare'
-          temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
+          temp.tabbar = ['TA的简介', 'TA的企业', 'TA的产品', 'TA的评价']
           // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
           wx.showToast({
             icon: 'none',
@@ -429,7 +430,7 @@ create(store, {
   // 滚动时触发
   scrollHandle(e) {
     // console.log(e.detail.scrollTop)
-    // console.log(this.data.TASrollTop)
+    console.log(this.data.TASrollTop)
 
     const fixed = this.data.fixed
     if (this.data.TASrollTop <= e.detail.scrollTop) {
@@ -859,7 +860,7 @@ create(store, {
           this.data.tadeOptions[1].cache.push(...res.data.data)
           this.setData({
             [`tadeOptions[1].cache`]: this.data.tadeOptions[1].cache,
-            [`tadeOptions[1].total_page`]: res.data.last_page
+            [`tadeOptions[1].total_page`]: res.data.last_page,
           })
           resolve(res)
         } else {
@@ -867,9 +868,9 @@ create(store, {
             // 测试数据
             // [`tadeOptions.cache`]: [].concat(res.data.data).concat(res.data.data).concat(res.data.data).concat(res.data.data),
 
-
-            // [`tadeOptions[1].cache`]: res.data.data,
+            [`tadeOptions[1].cache`]: res.data.data,
             [`tadeOptions[1].total_page`]: res.data.last_page,
+            [`tadeOptions[1].appid`]: res.data.appid,
           })
         }
       }).catch(err => {
@@ -1072,14 +1073,30 @@ create(store, {
     }).exec();
 
     query.select('.section5').boundingClientRect(function (rect) {
+      console.log(rect.top)
+      console.log(that.store.data.compatibleInfo.navHeight)
+      // that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
       that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
-    })
+    }).exec()
   },
   // 我的产品-添加
   addProHandle(e) {
     console.log(e)
     wx.navigateTo({
-      url: '/pages/wo/product/edit',
+      url: '/pages/wo/product/edit?type=add',
+    })
+  },
+  // 我的产品-编辑
+  proEditHandle(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/wo/product/edit?type=edit&id=${id}`,
+    })
+  },
+  // 跳转至专属商城
+  toProMiniHandle() {
+    wx.navigateToMiniProgram({
+      appId: this.data.tadeOptions[1].appid
     })
   },
   // 点击产品进入详情
@@ -1088,11 +1105,6 @@ create(store, {
     wx.navigateTo({
       url: `/pages/wo/product/detail?id=${id}`,
     })
-  },
-  // 我的产品-编辑
-  proEditHandle(e) {
-    console.log(e)
-    const id = e.currentTarget.dataset.id
   },
   /**
    * 生命周期函数--监听页面加载
@@ -1123,10 +1135,10 @@ create(store, {
       temp.type = 1
       temp.navigationBarTitleText = '我的名片'
       temp.navStatus = 'isEmpty'
-      temp.tabbar = ['我的简介', '我的产品', '我的企业', '我的评价']
+      temp.tabbar = ['我的简介', '我的企业', '我的产品', '我的评价']
     } else {
+      // 扫普通码进入
       if (options.q) {
-        // 扫码进入
         const q = decodeURIComponent(options.q) // 获取到二维码原始链接内容
         // const scancode_time = parseInt(options.scancode_time) // 获取用户扫码时间 UNIX 时间戳
         if (q && q != 'undefined') {
@@ -1140,6 +1152,25 @@ create(store, {
 
         // temp.navStatus = 'isEntryWithShare'
         // temp.tabbar = ['TA的简介', 'TA的产品', 'TA的企业', 'TA的评价']
+      } else if (options.scene) {
+        // 扫小程序码
+        const scene = decodeURIComponent(options.scene)
+
+        // if (q && q != 'undefined') {
+        if (scene && scene != 'undefined') {
+          // scene.split('?')[1].split('&').forEach(it => {
+          //   const i = it.split('=')
+          //   temp[i[0]] = i[1]
+          // })
+
+          scene.split('&').forEach(it => {
+            const i = it.split('=')
+            temp[i[0]] = i[1]
+          })
+        } else {
+          temp = options
+        }
+
       } else {
         // 非扫码
         temp = options
