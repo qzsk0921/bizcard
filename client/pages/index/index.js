@@ -1192,6 +1192,8 @@ create(store, {
             const i = it.split('=')
             temp[i[0]] = i[1]
           })
+          
+          temp.type = 2
         } else {
           temp = options
         }
