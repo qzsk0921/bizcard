@@ -32,6 +32,15 @@ create(store, {
       content: '',
       image_url: '',
       price: '',
+    },
+    inputFocus: false,
+  },
+  // 兼容ios，使input失去焦点
+  textareaTapHandle() {
+    if (this.data.inputFocus) {
+      this.setData({
+        inputFocus: false
+      })
     }
   },
   // 产品标题
@@ -229,13 +238,29 @@ create(store, {
     } else {
       this.setData(temp)
     }
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    const that = this
+    const query = wx.createSelectorQuery();
 
+    // 在组件实例进入页面节点树时执行
+    query.select('.btn-submit').boundingClientRect(function (rect) {
+      console.log(rect)
+      that.setData({
+        btnSubmitH: rect.height
+      })
+    }).exec();
+
+    query.select('.btn-box').boundingClientRect(function (rect) {
+      that.setData({
+        btnSubmitH: rect.height
+      })
+    }).exec();
   },
 
   /**

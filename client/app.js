@@ -153,6 +153,9 @@ App({
       const pages = getCurrentPages() //获取加载的页面
       const view = pages[pages.length - 1] //获取当前页面的对象
       if (!view) return false //如果不存在页面对象 则返回
+
+      wx.hideShareMenu()
+
       // 若想给个别页面做特殊处理 可以给特殊页面加isOverShare为true 就不会重写了
       const data = view.data
       if (!data.isOverShare) {

@@ -1,10 +1,10 @@
 <!--pages/wo/product/edit.wxml-->
 <!-- <text>pages/wo/product/edit.wxml</text> -->
-<view class="container container-product-edit">
+<view class="container container-product-edit" style="padding-top:{{compatibleInfo.navHeight+'px'}};">
   <view class="fixed">
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="" color="#333" bgColor="#FFFFFF" />
   </view>
-  <view class="content hide-scrollbar" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.navHeight)+'px'}};">
+  <view class="content hide-scrollbar" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.navHeight+btnSubmitH)+'px'}};">
     <form bindsubmit="formSubmit" bindreset="formReset">
       <view class="form-section section1">
         <view class="r1">
@@ -12,7 +12,7 @@
           <text>{{currentCountTitle}}/20</text>
         </view>
         <view class="r2">
-          <input class="" name="title" placeholder="请输入产品标题" placeholder-class="input-placeholder" value="{{formData.title}}" bindinput="inputTitleHandle" maxlength="20" />
+          <input class="" name="title" placeholder="请输入产品标题" placeholder-class="input-placeholder" value="{{formData.title}}" bindinput="inputTitleHandle" maxlength="20" focus="{{inputFocus}}"/>
         </view>
       </view>
       <view class="form-section section2">
@@ -20,7 +20,7 @@
           <text class="tit">产品描述</text>
           <text>{{currentCountDes}}/200</text>
         </view>
-        <textarea placeholder-class="placeholder-style" placeholder="请填写产品描述" value="{{formData.content}}" name="content" bindinput="textareaInputContentHandle" maxlength="200"></textarea>
+        <textarea placeholder-class="placeholder-style" placeholder="请填写产品描述" value="{{formData.content}}" name="content" bindinput="textareaInputContentHandle" maxlength="200" bindtap="textareaTapHandle" />
       </view>
       <view class="form-section section3">
         <view class="r1">

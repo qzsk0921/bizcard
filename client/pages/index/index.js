@@ -150,8 +150,8 @@ create(store, {
         count: 1,
         total_page: 1
       },
-       // 企业
-       {
+      // 企业
+      {
         cache: null,
         count: 1,
         total_page: 1
@@ -345,7 +345,7 @@ create(store, {
           // 简介
           const data = this.data.card
           if (!data.card_info.introduce_myself &&
-            !data.card_info_label_list.length &&
+            (data.card_info_label_list && !data.card_info_label_list.length) &&
             !data.card_info.hometown &&
             !data.card_info.vidieo_url
           ) {
@@ -407,11 +407,13 @@ create(store, {
         if (nv == 2) {
           temp.navStatus = 'isEntryWithShare'
           temp.tabbar = ['TA的简介', 'TA的企业', 'TA的产品', 'TA的评价']
-          // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
-          wx.showToast({
-            icon: 'none',
-            title: '已为您将该名片至名片夹',
-          })
+          if (this.data.card.save_card_status) {
+            // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
+            wx.showToast({
+              icon: 'none',
+              title: '已为您将该星片至星片夹',
+            })
+          }
         }
 
         this.setData(temp)
@@ -952,7 +954,7 @@ create(store, {
       }
     }
 
-    if (!userInfo.avatar_url) {
+    if ((options.type == 1 && userInfo.has_card && !userInfo.avatar_url) || (options.type == 2 && !userInfo.has_card && !userInfo.avatar_url)) {
       const juideDialogVisibile = wx.getStorageSync('juideDialogVisibile')
       // console.log(juideDialogVisibile)
       if (!juideDialogVisibile) {
@@ -964,16 +966,31 @@ create(store, {
     }
 
     const temp = {}
-    if (options.s) {
+    if (options.s || options.s == 0) {
       // 通过扫码打开的他人的名片
       temp.type = options.type
       temp.sq_business_card_id = options.b
+      if (options.sq_jinzhu_id) {
+        temp.sq_jinzhu_id = options.sq_jinzhu_id
+      }
     } else {
       // 自己的名片
       temp.type = options.type
     }
 
     this.getCardDetail(temp).then(res => {
+      if (res.data.card_info.is_same_wx == 0 && res.data.card_info.status == -1) {
+        wx.showToast({
+          icon: 'none',
+          title: '请使用与脉呗App绑定微信相同的微信进行创建',
+        })
+      } else if (res.data.card_info.status != -1 && res.data.card_info.is_same_wx == 0) {
+        wx.showToast({
+          icon: 'none',
+          title: '请使用与脉呗App绑定微信相同的微信进行创建',
+        })
+      }
+
       let section4 = []
       if (res.data.card_info.mobile) {
         section4.push({
@@ -1026,6 +1043,7 @@ create(store, {
         'card.style': res.data.card_style,
       }
 
+
       // 自己查看自己的分享名片
       if (res.data.is_me) {
         tempSetdata.type = 1
@@ -1033,7 +1051,7 @@ create(store, {
       } else {
         tempSetdata.type = options.type
       }
-
+      console.log(tempSetdata)
       // 名片被禁用 分查看自己名片时 他人查看自己名片时
       if (res.data.card_info.status === 0) {
         tempSetdata['dialog.forbidden.opened'] = 1
@@ -1105,9 +1123,23 @@ create(store, {
     })
   },
   /**
+   * 图片点击事件
+   * */
+  previewImg: function (e) {
+    const dataset = e.currentTarget.dataset;
+    const urls = dataset.urls.map(item => item.url)
+    //图片预览，预览后会重新加载onshow方法
+    wx.previewImage({
+      urls, // 需要预览的图片http链接列表
+      current: dataset.item.url, // 当前显示图片的http链接
+    })
+  },
+  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('indexonload')
+    console.log(options)
     getApp().setWatcher(this) //设置监听器
     // if (options.scene) {
     //   let temp = {}
@@ -1170,6 +1202,7 @@ create(store, {
         // 以下调试后删除（type=2&b=4269&s=3452）--------------------------------------------
       }
     }
+
     options = temp
 
     // {type: "2", b: "4269", s: "3452"}

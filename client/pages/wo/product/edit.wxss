@@ -1,8 +1,16 @@
 /* pages/wo/product/edit.wxss */
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
+}
+
 .content {
   color: #333333;
-  padding-bottom: env(safe-area-inset-bottom);
   overflow: auto;
+  /* padding-bottom: env(safe-area-inset-bottom); */
 }
 
 .form-section {
@@ -122,7 +130,7 @@
 }
 
 .section4 {
-  margin: 20rpx 0 190rpx;
+  margin: 20rpx 0 90rpx;
 }
 
 .section4 .r1 {

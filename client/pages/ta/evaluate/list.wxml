@@ -22,8 +22,8 @@
             </view>
           </view>
           <view class="col2">
-            <view class="thumb-box {{item.is_zan?'active':''}}">
-              <image src="{{item.is_zan?'/assets/images/card_evaluate_like.png':'/assets/images/card_evaluate_like_f.png'}}" mode="aspectFill" bindtap="commentZanHandle" data-item="{{item}}"></image>
+            <view class="thumb-box {{item.is_zan?'active':''}}" bindtap="commentZanHandle" data-item="{{item}}">
+              <image src="{{item.is_zan?'/assets/images/card_evaluate_like.png':'/assets/images/card_evaluate_like_f.png'}}" mode="aspectFill"></image>
               <view class="num">{{item.zan_num}}</view>
             </view>
           </view>

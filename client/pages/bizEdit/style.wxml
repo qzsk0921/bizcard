@@ -27,11 +27,11 @@
           </view>
         </view>
       </view>
-      <view wx:if="{{styleList.order_list.style_image_info.length}}" class="sec2-nft sec">
+      <view wx:if="{{styleList.order_list.length}}" class="sec2-nft sec">
         <view class="tit">我的数字艺术藏品</view>
         <view class="image-box hide-scrollbar">
-          <view class="img-item" wx:for="{{tools.parseNFT(styleList.order_list.style_image_info)}}" wx:key="id">
-            <image class="icon-nft {{item.id===currentStyleImageObj.id?'active':''}}" src="{{item.card_image}}" data-item="{{item}}" data-type="nft" mode="aspectFill" bindtap="styleImageHandle"></image>
+          <view class="img-item" wx:for="{{tools.parseNFT(styleList.order_list)}}" wx:key="id">
+            <image class="icon-nft {{item.id===currentStyleImageObj.id?'active':''}}" src="{{item.style_image_info.card_image}}" data-item="{{item}}" data-type="nft" mode="aspectFill" bindtap="styleImageHandle"></image>
           </view>
         </view>
       </view>

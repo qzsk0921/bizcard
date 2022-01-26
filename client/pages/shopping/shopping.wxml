@@ -37,7 +37,7 @@
     <view class="content-apply applied">
       <image src="/assets/images/shop_apply_pass.png" mode="aspectFill"></image>
       <view class="r1">恭喜您，申请通过</view>
-      <view wx:if="{{shopData.appid}}" class="btn btn-see" bingtap="toMiniShopHandle">查看我的专属商城</view>
+      <view wx:if="{{shopData.appid}}" class="btn btn-see" bindtap="toMiniShopHandle">查看我的专属商城</view>
     </view>
   </block>
 </view>

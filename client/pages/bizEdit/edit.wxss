@@ -408,7 +408,7 @@
   color: #FFFFFF;
   letter-spacing: 2rpx;
   padding-bottom: env(safe-area-inset-bottom);
-  z-index: 2;
+  z-index: 999;
 }
 
 .content .form-section .form-item.arrow {

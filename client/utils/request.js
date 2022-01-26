@@ -35,7 +35,7 @@ class Request {
       wx.setStorage({
         key: 'token',
         data: res.data.token
-        // data: 'ab1488c2bd8444eb534241e7451a7676'
+        // data: '63eec6c9df94feae1f9bbe6062836480'
       }).then(res => {
         that.request({
           method,
@@ -75,7 +75,7 @@ class Request {
         data: data ? data : {},
         method,
         header: {
-          // token:'ab1488c2bd8444eb534241e7451a7676',
+          // token:'63eec6c9df94feae1f9bbe6062836480',
           token,
           'content-type': that.contentType ? that.contentType : 'application/x-www-form-urlencoded'
         },

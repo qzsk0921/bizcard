@@ -485,20 +485,36 @@ create(store, {
       })
     })
   },
-  /**.0
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.getStyleInfo({
-      sq_business_card_id: this.store.data.card.data.id
-    }).then(ress => {
+  initRequest(userInfo, options) {
+    // console.log('initRe')
+    // console.log(userInfo)
+    // console.log(options)
+    // 脉呗绑定微信与实际使用微信不同
+    const temp = {
+      sq_business_card_id: options.b ? options.b : this.store.data.card.data.id
+    }
+
+    if (options.sq_jinzhu_id) {
+      temp.sq_jinzhu_id = options.sq_jinzhu_id
+    }
+
+    this.getStyleInfo(temp).then(ress => {
+      if (!ress.data.card_info.is_same_wx) {
+        wx.showToast({
+          icon: 'none',
+          title: '请使用与脉呗App绑定微信相同的微信进行创建',
+        })
+        return
+      }
+
       this.setData({
         editData: ress.data,
       })
-
       this.getCardDetail({
         type: 1
       }).then(res => {
+        console.log(res.data)
+        console.log(99392)
         const data = res.data
         this.store.data.card.data = data.card_info
         this.store.data.card.style = data.card_style
@@ -542,6 +558,18 @@ create(store, {
         })
       })
     })
+  },
+  /**.0
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    if (this.store.data.userInfo) {
+      this.initRequest(this.store.data.userInfo, options)
+    } else {
+      getApp().getUserInfoCallback = (res => {
+        this.initRequest(res, options)
+      })
+    }
 
   },
 

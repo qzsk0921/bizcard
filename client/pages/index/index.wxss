@@ -365,6 +365,7 @@
   font-size: 28rpx;
   line-height: 48rpx;
   margin-bottom: 14rpx;
+  width: 100%;
 }
 
 .section5 .introduce .sec1 .tags {
@@ -589,6 +590,7 @@
   line-height: 48rpx;
   color: #555555;
   padding-bottom: 20rpx;
+  width: 100%;
 }
 
 .section5 .company .sec3 {

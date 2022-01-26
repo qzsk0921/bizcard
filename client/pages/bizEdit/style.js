@@ -1128,6 +1128,7 @@ create(store, {
         currentStyleId: dataset.item.id,
         currentStyleImageObj: res.data[0]
       })
+      this.data.isNft = false
     })
   },
   // 选择星片图
@@ -1136,6 +1137,7 @@ create(store, {
     const temp = {
       currentStyleImageObj: dataset.item,
     }
+
     if (!dataset.type) {
       // 选择星片图
       if (!this.data.currentStyleId) {
@@ -1145,12 +1147,14 @@ create(store, {
         })
         return
       }
+      this.data.isNft = false
     } else if (dataset.type === 'nft') {
       // 选择nft星片图 版式和星片图变为不选中态（版式会下架）
       temp.currentStyleId = null
+      temp.currentStyleImageObj = dataset.item.style_image_info
       temp.currentStyleImageObj.is_buy = 1
+      this.data.isNft = true
     }
-
     this.setData(temp)
   },
   tagHandle(e) {
@@ -1182,12 +1186,14 @@ create(store, {
   },
   // 保存版式
   saveHandle() {
-    if (!this.data.currentStyleId) {
-      wx.showToast({
-        title: '请先选择版式',
-        icon: 'none'
-      })
-      return
+    if (!this.data.isNft) {
+      if (!this.data.currentStyleId) {
+        wx.showToast({
+          title: '请先选择版式',
+          icon: 'none'
+        })
+        return
+      }
     }
     const currentStyleImageObj = this.data.currentStyleImageObj
     // const tempStyleImage = {
@@ -1214,7 +1220,7 @@ create(store, {
     const tempStyleInfo = {
       type: 2,
       sq_business_card_id: this.store.data.card.data.id,
-      style_image_id: currentStyleImageObj.id,
+      style_image_id: this.data.isNft ? currentStyleImageObj.style_image_id : currentStyleImageObj.id,
       is_name_show: getShowStatus('name'),
       is_avatar_show: getShowStatus('avatar'),
       is_phone_show: getShowStatus('phone'),
