@@ -34,6 +34,8 @@ create(store, {
     tagArr: [], //解析用
 
     navStatus: '', //isEmpty
+    navColor: '',
+    
     editData: null, //名片编辑数据 这里主要用到我的标签
     card: null, //名片全部数据
     userInfo: null,
@@ -65,6 +67,31 @@ create(store, {
       "company_introduce": '', //公司介绍
       "company_introduce_image_arr": [], //公司介绍图片
     },
+  },
+  // 兼容ios，使input失去焦点
+  tapHandle() {
+    console.log('tapHandle')
+    wx.hideKeyboard({
+      complete: res => {
+        console.log('hideKeyboard res', res)
+      }
+    })
+  },
+  scrollHandle(e) {
+    // 隐藏显示顶部导航栏
+    if (e.detail.scrollTop > 5) {
+      if (this.data.navColor != 'transparent') {
+        this.setData({
+          navColor: 'transparent'
+        })
+      }
+    } else {
+      if (this.data.navColor == 'transparent') {
+        this.setData({
+          navColor: '#333'
+        })
+      }
+    }
   },
   // 跳转至选择名片样式页
   toStyleHandle() {
@@ -550,8 +577,8 @@ create(store, {
           'formData.industry_id': res.data.card_info.industry_id,
           'formData.industry_name': res.data.card_info.industry,
           'formData.address': res.data.card_info.address,
-          'formData.address_longitude': res.data.card_info.address_longitude,
-          'formData.address_latitude': res.data.card_info.address_latitude,
+          'formData.address_longitude': res.data.card_info.address_longitude ? res.data.card_info.address_longitude : '', //app端的公司地址没有经纬度信息，后台数据未做处理时的兼容
+          'formData.address_latitude': res.data.card_info.address_latitude ? res.data.card_info.address_latitude : '',
           'formData.company_avatar': res.data.card_info.company_avatar,
           'formData.company_introduce': res.data.card_info.company_introduce,
           'formData.company_introduce_image_arr': res.data.card_info.company_introduce_image_arr ? res.data.card_info.company_introduce_image_arr : []

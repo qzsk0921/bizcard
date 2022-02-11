@@ -79,7 +79,6 @@ create(store, {
     })
   },
   scrollToLower() {
-    console.log(e)
     console.log('scrollToLower')
 
     let listData = this.data.listData
@@ -94,10 +93,11 @@ create(store, {
   },
 
   getCardRadarList(dataObj) {
+
     const tempData = {
       page: this.data.listData.count,
       page_size: this.data.page_size,
-      time: this.data.dete
+      time: this.data.date
     }
 
     if (typeof dataObj === 'object') {
@@ -188,6 +188,12 @@ create(store, {
     if (!this.data.userInfo) {
       this.setData({
         userInfo: this.store.data.userInfo
+      })
+    }
+
+    if (this.data.listData.count != 1) {
+      this.setData({
+        'listData.count': 1
       })
     }
 

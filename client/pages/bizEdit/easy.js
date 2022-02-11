@@ -45,6 +45,30 @@ create(store, {
     systemInfo: null,
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
   },
+  // 名字输入 根据用户录入的信息进行变化
+  inputNameHandle(e) {
+    this.setData({
+      'cardInfo.name': e.detail.value
+    })
+  },
+  // 电话输入
+  inputPhoneHandle(e) {
+    this.setData({
+      'cardInfo.mobile': e.detail.value
+    })
+  },
+  // 公司输入
+  inputCompanyHandle(e) {
+    this.setData({
+      'cardInfo.company': e.detail.value
+    })
+  },
+  // 职业输入
+  inputProfessionHandle(e) {
+    this.setData({
+      'cardInfo.profession': e.detail.value
+    })
+  },
   getPhoneNumber(e) {
     console.log(e)
     const _this = this
@@ -86,7 +110,8 @@ create(store, {
   // 自动填入手机号
   autoPhoneNumber() {
     this.setData({
-      'formData.mobile': this.data.userInfo.phone
+      'formData.mobile': this.data.userInfo.phone,
+      'cardInfo.mobile': this.data.userInfo.phone
     })
   },
   // 职位 导航至职位列表
@@ -161,7 +186,7 @@ create(store, {
           // })
           this.store.data.userInfo.has_card = 1
           this.update()
-          
+
           wx.reLaunch({
             url: '/pages/index/index',
           })

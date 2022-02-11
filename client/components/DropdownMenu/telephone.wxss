@@ -36,6 +36,7 @@
   background: #F2F3F6;
   border-radius: 20rpx 20rpx 0rpx 0rpx;
   overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .dropdown-item-down__content .l {

@@ -230,6 +230,7 @@ create(store, {
             'listData.total_page': res.data.last_page,
             'listData.total': res.data.total
           })
+          resolve(res)
         }
       }).catch(err => {
         reject(err)
@@ -322,7 +323,15 @@ create(store, {
       })
     }
 
-    this.getCardList()
+    this.getCardList({
+      page: 1
+    }).then(res => {
+      this.setData({
+        'listData.count': 1,
+        status: 'edit',
+      })
+    })
+
     this.getCardMsgNum().then(res => {
       if (res.data.total_number) {
         this.setData({

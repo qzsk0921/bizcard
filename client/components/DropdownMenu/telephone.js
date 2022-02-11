@@ -64,15 +64,31 @@ create({
           phoneNumber: this.data.telephoneObj.content,
         })
       } else if (type === 'create') {
-        // 创建通讯录新联系人
-
+        const that = this
         // 用户可以选择将该表单以「新增联系人」或「添加到已有联系人」的方式，写入手机系统通讯录。
         // 访问蓝牙、 添加通讯录联系人、 添加日历事件需要用户授权
         // 为优化用户体验， 平台将于2022年2月21日24时之后对访问蓝牙、 添加通讯录联系人、 添加日历事件增加用户授权。 如有使用该技术服务， 请开发者及时对小程序进行调整， 避免影响服务流程。 查看详情: https: //developers.weixin.qq.com/community/develop/doc/000e881c7046a8fa1f4d464105b001
-        wx.addPhoneContact({
-          firstName: this.data.telephoneObj.name,
-          mobilePhoneNumber: this.data.telephoneObj.content
-        })
+
+        // 创建通讯录新联系人
+        if (!store.data.settingInfo.authSetting['addPhoneContact']) {
+          wx.authorize({
+            scope: 'scope.addPhoneContact',
+            success() {
+              store.data.settingInfo.authSetting['addPhoneContact'] = true
+              store.update()
+
+              wx.addPhoneContact({
+                firstName: that.data.telephoneObj.name,
+                mobilePhoneNumber: that.data.telephoneObj.content
+              })
+            }
+          })
+        } else {
+          wx.addPhoneContact({
+            firstName: that.data.telephoneObj.name,
+            mobilePhoneNumber: that.data.telephoneObj.content
+          })
+        }
       } else if (type === 'add') {
         // 添加到通讯录现有联系人
         wx.addPhoneContact({

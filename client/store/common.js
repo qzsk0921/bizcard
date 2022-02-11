@@ -10,7 +10,11 @@ export default {
       isIphoneX: null,
       tabbarH: null, //自定义tabbar高度
     },
-    settingInfo: {}, //微信设置信息 settingInfo.authSetting['scope.userInfo'](微信已授权)
+    settingInfo: {
+      authSetting: {
+        'addPhoneContact': ''
+      }
+    }, //微信设置信息 settingInfo.authSetting['scope.userInfo'](微信已授权)
 
     address_id: wx.getStorageSync('address_id') || null, //当前使用的收货地址
 

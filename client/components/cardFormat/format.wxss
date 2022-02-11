@@ -1,4 +1,18 @@
 /* components/cardFormat/format.wxss */
+.one-txt-cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.txt-cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 .format {
   position: relative;
   /* height: 400rpx; */

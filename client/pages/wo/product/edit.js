@@ -33,15 +33,15 @@ create(store, {
       image_url: '',
       price: '',
     },
-    inputFocus: false,
   },
   // 兼容ios，使input失去焦点
-  textareaTapHandle() {
-    if (this.data.inputFocus) {
-      this.setData({
-        inputFocus: false
-      })
-    }
+  tapHandle() {
+    console.log('tapHandle')
+    wx.hideKeyboard({
+      complete: res => {
+        console.log('hideKeyboard res', res)
+      }
+    })
   },
   // 产品标题
   inputTitleHandle(e) {

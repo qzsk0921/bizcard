@@ -39,6 +39,31 @@ App({
     this.update()
     // 定位授权
     this.getLocation()
+    // 先查询一下用户是否授权了 "scope.*" addPhoneContact
+    this.getSetting(['addPhoneContact'])
+  },
+  getSetting(scopeArr) {
+    scopeArr.forEach(scope => {
+      wx.getSetting({
+        success(res) {
+          console.log(res)
+          console.log(store.data.settingInfo.authSetting, scope, res.authSetting[scope])
+
+          store.data.settingInfo.authSetting[scope] = res.authSetting[scope] ? res.authSetting[scope] : false
+          store.update()
+          console.log(store.data)
+          // if (!res.authSetting[scope]) {
+          // wx.authorize({
+          //   scope: 'scope.record',
+          //   success() {
+          //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+          //     wx.startRecord()
+          //   }
+          // })
+          // }
+        }
+      })
+    })
   },
   getUserDetail() {
     getUserDetail().then(res => {

@@ -55,7 +55,7 @@ create({
   methods: {
     // 去制作星片
     makeCardHandle() {
-      if (store.data.userInfo.avatar_url) {
+      if (!store.data.userInfo.avatar_url) {
         this.triggerEvent('awakenDialogAuth')
         return
       }

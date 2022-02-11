@@ -8,16 +8,16 @@
     <view class="box">
       <image class="icon-image" src="{{cardstyle.card_image}}" mode="aspectFill"></image>
       <view class="top">
-        <view class="company">{{carddata.company}}</view>
-        <view class="name">{{carddata.name}}</view>
-        <view class="position">{{carddata.profession}}</view>
+        <view class="company one-txt-cut">{{carddata.company}}</view>
+        <view class="name one-txt-cut">{{carddata.name}}</view>
+        <view class="position one-txt-cut">{{carddata.profession}}</view>
       </view>
       <view class="bottom">
         <view class="phone">
           <image src="{{cardstyle.phone_image}}" mode="aspectFill"></image>
           <text style="color:{{tools.parseColor(cardstyle.phone_color)}}">{{carddata.mobile}}</text>
         </view>
-        <view wx:if="{{carddata.address&&tools.parseShow('address', field, cardstyle.tag_list)}}" class="address">
+        <view wx:if="{{carddata.address&&tools.parseShow('address', field, cardstyle.tag_list)}}" class="address one-txt-cut">
           <image src="{{cardstyle.address_image}}" mode="aspectFill"></image>
           <text style="color:{{tools.parseColor(cardstyle.address_color)}}">{{carddata.address}}</text>
         </view>

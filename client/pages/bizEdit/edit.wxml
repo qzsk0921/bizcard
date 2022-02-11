@@ -2,151 +2,154 @@
 <!-- <text>pages/bizEdit/edit.wxml</text> -->
 <wxs module="tools" src="./wxs/index.wxs"></wxs>
 <!-- 名片编辑 -->
-<view class="container container-edit">
+<view class="container container-edit" bindtouchmove="tapHandle">
   <view class="fixed">
-    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="{{tools.parseNavColor(cid)}}" bgColor="transparent" />
+    <!-- <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="{{tools.parseNavColor(cid)}}" bgColor="transparent" /> -->
+    <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="{{navColor}}" bgColor="transparent" />
   </view>
-  <view class="content hide-scrollbar">
-    <view class="section1 section card">
-      <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
-    </view>
-    <!-- <view class="section2 section" style="margin-top:{{200-(197-compatibleInfo.navHeight-10)}}px;"> -->
-    <view class="section2 section">
-      <view class="l">
-        <image src="/assets/images/card_edit_change.png" mode="aspectFill"></image>
-        <text>更换星片样式</text>
+  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight+'px'}};">
+    <view class="content hide-scrollbar">
+      <view class="section1 section card">
+        <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
       </view>
-      <view class="r" bindtap="toStyleHandle">
-        <text>编辑</text>
-        <image class="icon-arrow" src="/assets/images/nav_btn_more.png" mode="aspectFill"></image>
+      <!-- <view class="section2 section" style="margin-top:{{200-(197-compatibleInfo.navHeight-10)}}px;"> -->
+      <view class="section2 section">
+        <view class="l">
+          <image src="/assets/images/card_edit_change.png" mode="aspectFill"></image>
+          <text>更换星片样式</text>
+        </view>
+        <view class="r" bindtap="toStyleHandle">
+          <text>编辑</text>
+          <image class="icon-arrow" src="/assets/images/nav_btn_more.png" mode="aspectFill"></image>
+        </view>
       </view>
-    </view>
-    <view class="section3 section">
-      <view class="l">
-        <view class="row1">星片曝光</view>
-        <view class="row2">是否允许将星片信息公开展示，获取更多商业合作</view>
+      <view class="section3 section">
+        <view class="l">
+          <view class="row1">星片曝光</view>
+          <view class="row2">是否允许将星片信息公开展示，获取更多商业合作</view>
+        </view>
+        <image class="r icon-exposure" src="{{formData.is_public?'/assets/images/edit_exposure_n.png':'/assets/images/edit_exposure_f.png'}}" mode="aspectFill" bindtap="exposureHandle"></image>
       </view>
-      <image class="r icon-exposure" src="{{formData.is_public?'/assets/images/edit_exposure_n.png':'/assets/images/edit_exposure_f.png'}}" mode="aspectFill" bindtap="exposureHandle"></image>
-    </view>
-    <view class="section4 section">
-      <form bindsubmit="formSubmit" bindreset="formReset">
-        <view class="form-section">
-          <view class="tit">个人信息</view>
-          <view class="form-item form-item-avatar arrow">
-            <label>头像</label>
-            <view class="input-box" bindtap="inputAvatarHandle">
-              <image wx:if="{{formData.avatar}}" class="icon-avatar" src="{{formData.avatar}}" mode="aspectFit"></image>
-              <image wx:else class="icon-avatar" src="/assets/images/card_edit_head.png" mode="aspectFill"></image>
+      <view class="section4 section">
+        <form bindsubmit="formSubmit" bindreset="formReset">
+          <view class="form-section">
+            <view class="tit">个人信息</view>
+            <view class="form-item form-item-avatar arrow">
+              <label>头像</label>
+              <view class="input-box" bindtap="inputAvatarHandle">
+                <image wx:if="{{formData.avatar}}" class="icon-avatar" src="{{formData.avatar}}" mode="aspectFit"></image>
+                <image wx:else class="icon-avatar" src="/assets/images/card_edit_head.png" mode="aspectFill"></image>
+              </view>
+            </view>
+            <view class="form-item form-item-name">
+              <label class="label-require">姓名</label>
+              <input class="one-txt-cut" name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{formData.name}}" />
+            </view>
+            <view class="form-item form-item-company arrow">
+              <label>家乡</label>
+              <input name="company" placeholder="请选择您的家乡" placeholder-class="input-placeholder" value="{{formData.hometown}}" disabled="true" bindtap="hometownHandle" />
             </view>
           </view>
-          <view class="form-item form-item-name">
-            <label class="label-require">姓名</label>
-            <input class="one-txt-cut" name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{formData.name}}" />
+          <view class="form-section">
+            <view class="tit">联系信息</view>
+            <view class="form-item form-item-phone">
+              <label class="label-require">电话</label>
+              <input type="digit" name="mobile" placeholder="请输入您的联系电话" placeholder-class="input-placeholder" value="{{formData.mobile}}" bindblur="handleInputChange" maxlength="11" />
+            </view>
+            <view class="form-item form-item-telephone">
+              <label>座机</label>
+              <input class="one-txt-cut" type="digit" name="landline" placeholder="请输入您的座机" placeholder-class="input-placeholder" value="{{formData.landline}}" maxlength="13" />
+            </view>
+            <view class="form-item form-item-email">
+              <label>邮箱</label>
+              <input name="email" placeholder="请输入您的邮箱地址" placeholder-class="input-placeholder" value="{{formData.email}}" />
+            </view>
           </view>
-          <view class="form-item form-item-company arrow">
-            <label>家乡</label>
-            <input name="company" placeholder="请选择您的家乡" placeholder-class="input-placeholder" value="{{formData.hometown}}" disabled="true" bindtap="hometownHandle" />
+          <view class="form-section form-section-profile">
+            <view class="tit">
+              <text>个人简介</text>
+              <text>{{currentCountProfile}}/300</text>
+            </view>
+            <view class="form-item form-item-profile">
+              <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="300"></textarea>
+            </view>
           </view>
-        </view>
-        <view class="form-section">
-          <view class="tit">联系信息</view>
-          <view class="form-item form-item-phone">
-            <label class="label-require">电话</label>
-            <input type="digit" name="mobile" placeholder="请输入您的联系电话" placeholder-class="input-placeholder" value="{{formData.mobile}}" bindblur="handleInputChange" maxlength="11" />
+          <view class="form-section form-section-tag">
+            <view class="tit">
+              <text>我的标签</text>
+              <text>{{tagArr.length}}/9</text>
+            </view>
+            <view class="form-item form-item-tag">
+              <view bindtap="tagHandle" class="tag {{tools.parseLabelStr(item.id,tagArr)?'active':''}}" data-id="{{item.id}}" wx:for="{{editData.select_tag_list}}" wx:key="id">{{item.name}}</view>
+            </view>
           </view>
-          <view class="form-item form-item-telephone">
-            <label>座机</label>
-            <input class="one-txt-cut" type="digit" name="landline" placeholder="请输入您的座机" placeholder-class="input-placeholder" value="{{formData.landline}}" maxlength="13" />
+          <view class="form-section form-section-video">
+            <view class="tit">
+              <text>我的视频</text>
+              <view class="btn btn-edit {{formData.vidieo_url?'show':''}}" bindtap="inputVideoHandle">修改</view>
+            </view>
+            <view class="form-item form-item-video">
+              <video wx:if="{{formData.vidieo_url}}" id="myVideo" src="{{formData.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
+              <block wx:else>
+                <image class="icon-add" src="/assets/images/card_edit_video_add.png" mode="aspectFill" bindtap="inputVideoHandle"></image>
+                <view>点击上传视频</view>
+              </block>
+            </view>
           </view>
-          <view class="form-item form-item-email">
-            <label>邮箱</label>
-            <input name="email" placeholder="请输入您的邮箱地址" placeholder-class="input-placeholder" value="{{formData.email}}" />
-          </view>
-        </view>
-        <view class="form-section form-section-profile">
-          <view class="tit">
-            <text>个人简介</text>
-            <text>{{currentCountProfile}}/300</text>
-          </view>
-          <view class="form-item form-item-profile">
-            <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="300"></textarea>
-          </view>
-        </view>
-        <view class="form-section form-section-tag">
-          <view class="tit">
-            <text>我的标签</text>
-            <text>{{tagArr.length}}/9</text>
-          </view>
-          <view class="form-item form-item-tag">
-            <view bindtap="tagHandle" class="tag {{tools.parseLabelStr(item.id,tagArr)?'active':''}}" data-id="{{item.id}}" wx:for="{{editData.select_tag_list}}" wx:key="id">{{item.name}}</view>
-          </view>
-        </view>
-        <view class="form-section form-section-video">
-          <view class="tit">
-            <text>我的视频</text>
-            <view class="btn btn-edit {{formData.vidieo_url?'show':''}}" bindtap="inputVideoHandle">修改</view>
-          </view>
-          <view class="form-item form-item-video">
-            <video wx:if="{{formData.vidieo_url}}" id="myVideo" src="{{formData.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
-            <block wx:else>
-              <image class="icon-add" src="/assets/images/card_edit_video_add.png" mode="aspectFill" bindtap="inputVideoHandle"></image>
-              <view>点击上传视频</view>
-            </block>
-          </view>
-        </view>
-        <view class="form-section form-section-company">
-          <view class="tit">公司信息</view>
-          <view class="form-item form-item-cname">
-            <label class="label-require">公司</label>
-            <input class="one-txt-cut" name="company" placeholder="请输入公司名称" placeholder-class="input-placeholder" value="{{formData.company}}" />
-          </view>
-          <!-- <view class="form-item form-item-position arrow">
+          <view class="form-section form-section-company">
+            <view class="tit">公司信息</view>
+            <view class="form-item form-item-cname">
+              <label class="label-require">公司</label>
+              <input class="one-txt-cut" name="company" placeholder="请输入公司名称" placeholder-class="input-placeholder" value="{{formData.company}}" />
+            </view>
+            <!-- <view class="form-item form-item-position arrow">
             <label class="label-require">职位</label>
             <input name="" placeholder="请输入职位" placeholder-class="input-placeholder" value="{{formData.profession_name}}" disabled="true" bindtap="positionHandle" />
           </view> -->
-          <view class="form-item form-item-profession">
-            <label class="label-require">职位</label>
-            <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" />
-          </view>
-          <view class="form-item form-item-industry arrow">
-            <label>行业</label>
-            <!-- industry_id -->
-            <input name="" placeholder="请选择行业" placeholder-class="input-placeholder" value="{{formData.industry_name}}" disabled="true" bindtap="industryHandle" />
-          </view>
-          <view class="form-item form-item-cadress arrow">
-            <label>公司地址</label>
-            <input class="one-txt-cut" name="address" placeholder="请在地图上选择您的公司地址" placeholder-class="input-placeholder" value="{{formData.address}}" disabled="true" bindtap="addressHandle" />
-          </view>
-          <view class="form-item form-item-logo arrow">
-            <label>公司Logo</label>
-            <view class="input-box" bindtap="inputLogoHandle">
-              <image wx:if="{{formData.company_avatar}}" class="icon-logo" src="{{formData.company_avatar}}" mode="aspectFit"></image>
-              <image wx:else class="icon-logo" src="/assets/images/edit_logo.png" mode="aspectFill"></image>
+            <view class="form-item form-item-profession">
+              <label class="label-require">职位</label>
+              <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" />
+            </view>
+            <view class="form-item form-item-industry arrow">
+              <label>行业</label>
+              <!-- industry_id -->
+              <input name="" placeholder="请选择行业" placeholder-class="input-placeholder" value="{{formData.industry_name}}" disabled="true" bindtap="industryHandle" />
+            </view>
+            <view class="form-item form-item-cadress arrow">
+              <label>公司地址</label>
+              <input class="one-txt-cut" name="address" placeholder="请在地图上选择您的公司地址" placeholder-class="input-placeholder" value="{{formData.address}}" disabled="true" bindtap="addressHandle" />
+            </view>
+            <view class="form-item form-item-logo arrow">
+              <label>公司Logo</label>
+              <view class="input-box" bindtap="inputLogoHandle">
+                <image wx:if="{{formData.company_avatar}}" class="icon-logo" src="{{formData.company_avatar}}" mode="aspectFit"></image>
+                <image wx:else class="icon-logo" src="/assets/images/edit_logo.png" mode="aspectFill"></image>
+              </view>
             </view>
           </view>
-        </view>
-        <view class="form-section form-section-introduction">
-          <view class="tit">
-            <text>公司简介</text>
-            <text>{{currentCountIntroduction}}/1000</text>
+          <view class="form-section form-section-introduction">
+            <view class="tit">
+              <text>公司简介</text>
+              <text>{{currentCountIntroduction}}/1000</text>
+            </view>
+            <view class="form-item form-item-introduction">
+              <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="1000"></textarea>
+            </view>
           </view>
-          <view class="form-item form-item-introduction">
-            <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="1000"></textarea>
+          <view class="form-section form-section-companypic">
+            <view class="tit">
+              <text>公司介绍图</text>
+              <text>{{formData.company_introduce_image_arr.length}}/9</text>
+            </view>
+            <view class="form-item form-item-companypic">
+              <van-uploader file-list="{{ formData.company_introduce_image_arr }}" bind:after-read="afterRead" bind:delete="deleteCompanypicHandle" max-count="9" multiple="true">
+                <image src="/assets/images/edit_picture_add.png" mode="aspectFill"></image>
+              </van-uploader>
+            </view>
           </view>
-        </view>
-        <view class="form-section form-section-companypic">
-          <view class="tit">
-            <text>公司介绍图</text>
-            <text>{{formData.company_introduce_image_arr.length}}/9</text>
-          </view>
-          <view class="form-item form-item-companypic">
-            <van-uploader file-list="{{ formData.company_introduce_image_arr }}" bind:after-read="afterRead" bind:delete="deleteCompanypicHandle" max-count="9" multiple="true">
-              <image src="/assets/images/edit_picture_add.png" mode="aspectFill"></image>
-            </van-uploader>
-          </view>
-        </view>
-        <button class="btn-submit btn" form-type="submit">保存</button>
-      </form>
+          <button class="btn-submit btn" form-type="submit">保存</button>
+        </form>
+      </view>
     </view>
-  </view>
+  </scroll-view>
 </view>

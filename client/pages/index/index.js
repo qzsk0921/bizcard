@@ -65,6 +65,7 @@ create(store, {
     compatibleInfo: null, //navHeight menuButtonObject systemInfo isIphoneX isIphone
 
     navStatus: '', //isEmpty
+    navColor: '#333',
 
     currentSwiperIndex: 0, //初始值为0
     mapBackground: [{
@@ -433,9 +434,25 @@ create(store, {
   },
   // 滚动时触发
   scrollHandle(e) {
-    // console.log(e.detail.scrollTop)
+    console.log(e.detail.scrollTop)
     // console.log(this.data.TASrollTop)
 
+    // 隐藏显示顶部导航栏
+    if (e.detail.scrollTop > 5) {
+      if (this.data.navColor != 'transparent') {
+        this.setData({
+          navColor: 'transparent'
+        })
+      }
+    } else {
+      if (this.data.navColor == 'transparent') {
+        this.setData({
+          navColor: '#333'
+        })
+      }
+    }
+
+    // 固定定位底部选项列表
     const fixed = this.data.fixed
     if (this.data.TASrollTop <= e.detail.scrollTop) {
       if (!fixed) {
@@ -1192,7 +1209,7 @@ create(store, {
             const i = it.split('=')
             temp[i[0]] = i[1]
           })
-          
+
           temp.type = 2
         } else {
           temp = options
