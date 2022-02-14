@@ -2,13 +2,13 @@
 <!-- <text>pages/bizEdit/edit.wxml</text> -->
 <wxs module="tools" src="./wxs/index.wxs"></wxs>
 <!-- 名片编辑 -->
-<view class="container container-edit" bindtouchmove="tapHandle">
+<view class="container container-edit">
   <view class="fixed">
     <!-- <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="{{tools.parseNavColor(cid)}}" bgColor="transparent" /> -->
     <top-navigation navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" color="{{navColor}}" bgColor="transparent" />
   </view>
   <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight+'px'}};">
-    <view class="content hide-scrollbar">
+    <view class="content hide-scrollbar" bindtouchmove="tapHandle">
       <view class="section1 section card">
         <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
       </view>
@@ -43,26 +43,26 @@
             </view>
             <view class="form-item form-item-name">
               <label class="label-require">姓名</label>
-              <input class="one-txt-cut" name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{formData.name}}" />
+              <input class="one-txt-cut" name="name" placeholder="请输入您的姓名" placeholder-class="input-placeholder" value="{{formData.name}}" bindinput="inputNameHandle" />
             </view>
             <view class="form-item form-item-company arrow">
               <label>家乡</label>
-              <input name="company" placeholder="请选择您的家乡" placeholder-class="input-placeholder" value="{{formData.hometown}}" disabled="true" bindtap="hometownHandle" />
+              <input placeholder="请选择您的家乡" placeholder-class="input-placeholder" value="{{formData.hometown}}" disabled="true" bindtap="hometownHandle" />
             </view>
           </view>
           <view class="form-section">
             <view class="tit">联系信息</view>
             <view class="form-item form-item-phone">
               <label class="label-require">电话</label>
-              <input type="digit" name="mobile" placeholder="请输入您的联系电话" placeholder-class="input-placeholder" value="{{formData.mobile}}" bindblur="handleInputChange" maxlength="11" />
+              <input type="digit" name="mobile" placeholder="请输入您的联系电话" placeholder-class="input-placeholder" value="{{formData.mobile}}" bindblur="handleInputChange" maxlength="11" bindinput="inputPhoneHandle" always-embed="true"/>
             </view>
             <view class="form-item form-item-telephone">
               <label>座机</label>
-              <input class="one-txt-cut" type="digit" name="landline" placeholder="请输入您的座机" placeholder-class="input-placeholder" value="{{formData.landline}}" maxlength="13" />
+              <input class="one-txt-cut" type="digit" name="landline" placeholder="请输入您的座机" placeholder-class="input-placeholder" value="{{formData.landline}}" maxlength="13" always-embed="true"/>
             </view>
             <view class="form-item form-item-email">
               <label>邮箱</label>
-              <input name="email" placeholder="请输入您的邮箱地址" placeholder-class="input-placeholder" value="{{formData.email}}" />
+              <input name="email" placeholder="请输入您的邮箱地址" placeholder-class="input-placeholder" value="{{formData.email}}" always-embed="true"/>
             </view>
           </view>
           <view class="form-section form-section-profile">
@@ -71,7 +71,7 @@
               <text>{{currentCountProfile}}/300</text>
             </view>
             <view class="form-item form-item-profile">
-              <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="300"></textarea>
+              <textarea placeholder-class="placeholder-style" placeholder="请输入您的个人简介" value="{{formData.introduce_myself}}" name="introduce_myself" bindinput="textareaInputProfileHandle" maxlength="300" ></textarea>
             </view>
           </view>
           <view class="form-section form-section-tag">
@@ -100,7 +100,7 @@
             <view class="tit">公司信息</view>
             <view class="form-item form-item-cname">
               <label class="label-require">公司</label>
-              <input class="one-txt-cut" name="company" placeholder="请输入公司名称" placeholder-class="input-placeholder" value="{{formData.company}}" />
+              <input class="one-txt-cut" name="company" placeholder="请输入公司名称" placeholder-class="input-placeholder" value="{{formData.company}}" bindinput="inputCompanyHandle" />
             </view>
             <!-- <view class="form-item form-item-position arrow">
             <label class="label-require">职位</label>
@@ -108,7 +108,7 @@
           </view> -->
             <view class="form-item form-item-profession">
               <label class="label-require">职位</label>
-              <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" />
+              <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" bindinput="inputProfessionHandle" />
             </view>
             <view class="form-item form-item-industry arrow">
               <label>行业</label>
@@ -133,7 +133,7 @@
               <text>{{currentCountIntroduction}}/1000</text>
             </view>
             <view class="form-item form-item-introduction">
-              <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="1000"></textarea>
+              <textarea placeholder-class="placeholder-style" placeholder="可以在这里介绍公司，如：1.公司概况2.公司发展状况3.公司文化4.公司主要产品5.销售业绩及网络…" value="{{formData.company_introduce}}" name="company_introduce" bindinput="textareaInputIntroductionHandle" maxlength="1000" ></textarea>
             </view>
           </view>
           <view class="form-section form-section-companypic">

@@ -392,7 +392,7 @@ create(store, {
         const temp = {}
 
         if (nv == 1) {
-          temp.navigationBarTitleText = '我的名片'
+          temp.navigationBarTitleText = '我的星片'
           temp.navStatus = 'isEmpty'
           temp.tabbar = ['我的简介', '我的企业', '我的产品', '我的评价']
           // 我的名片
@@ -1180,7 +1180,7 @@ create(store, {
 
     if (JSON.stringify(options) == "{}") {
       temp.type = 1
-      temp.navigationBarTitleText = '我的名片'
+      temp.navigationBarTitleText = '我的星片'
       temp.navStatus = 'isEmpty'
       temp.tabbar = ['我的简介', '我的企业', '我的产品', '我的评价']
     } else {

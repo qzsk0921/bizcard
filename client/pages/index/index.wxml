@@ -139,8 +139,14 @@
             </view> -->
             <view class="content">
               <view wx:if="{{type==1}}" class="btn btn-product" bindtap="addProHandle">+添加我的产品</view>
+
+              <view class="no-data" wx:if="{{(tadeOptions[tabIndex].cache.length==0||!tadeOptions[tabIndex].cache)}}">
+                <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
+                <view class="text">这里是空的</view>
+              </view>
+
               <view class="items">
-                <view class="item" wx:for="{{tadeOptions[2].cache}}" wx:key="unique" data-item="{{item}}" bindtap="itemProHandle">
+                <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-item="{{item}}" bindtap="itemProHandle">
                   <image wx:if="{{type==1}}" class="icon-edit" src="/assets/images/card_product_edit.png" mode="aspectFill" data-id="{{item.id}}" catchtap="proEditHandle"></image>
                   <image class="good-img left" src="{{item.image_url}}" mode="aspectFill"></image>
                   <view class="tit">{{item.title}}</view>
@@ -148,9 +154,9 @@
                   <view class="cont txt-cut">{{item.content}}</view>
                 </view>
               </view>
-              <view wx:if="{{tadeOptions[1].total_page==tadeOptions[1].count&&tadeOptions[1].appid}}" class="btn btn-more" bindtap="toProMiniHandle">查看更多 <image src="/assets/images/nav_btn_return.png" mode="aspectFill"></image>
+              <view wx:if="{{tadeOptions[tabIndex].total_page==tadeOptions[tabIndex].count&&tadeOptions[tabIndex].appid}}" class="btn btn-more" bindtap="toProMiniHandle">查看更多 <image src="/assets/images/nav_btn_return.png" mode="aspectFill"></image>
               </view>
-              <view wx:if="{{tadeOptions[1].total_page==tadeOptions[1].count&&!tadeOptions[1].appid}}" class="btn btn-nothing">暂无更多产品</view>
+              <view wx:if="{{tadeOptions[tabIndex].total_page==tadeOptions[tabIndex].count&&!tadeOptions[tabIndex].appid}}" class="btn btn-nothing">暂无更多产品</view>
             </view>
           </scroll-view>
           <!-- 企业 -->

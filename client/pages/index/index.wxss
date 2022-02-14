@@ -449,7 +449,7 @@
 }
 
 .section5 .product .content {
-  background: #F2F4F7;
+  /* background: #F2F4F7; */
 }
 
 .section5 .product .btn-product {

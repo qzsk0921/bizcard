@@ -35,7 +35,7 @@ create(store, {
 
     navStatus: '', //isEmpty
     navColor: '',
-    
+
     editData: null, //名片编辑数据 这里主要用到我的标签
     card: null, //名片全部数据
     userInfo: null,
@@ -70,7 +70,7 @@ create(store, {
   },
   // 兼容ios，使input失去焦点
   tapHandle() {
-    console.log('tapHandle')
+    // console.log('tapHandle')
     wx.hideKeyboard({
       complete: res => {
         console.log('hideKeyboard res', res)
@@ -135,7 +135,8 @@ create(store, {
           // 'formData.address': res.name,
           'formData.address': res.address,
           'formData.address_latitude': res.latitude,
-          'formData.address_longitude': res.longitude
+          'formData.address_longitude': res.longitude,
+          'card.data.address': res.address //名片地址动态变化
         })
       },
       fail: function (res) {
@@ -164,6 +165,30 @@ create(store, {
           [`formData.${field}`]: tempFilePaths[0]
         })
       }
+    })
+  },
+  // 名字输入 根据用户录入的信息进行变化
+  inputNameHandle(e) {
+    this.setData({
+      'card.data.name': e.detail.value
+    })
+  },
+  // 电话输入
+  inputPhoneHandle(e) {
+    this.setData({
+      'card.data.mobile': e.detail.value
+    })
+  },
+  // 公司输入
+  inputCompanyHandle(e) {
+    this.setData({
+      'card.data.company': e.detail.value
+    })
+  },
+  // 职业输入
+  inputProfessionHandle(e) {
+    this.setData({
+      'card.data.profession': e.detail.value
     })
   },
   // 选择头像
@@ -302,8 +327,20 @@ create(store, {
       'formData.company_introduce_image_arr': this.data.formData.company_introduce_image_arr
     });
   },
+  // 处理ios10以上穿透到input使其获取焦点的问题
+  ios10Handle() {
+    //iOS11以上机型中点击弹框会穿透到弹窗下面的input输入框，并唤起键盘
+    setTimeout(() => {
+      wx.hideKeyboard({
+        complete: res => {
+          console.log('hideKeyboard res', res)
+        }
+      })
+    }, 200)
+  },
   // 保存名片信息
   async formSubmit(e) {
+    // this.ios10Handle()
     // console.log(e)
     // console.log(this.data.formData)
     const formData = e.detail.value

@@ -31,9 +31,9 @@
     <view class="box">
       <image class="icon-image" src="{{cardstyle.card_image}}" mode="aspectFill"></image>
       <view class="top">
-        <view wx:if="{{tools.parseShow('company', field, cardstyle.tag_list)&&cardstyle.is_company_show}}" class="company" style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.company}}</view>
-        <view wx:if="{{tools.parseShow('name', field, cardstyle.tag_list)&&cardstyle.is_name_show}}" class="name" style="color:{{tools.parseColor(cardstyle.name_color)}}">{{carddata.name}}</view>
-        <view wx:if="{{tools.parseShow('profession', field, cardstyle.tag_list)&&cardstyle.is_profession_show}}" class="position" style="color:{{tools.parseColor(cardstyle.profession_color)}}">{{carddata.profession}}</view>
+        <view wx:if="{{tools.parseShow('company', field, cardstyle.tag_list)&&cardstyle.is_company_show}}" class="company one-txt-cut" style="color:{{tools.parseColor(cardstyle.company_color)}}">{{carddata.company}}</view>
+        <view wx:if="{{tools.parseShow('name', field, cardstyle.tag_list)&&cardstyle.is_name_show}}" class="name one-txt-cut" style="color:{{tools.parseColor(cardstyle.name_color)}}">{{carddata.name}}</view>
+        <view wx:if="{{tools.parseShow('profession', field, cardstyle.tag_list)&&cardstyle.is_profession_show}}" class="position one-txt-cut" style="color:{{tools.parseColor(cardstyle.profession_color)}}">{{carddata.profession}}</view>
       </view>
       <view class="bottom">
         <view wx:if="{{carddata.mobile&&tools.parseShow('phone', field, cardstyle.tag_list)&&cardstyle.is_phone_show}}" class="phone">
