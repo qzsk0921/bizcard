@@ -234,33 +234,37 @@ create(store, {
         temp['formData.price'] = res.data.price
         temp['formData.id'] = id
         this.setData(temp)
+        this.elReadyHandle()
       })
     } else {
       this.setData(temp)
+      this.elReadyHandle()
     }
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  elReadyHandle() {
     const that = this
     const query = wx.createSelectorQuery();
-
-    // 在组件实例进入页面节点树时执行
-    query.select('.btn-submit').boundingClientRect(function (rect) {
-      console.log(rect)
-      that.setData({
-        btnSubmitH: rect.height
-      })
-    }).exec();
 
     query.select('.btn-box').boundingClientRect(function (rect) {
       that.setData({
         btnSubmitH: rect.height
       })
     }).exec();
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    // 在组件实例进入页面节点树时执行
+    // const that = this
+    // const query = wx.createSelectorQuery();
+
+    // query.select('.btn-box').boundingClientRect(function (rect) {
+    //   that.setData({
+    //     btnSubmitH: rect.height
+    //   })
+    // }).exec();
   },
 
   /**

@@ -62,7 +62,7 @@ create(store, {
     searchKeyword: '', //搜索关键字
     selectArr: [], //选中的id数组
     isSelectAll: 0, //默认非全选 0未全选 1全选
-    status: 'edit' //edit 待编辑,editing 编辑中
+    status: 'edit', //edit 待编辑,editing 编辑中
   },
   watch: {
     selectArr: {
@@ -81,10 +81,13 @@ create(store, {
   },
   // 实物名片点击跳转至实物名片详情
   cardHandle(e) {
+    // 优化星片夹编辑状态下，选择用户星片的选择区域
+    // 将选择区域优化为整行选中
     const dataset = e.currentTarget.dataset
 
     wx.reLaunch({
-      url: `/pages/index/index?type=2&b=${dataset.item.sq_business_card_id}&s=${dataset.item.id}`
+      // bizholder已用 时钟icon，用bizholderr表示此页
+      url: `/pages/index/index?type=2&from=bizholderr&b=${dataset.item.sq_business_card_id}&s=${dataset.item.id}`
     })
   },
   // 完成按钮
@@ -126,7 +129,7 @@ create(store, {
     })
   },
   selectHandle(e) {
-    const id = e.currentTarget.dataset.id
+    const id = e.currentTarget.dataset.item.id
 
     let res = false
     if (this.data.selectArr.length) {

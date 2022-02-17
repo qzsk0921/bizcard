@@ -35,6 +35,7 @@ create(store, {
 
     navStatus: '', //isEmpty
     navColor: '',
+    // navArrowColor: '', //导航箭头颜色
 
     editData: null, //名片编辑数据 这里主要用到我的标签
     card: null, //名片全部数据
@@ -79,7 +80,7 @@ create(store, {
   },
   scrollHandle(e) {
     // 隐藏显示顶部导航栏
-    if (e.detail.scrollTop > 5) {
+    if (e.detail.scrollTop > 10) {
       if (this.data.navColor != 'transparent') {
         this.setData({
           navColor: 'transparent'
@@ -578,7 +579,6 @@ create(store, {
         type: 1
       }).then(res => {
         console.log(res.data)
-        console.log(99392)
         const data = res.data
         this.store.data.card.data = data.card_info
         this.store.data.card.style = data.card_style

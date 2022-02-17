@@ -55,6 +55,7 @@ create(store, {
 
     fixed: 0, //是否固定定位
     TASrollTop: null, //TA切换栏距离顶部距离
+    scrollY: false, //禁止嵌套滚动, tab选项置顶后开启
     cid: 1, //版式id
     is_select: 0, //协议
     isOverShare: true,
@@ -406,7 +407,10 @@ create(store, {
         }
 
         if (nv == 2) {
-          temp.navStatus = 'isEntryWithShare'
+          if (!(this.data.navStatus && this.data.navStatus == 'bizholderr')) {
+            temp.navStatus = 'isEntryWithShare'
+          }
+
           temp.tabbar = ['TA的简介', 'TA的企业', 'TA的产品', 'TA的评价']
           if (this.data.card.save_card_status) {
             // 自动将Ta人名片保持至名片夹 并toast：已为您将该名片至名片夹
@@ -438,7 +442,7 @@ create(store, {
     // console.log(this.data.TASrollTop)
 
     // 隐藏显示顶部导航栏
-    if (e.detail.scrollTop > 5) {
+    if (e.detail.scrollTop > 10) {
       if (this.data.navColor != 'transparent') {
         this.setData({
           navColor: 'transparent'
@@ -457,13 +461,15 @@ create(store, {
     if (this.data.TASrollTop <= e.detail.scrollTop) {
       if (!fixed) {
         this.setData({
-          fixed: 1
+          fixed: 1,
+          scrollY: true
         })
       }
     } else {
       if (fixed) {
         this.setData({
-          fixed: 0
+          fixed: 0,
+          scrollY: false
         })
       }
     }
@@ -547,6 +553,7 @@ create(store, {
         if (it.id === item.id) {
           this.setData({
             [`card.card_info_label_list[${index}].zan_status`]: type,
+            [`card.card_info_label_list[${index}].zan_num`]: type ? item.zan_num + 1 : item.zan_num - 1,
           })
         }
       })
@@ -1060,7 +1067,6 @@ create(store, {
         'card.style': res.data.card_style,
       }
 
-
       // 自己查看自己的分享名片
       if (res.data.is_me) {
         tempSetdata.type = 1
@@ -1068,6 +1074,7 @@ create(store, {
       } else {
         tempSetdata.type = options.type
       }
+
       console.log(tempSetdata)
       // 名片被禁用 分查看自己名片时 他人查看自己名片时
       if (res.data.card_info.status === 0) {
@@ -1107,8 +1114,7 @@ create(store, {
     query.select('.section5').boundingClientRect(function (rect) {
       console.log(rect.top)
       console.log(that.store.data.compatibleInfo.navHeight)
-      // that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
-      that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 11)
+      that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 1)
       console.log(that.data.TASrollTop)
     }).exec()
   },
@@ -1226,6 +1232,14 @@ create(store, {
 
     // {type: "2", b: "4269", s: "3452"}
     console.log(options)
+
+    // 从星片夹列表进入Ta人星片后
+    // 左上角首页按钮需改为返回按钮， 且点击后返回星片夹列表页
+    if (options.from) {
+      this.setData({
+        navStatus: options.from
+      })
+    }
 
     if (wx.getUserProfile) {
       this.setData({

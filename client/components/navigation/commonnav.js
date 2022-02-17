@@ -1,6 +1,9 @@
 // components/navigation/commonnav.js
 import store from '../../store/common'
 import create from '../../utils/create'
+import {
+  setTabBar
+} from '../../utils/business'
 // Component({
 create({
   /**
@@ -9,6 +12,10 @@ create({
   properties: {
     type: Number, //1我的名片 2他的名片
     color: String,
+    colorArrow: {
+      type: String,
+      value: '#333'
+    },
     bgColor: String,
     navigationBarTitleText: String,
     marginLeft: Number,
@@ -82,9 +89,18 @@ create({
         // tabbar页面优先处理
         if (el) {
           // 点击左边的元素触发
-          // wx.switchTab({
-          //   url: _data.tabbarPage,
-          // })
+          if (_data.status === 'bizholderr') {
+            // 从星片夹列表进入Ta人星片后
+            // 左上角首页按钮需改为返回按钮， 且点击后返回星片夹列表页
+            setTabBar.call(this, {
+              selected: 2
+            }, function () {
+              wx.reLaunch({
+                url: '/pages/bizholder/bizholder'
+              })
+            })
+            return
+          }
 
           // 除Ta的简介、Ta的产品、Ta的企业、Ta的评价可点击切换内容以外，其他可点击内容，用户未授权微信，直接显示微信授权弹窗
           if (!store.data.userInfo.avatar_url && this.data.type == 2 && _data.tabbarPage == '/pages/index/index') {

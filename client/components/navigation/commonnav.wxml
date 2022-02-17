@@ -25,7 +25,7 @@
 		</view> -->
 		<!-- icon返回箭头 -->
 		<view wx:else style="height:100%;width:100rpx;position:absolute;" data-el="leftarrow">
-			<view class="left-arrow" data-el="leftarrow" style="border-top-color:{{color}};top:{{menuButtonHeight/2-7}}px;border-left-color:{{color}}"></view>
+			<view class="left-arrow" data-el="leftarrow" style="border-top-color:{{colorArrow}};top:{{menuButtonHeight/2-7}}px;border-left-color:{{colorArrow}}"></view>
 		</view>
 		<text class="title-text" style="color:{{color}};">{{navigationBarTitleText}}</text>
 	</view>

@@ -7,12 +7,14 @@ import config from '../config/index'
 export function setTabBar({
   selected = 0,
   list = config.tabBar.list
-} = {}) {
+} = {}, func) {
   if (typeof this.getTabBar === 'function' && this.getTabBar()) {
     this.getTabBar().setData({
       selected,
       list
     })
+    
+    if (func) func()
   }
 }
 

@@ -262,7 +262,8 @@
 }
 
 .section4 {
-  padding: 24rpx 28rpx;
+  /* padding: 24rpx 28rpx; */
+  padding: 24rpx 0rpx;
   background: #F0F3F7;
 }
 
@@ -271,6 +272,12 @@
   display: flex;
   white-space: nowrap;
   overflow: scroll;
+  padding: 0 28rpx;
+}
+
+.section4 .item-box .shim {
+  padding: 0 14rpx;
+  height: 136rpx;
 }
 
 .section4 .item {
@@ -308,9 +315,7 @@
 }
 
 .section5.fixed {
-  position: relative;
-  /* left: 0; */
-  /* width: 100vw */
+  /* position: absolute; */
 }
 
 .section5 .tabs-nav {

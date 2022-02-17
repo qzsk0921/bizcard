@@ -46,7 +46,9 @@
           </view>
         </view>
       </view>
-      <button wx:if="{{type==='add'}}" class="btn-submit btn" form-type="submit">保存</button>
+      <view wx:if="{{type==='add'}}" class="btn-box">
+        <button class="btn-submit btn" form-type="submit">保存</button>
+      </view>
       <view wx:if="{{type==='edit'}}" class="btn-box">
         <button class="btn-a-del btn" bindtap="delProHandle">删除</button>
         <button class="btn-a-submit btn" form-type="submit">保存</button>

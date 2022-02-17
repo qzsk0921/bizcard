@@ -158,18 +158,19 @@
 }
 
 .btn-submit {
-  position: fixed;
+  /* position: fixed;
   z-index: 1;
   bottom: 0;
-  left: 0;
+  left: 0; */
   width: 100vw !important;
   height: 98rpx;
   line-height: 98rpx;
   background: rgba(73, 128, 249);
   font-size: 32rpx;
   color: #FFFFFF;
-  padding-bottom: env(safe-area-inset-bottom);
+  /* padding-bottom: env(safe-area-inset-bottom); */
   box-sizing: content-box;
+  border-radius: 0;
 }
 
 .btn-box {
@@ -180,19 +181,24 @@
   left: 0;
   display: flex;
   justify-content: space-between;
+  background-color: #ffffff;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .btn-box .btn-a-del,
 .btn-box .btn-a-submit {
-  width: 373rpx;
+  border-radius: 0;
+  /* width: 373rpx; */
+  flex: 1;
   height: 98rpx;
   line-height: 98rpx;
-  padding-bottom: env(safe-area-inset-bottom);
+  /* padding-bottom: env(safe-area-inset-bottom); */
   box-sizing: content-box;
   color: #FFFFFF;
 }
 
 .btn-box .btn-a-del {
+  margin-right: 4rpx;
   background: #FF5757;
 }
 

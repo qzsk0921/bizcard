@@ -3,7 +3,6 @@
 <wxs src="../../wxs/common.wxs" module="tools"></wxs>
 <wxs module="tool" src="/pages/bizEdit/wxs/index.wxs"></wxs>
 
-
 <dropdown-telephone bindtap="dropdownTelephoneMaskTap" bindupdateCartHandle="updateCartHandle" opened="{{dialog.telephone.opened}}" bindsubClickable="subClickableHandle" telephoneObj="{{dialog.telephone.telephoneObj}}" />
 <dropdown-auth bindtap="dropdownAuthMaskTap" bindclose="authCloseHandle" bindsignined="signinedHandle" opened="{{dialog.auth.opened}}" />
 <dropdown-diy bindtap="dropdownDiyMaskTap" bindawakenDialogAuth="awakenDialogAuth" opened="{{dialog.diy.opened}}" />
@@ -73,10 +72,12 @@
           </view>
           <view class="row2">{{item.content}}</view>
         </view>
+        <view class="shim"></view>
       </view>
     </view>
     <!-- ta的简介，ta的产品... -->
-    <view class="section5 {{fixed?'fixed':''}}">
+    <!-- <view class="section5 {{fixed?'fixed':''}}" style="{{fixed?'top:'+compatibleInfo.navHeight+'px':''}}"> -->
+    <view class="section5">
       <!-- 他的评价-选项底部 -->
       <view wx:if="{{tabIndex==3&&type==2}}" class="btn btn-comment" bindtap="toEvaluatesubmitHandle">
         <image src="/assets/images/card_evaluate.png" mode="aspectFill"></image>
@@ -89,13 +90,14 @@
         <view class="tabs-line" style="transform:translateX({{tabWidth*tabIndex+tabWidth/2+'px'}})translateX(-50%)">
         </view>
       </view>
-      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-((type==1?compatibleInfo.tabbarH:0)+compatibleInfo.navHeight)+'px'}}">
+      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-(tabHeight+(type==1?compatibleInfo.tabbarH:0)+compatibleInfo.navHeight)+'px'}}">
         <view class="no-data" wx:if="{{(tadeOptions[tabIndex].cache.length==0||!tadeOptions[tabIndex].cache)&&tabIndex!=2}}">
           <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
           <view class="text">这里是空的</view>
         </view>
         <view class='ta' wx:else>
-          <view wx:if="{{tabIndex===0}}" class="introduce">
+          <scroll-view wx:if="{{tabIndex===0}}" class="introduce" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
+            <!-- <view wx:if="{{tabIndex===0}}" class="introduce"> -->
             <view class="sec1">
               <text wx:if="{{card.card_info.introduce_myself}}" class="des">
                 <!-- {{tadeOptions[tabIndex].cache.introduce_myself}} -->
@@ -109,7 +111,7 @@
                 </block>
                 <block wx:if="{{type==2}}">
                   <view wx:if="{{card.card_info_label_list.length}}" class="tags">
-                    <view class="tag btn btn-zan {{item.zan_status?'active':''}}" wx:for="{{card.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view>
+                    <view class="tag btn btn-zan {{item.zan_status?'active':''}}" wx:for="{{card.card_info_label_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}} {{item.zan_num}}</view>
                     <!-- <view class="tag btn btn-zan {{tool.parseLabelStr(item.id,tagArr)?'active':''}}" wx:for="{{editData.select_tag_list}}" wx:key="unique" data-item="{{item}}" bindtap="labelZanHandle">{{item.name}}</view> -->
                   </view>
                 </block>
@@ -123,9 +125,10 @@
               <view class="tit">{{type==1?'我':'TA'}}的视频</view>
               <video src="{{card.card_info.vidieo_url}}" binderror="videoErrorCallback" danmu-list="{{danmuList}}" enable-danmu danmu-btn show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}" bindenterpictureinpicture='bindVideoEnterPictureInPicture' bindleavepictureinpicture='bindVideoLeavePictureInPicture'></video>
             </view>
-          </view>
+            <!-- </view> -->
+          </scroll-view>
           <!-- 产品 -->
-          <scroll-view wx:if="{{tabIndex===2}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+          <scroll-view wx:if="{{tabIndex===2}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
             <!-- <view class="items">
               <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}">
                 <image class="good-img left" src="{{item.cover}}" mode="aspectFill"></image>
@@ -160,7 +163,8 @@
             </view>
           </scroll-view>
           <!-- 企业 -->
-          <view wx:if="{{tabIndex===1}}" class="company">
+          <scroll-view wx:if="{{tabIndex===1}}" class="company" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
+            <!-- <view wx:if="{{tabIndex===1}}" class="company"> -->
             <view class="sec-box">
               <view class="sec1">
                 <image wx:if="{{card.card_info.company_avatar}}" class="logo left" src="{{card.card_info.company_avatar}}" mode="aspectFit"></image>
@@ -181,8 +185,10 @@
                 </view>
               </view>
             </view>
-          </view>
-          <scroll-view wx:if="{{tabIndex===3}}" class="scroll-box comment" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="true" enhanced="true" show-scrollbar="{{false}}">
+            <!-- </view> -->
+          </scroll-view>
+          <!-- 评价 -->
+          <scroll-view wx:if="{{tabIndex===3}}" class="scroll-box comment" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
             <view class="sec-box">
               <view class="sec1">
                 <view class="left">共{{commentNum}}条评价</view>
