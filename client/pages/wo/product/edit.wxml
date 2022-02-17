@@ -18,9 +18,9 @@
       <view class="form-section section2">
         <view class="r1">
           <text class="tit">产品描述</text>
-          <text>{{currentCountDes}}/200</text>
+          <text>{{currentCountDes}}/1000</text>
         </view>
-        <textarea placeholder-class="placeholder-style" placeholder="请填写产品描述" value="{{formData.content}}" name="content" bindinput="textareaInputContentHandle" maxlength="200" />
+        <textarea placeholder-class="placeholder-style" placeholder="请填写产品描述" value="{{formData.content}}" name="content" bindinput="textareaInputContentHandle" maxlength="1000" />
       </view>
       <view class="form-section section3">
         <view class="r1">

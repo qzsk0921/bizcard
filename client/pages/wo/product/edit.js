@@ -57,8 +57,8 @@ create(store, {
     console.log(e)
     let len = e.detail.value.length
 
-    if (len > 200) {
-      len = 200
+    if (len > 1000) {
+      len = 1000
     }
     this.inputHandle(len, 'currentCountDes')
   },
