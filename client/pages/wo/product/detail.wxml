@@ -6,7 +6,7 @@
   </view>
   <view class="content hide-scrollbar" style="height: {{compatibleInfo.systemInfo.screenHeight-(compatibleInfo.navHeight)+'px'}};">
     <view class="section1">{{dataDetail.title}}</view>
-    <view class="section2">{{dataDetail.content}}</view>
+    <text class="section2" space="nbsp">{{dataDetail.content}}</text>
     <view class="section3">
       <image src="{{dataDetail.image_url}}" mode="aspectFill"></image>
     </view>

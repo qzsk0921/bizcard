@@ -584,9 +584,11 @@
 }
 
 .section5 .company .sec1 .right .row2 {
-  margin-top: 9rpx;
+  /* margin-top: 9rpx; */
+  margin-top: 4rpx;
   font-size: 26rpx;
   color: #000000;
+  line-height: 36rpx;
 }
 
 .section5 .company .sec2 {

@@ -99,7 +99,7 @@
           <scroll-view wx:if="{{tabIndex===0}}" class="introduce" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
             <!-- <view wx:if="{{tabIndex===0}}" class="introduce"> -->
             <view class="sec1">
-              <text wx:if="{{card.card_info.introduce_myself}}" class="des">
+              <text wx:if="{{card.card_info.introduce_myself}}" class="des" space="nbsp">
                 <!-- {{tadeOptions[tabIndex].cache.introduce_myself}} -->
                 {{card.card_info.introduce_myself}}
               </text>
@@ -154,7 +154,7 @@
                   <image class="good-img left" src="{{item.image_url}}" mode="aspectFill"></image>
                   <view class="tit">{{item.title}}</view>
                   <view class="price">￥<text>{{item.price}}</text></view>
-                  <view class="cont txt-cut">{{item.content}}</view>
+                  <text class="cont txt-cut" space="nbsp">{{item.content}}</text>
                 </view>
               </view>
               <view wx:if="{{tadeOptions[tabIndex].total_page==tadeOptions[tabIndex].count&&tadeOptions[tabIndex].appid}}" class="btn btn-more" bindtap="toProMiniHandle">查看更多 <image src="/assets/images/nav_btn_return.png" mode="aspectFill"></image>
@@ -175,7 +175,7 @@
                   <view wx:if="{{card.card_info.address}}" class="row2">{{card.card_info.address}}</view>
                 </view>
               </view>
-              <text wx:if="{{card.card_info.company_introduce}}" class="sec2">
+              <text wx:if="{{card.card_info.company_introduce}}" class="sec2" space="nbsp">
                 {{card.card_info.company_introduce}}
                 <!-- 展开 -->
               </text>
