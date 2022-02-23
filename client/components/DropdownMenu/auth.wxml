@@ -3,18 +3,27 @@
 <view class="dropdown-item-down {{opened?'opened':''}}">
   <view class="mask"></view>
   <view class="dropdown-item-down__content" style="{{opened?'transform:translateY('+(-height)+'px)':''}}" catchtap="dropdownItemTapHandle">
-    <block class="userinfo">
+    <!-- <block class="userinfo">
       <view class="avatar" bindtap="bindViewTap">
         <open-data type="userAvatarUrl" default-avatar="../../assets/images/my share_img_head_close@2x.png"></open-data>
       </view>
-      <view class="text"><view>为了保护他人的隐私</view><view>授权后可查看对方的星片</view></view>
-      <!-- <open-data class="text" type="userNickName"></open-data> -->
-    </block>
-    <button class="btn-auth btn" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 授权微信 </button>
-    <button class="btn-auth btn" wx:else open-type="getUserInfo" bindgetuserinfo="getUserProfile">授权微信</button>
-    <view class="no-signin" bindtap="nosigninHandle">暂不授权</view>
+      <view class="text">
+        <view>为了保护他人的隐私</view>
+        <view>授权后可查看对方的星片</view>
+      </view>
+    </block> -->
+    <view class="image-box">
+      <image src="/assets/images/head_img.png" mode="aspectFill"></image>
+      <text>数字星片</text>
+    </view>
+    <!-- <view class="line"></view> -->
+    <button class="btn-auth btn" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 微信一键登录 </button>
+    <button class="btn-auth btn" wx:else open-type="getUserInfo" bindgetuserinfo="getUserProfile">微信一键登录</button>
+    <!-- <view class="no-signin" bindtap="nosigninHandle">暂不授权</view> -->
+    <view class="no-signin" bindtap="nosigninHandle">暂不登录</view>
     <view class="tip">
-      <text>授权即表示同意</text>
+      <!-- <text>授权即表示同意</text> -->
+      <text>登录注册即表示同意</text>
       <view class="agreement" bindtap="toRuleHandle"><text data-id="8">用户协议</text>、<text data-id="9">隐私协议</text>
       </view>
     </view>

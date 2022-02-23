@@ -46,6 +46,7 @@ create(store, {
    * 页面的初始数据
    */
   data: {
+    zanHandleFlag: false, //防抖
     tabbarPage: '/pages/index/index',
 
     canvasWidth: 420,
@@ -436,13 +437,23 @@ create(store, {
       'dialog.auth.opened': 1
     })
   },
+  awakenDialogJuide() {
+    const juideDialogVisibile = wx.getStorageSync('juideDialogVisibile')
+    // console.log(juideDialogVisibile)
+    if (!juideDialogVisibile) {
+      this.setData({
+        juideDialogVisibile: 1
+      })
+      wx.setStorageSync('juideDialogVisibile', 1)
+    }
+  },
   // 滚动时触发
   scrollHandle(e) {
     console.log(e.detail.scrollTop)
     // console.log(this.data.TASrollTop)
 
     // 隐藏显示顶部导航栏
-    if (e.detail.scrollTop > 10) {
+    if (e.detail.scrollTop > 30) {
       if (this.data.navColor != 'transparent') {
         this.setData({
           navColor: 'transparent'
@@ -520,23 +531,26 @@ create(store, {
   },
   zanHandle() {
     if (this.businessCheck()) return
+    if (!this.data.zanHandleFlag) {
+      this.data.zanHandleFlag = true
+      const type = this.data.card.card_is_zan ? 0 : 1
+      this.setCardZan({
+        type,
+        sq_business_card_id: this.data.card.card_info.id
+      }).then(res => {
+        this.data.zanHandleFlag = false
+        const tempData = {
+          'card.card_is_zan': type
+        }
+        if (type) {
+          tempData['card.card_zan'] = this.data.card.card_zan + 1
+        } else {
+          tempData['card.card_zan'] = this.data.card.card_zan - 1
+        }
 
-    const type = this.data.card.card_is_zan ? 0 : 1
-    this.setCardZan({
-      type,
-      sq_business_card_id: this.data.card.card_info.id
-    }).then(res => {
-      const tempData = {
-        'card.card_is_zan': type
-      }
-      if (type) {
-        tempData['card.card_zan'] = this.data.card.card_zan + 1
-      } else {
-        tempData['card.card_zan'] = this.data.card.card_zan - 1
-      }
-
-      this.setData(tempData)
-    })
+        this.setData(tempData)
+      })
+    }
   },
   // 标签赞
   labelZanHandle(e) {
@@ -670,13 +684,17 @@ create(store, {
       url: '/pages/bizcode/bizcode',
     })
   },
-  // 他人名片-授权弹窗关闭-立即弹出diy名片制作弹窗
+  // 他人名片-授权弹窗关闭-立即弹出diy名片制作弹窗-立即弹出引导弹窗
   authCloseHandle() {
     if (!this.store.data.userInfo.has_card) {
       this.setData({
         'dialog.diy.opened': 1
       })
     }
+  },
+  // 我(ta)的名片-diy名片制作弹窗关闭-立即弹出引导弹窗
+  diyCloseHandle() {
+    this.awakenDialogJuide()
   },
   toAgreementHandle(e) {
     // 星片用户协议 8 星片隐私政策 9
@@ -694,10 +712,16 @@ create(store, {
   businessCheck() {
     // 除Ta的简介、Ta的产品、Ta的企业、Ta的评价可点击切换内容以外，其他可点击内容，用户未授权微信，直接显示微信授权弹窗
     if (this.data.type == 2 && !this.store.data.userInfo.avatar_url) {
+      // 未授权
       this.setData({
         'dialog.auth.opened': 1
       })
       return true
+    } else if (this.data.type == 2 && this.store.data.userInfo.avatar_url && !this.store.data.userInfo.has_card) {
+      // 已经授权，没有名片
+      this.setData({
+        'dialog.diy.opened': 1
+      })
     }
     return false
   },
@@ -978,15 +1002,8 @@ create(store, {
       }
     }
 
-    if ((options.type == 1 && userInfo.has_card && !userInfo.avatar_url) || (options.type == 2 && !userInfo.has_card && !userInfo.avatar_url)) {
-      const juideDialogVisibile = wx.getStorageSync('juideDialogVisibile')
-      // console.log(juideDialogVisibile)
-      if (!juideDialogVisibile) {
-        this.setData({
-          juideDialogVisibile: 1
-        })
-        wx.setStorageSync('juideDialogVisibile', 1)
-      }
+    if ((options.type == 1 && userInfo.has_card && userInfo.avatar_url)) {
+      this.awakenDialogJuide()
     }
 
     const temp = {}

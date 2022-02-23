@@ -51,7 +51,7 @@
 }
 
 .dropdown-item-down__content .text {
-  margin: 26rpx auto 0;
+  margin: 44rpx auto 0;
 }
 
 .dropdown-item-down__content .text view {
@@ -88,3 +88,31 @@
   color: #4283FB;
   display: inline-block;
 }
+
+.image-box {
+  height: 124rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 70rpx;
+  border-bottom: 2rpx solid #EEEEEE;
+}
+
+.image-box image {
+  border-radius: 50%;
+  width: 54rpx;
+  height: 54rpx;
+
+}
+
+.image-box text {
+  font-size: 32rpx;
+  color: #333333;
+  margin-left: 16rpx;
+}
+
+/* .line {
+  height: 2rpx;
+  width: 610rpx;
+  background: #EEEEEE;
+} */

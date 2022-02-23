@@ -5,7 +5,8 @@ import {
   addGood,
   getGoodDetail,
   editGood,
-  delGood
+  delGood,
+  getGoodList
 } from '../../../api/shopping'
 import {
   getQnToken
@@ -117,14 +118,27 @@ create(store, {
     // console.log(this.data.formData)
     if (this.data.type === 'edit') {
       editGood(this.data.formData).then(res => {
-        wx.reLaunch({
-          url: '/pages/index/index',
+        // wx.reLaunch({
+        //   url: '/pages/index/index',
+        // })
+
+        this.getGoodList().then(res => {
+          wx.navigateBack({
+            delta: 0,
+          })
         })
       })
     } else {
       addGood(this.data.formData).then(res => {
-        wx.reLaunch({
-          url: '/pages/index/index',
+        // wx.reLaunch({
+        //   url: '/pages/index/index',
+        // })
+
+        // 产品
+        this.getGoodList().then(res => {
+          wx.navigateBack({
+            delta: 0,
+          })
         })
       })
     }
@@ -142,8 +156,14 @@ create(store, {
           delGood({
             id: that.data.formData.id
           }).then(res => [
-            wx.reLaunch({
-              url: '/pages/index/index',
+            // wx.reLaunch({
+            //   url: '/pages/index/index',
+            // })
+
+            that.getGoodList().then(res => {
+              wx.navigateBack({
+                delta: 0,
+              })
             })
           ])
         } else if (res.cancel) {
@@ -151,6 +171,25 @@ create(store, {
         }
       }
     })
+  },
+  getGoodList() {
+    const prevPage = getCurrentPages()[getCurrentPages().length - 2]
+    console.log(prevPage)
+    return new Promise((resolve, reject) => {
+      getGoodList({
+        user_id: prevPage.data.card.card_info.user_id
+      }).then(res => {
+        prevPage.setData({
+          'tadeOptions[2].cache': res.data.data,
+          'tadeOptions[2].total_page': res.data.last_page,
+          'tadeOptions[2].appid': res.data.appid,
+        })
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+
   },
   formValidate(formData) {
     const flag = Object.keys(formData).some(key => {
@@ -231,7 +270,7 @@ create(store, {
         temp['formData.title'] = res.data.title
         temp['formData.content'] = res.data.content
         temp['formData.image_url'] = res.data.image_url
-        temp['formData.price'] = res.data.price
+        temp['formData.price'] = res.data.original_price
         temp['formData.id'] = id
         this.setData(temp)
         this.elReadyHandle()

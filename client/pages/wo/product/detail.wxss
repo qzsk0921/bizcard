@@ -19,7 +19,7 @@
 }
 
 .section2 {
-  padding: 20rpx 0 30rpx;
+  padding: 20rpx 0 30rpx ;
   font-size: 28rpx;
   line-height: 48rpx;
   color: #333333;
