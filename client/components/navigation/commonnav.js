@@ -103,10 +103,11 @@ create({
           }
 
           // 除Ta的简介、Ta的产品、Ta的企业、Ta的评价可点击切换内容以外，其他可点击内容，用户未授权微信，直接显示微信授权弹窗
-          if (!store.data.userInfo.avatar_url && this.data.type == 2 && _data.tabbarPage == '/pages/index/index') {
-            this.triggerEvent('awakenDialogAuth')
-            return
-          }
+          // if (!store.data.userInfo.avatar_url && this.data.type == 2 && _data.tabbarPage == '/pages/index/index') {
+          //   this.triggerEvent('awakenDialogAuth')
+          //   return
+          // }
+          
           // 点击返回我的名片页，若用户没有创建数字星片，点击返回无名片信息页面
           // if (store.data.userInfo.has_card == 0) {}
           wx.reLaunch({

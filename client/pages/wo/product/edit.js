@@ -189,7 +189,6 @@ create(store, {
         reject(err)
       })
     })
-
   },
   formValidate(formData) {
     const flag = Object.keys(formData).some(key => {

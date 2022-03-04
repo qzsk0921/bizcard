@@ -439,7 +439,6 @@ create(store, {
   },
   awakenDialogJuide() {
     const juideDialogVisibile = wx.getStorageSync('juideDialogVisibile')
-    // console.log(juideDialogVisibile)
     if (!juideDialogVisibile) {
       this.setData({
         juideDialogVisibile: 1
@@ -485,6 +484,17 @@ create(store, {
       }
     }
   },
+  // // 滑动结束事件
+  // scrollHandleEnd(e) {
+  //   // 隐藏显示顶部导航栏
+  //   if (e.detail.scrollTop < 30) {
+  //     if (this.data.navColor == 'transparent') {
+  //       this.setData({
+  //         navColor: '#333'
+  //       })
+  //     }
+  //   }
+  // },
   // 我的名片-名片编辑
   editHandle() {
     wx.navigateTo({
