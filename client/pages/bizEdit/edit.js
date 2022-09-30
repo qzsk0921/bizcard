@@ -108,8 +108,109 @@ create(store, {
   },
   // 去选择家乡
   hometownHandle() {
-    wx.navigateTo({
-      url: '/pages/bizEdit/treeselect?type=hometown&page=pages/bizEdit/edit',
+    this.getSetting('hometownHandle')
+    // wx.navigateTo({
+    //   url: '/pages/bizEdit/treeselect?type=hometown&page=pages/bizEdit/edit',
+    // })
+  },
+  getSetting(type) {
+    const that = this
+    // 查询一下用户是否授权了地理位置 scope.userLocation
+    wx.getSetting({
+      success(res) {
+        console.log(res)
+        if (!res.authSetting['scope.userLocation']) {
+          wx.openSetting({
+            success(res) {
+              console.log(res.authSetting)
+              // res.authSetting = {
+              //   "scope.userInfo": true,
+              //   "scope.userLocation": true
+              // }
+              if (res.authSetting['scope.userLocation']) {
+                wx.authorize({
+                  scope: 'scope.userLocation',
+                  success() {
+                    that.getLocation(type)
+                  },
+                  fail(err) {
+                    console.log(err)
+                  }
+                })
+              }
+            }
+          })
+        } else {
+          that.getLocation(type)
+        }
+      }
+    })
+  },
+  getLocation(type) {
+    const that = this;
+    wx.getLocation({
+      isHighAccuracy: true,
+      type: 'gcj02',
+      success: function (res) {
+        let latitude = res.latitude
+        let longitude = res.longitude
+        wx.request({
+          url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${latitude},${longitude}&key=${config.tencentKey}`,
+          success: res => {
+            // console.log(res)
+            const result = res.data.result
+
+            store.data.currentAddress = {
+              address: result.formatted_addresses.recommend,
+              longitude: result.location.lng,
+              latitude: result.location.lat,
+              hometown: result.address_component.province + ' ' + result.address_component.city
+            }
+
+            store.update()
+
+            if (that.getLocationCallback) {
+              thie.getLocationCallback(result.address_component.province + ' ' + result.address_component.city)
+            }
+
+            if (type === 'hometownHandle') {
+              wx.navigateTo({
+                url: '/pages/bizEdit/treeselect?type=hometown&page=pages/bizEdit/edit',
+              })
+            } else if (type === 'addressHandle') {
+              wx.chooseLocation({
+                success: function (res) {
+                  // console.log('chooseLocation success')
+                  console.log(res)
+                  that.setData({
+                    // 'formData.address': res.name,
+                    'formData.address': res.address,
+                    'formData.address_latitude': res.latitude,
+                    'formData.address_longitude': res.longitude,
+                    'card.data.address': res.address //名片地址动态变化
+                  })
+                },
+                fail: function (res) {
+                  // 接口调用失败的回调函数
+                  console.log('chooseLocation fail')
+                  console.log(res)
+                },
+                complete: function (res) {
+                  // 接口调用结束的回调函数（调用成功、失败都会执行）
+                  console.log('chooseLocation complete')
+                  console.log(res)
+                }
+              })
+            }
+          }
+        })
+      },
+      fail: function (err) {
+        console.log(err)
+      },
+      complete: function () {
+        console.log('complete')
+      }
     })
   },
   // 去选择职位
@@ -126,31 +227,8 @@ create(store, {
   },
   // 公司地址选择
   addressHandle() {
-    const that = this
-
-    wx.chooseLocation({
-      success: function (res) {
-        // console.log('chooseLocation success')
-        console.log(res)
-        that.setData({
-          // 'formData.address': res.name,
-          'formData.address': res.address,
-          'formData.address_latitude': res.latitude,
-          'formData.address_longitude': res.longitude,
-          'card.data.address': res.address //名片地址动态变化
-        })
-      },
-      fail: function (res) {
-        // 接口调用失败的回调函数
-        console.log('chooseLocation fail')
-        console.log(res)
-      },
-      complete: function (res) {
-        // 接口调用结束的回调函数（调用成功、失败都会执行）
-        console.log('chooseLocation complete')
-        console.log(res)
-      }
-    })
+    // const that = this
+    this.getSetting('addressHandle')
   },
   chooseImage(field) {
     const that = this

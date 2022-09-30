@@ -1,5 +1,5 @@
 import request from '../utils/request'
-
+// https://www.showdoc.com.cn/1459684149519018/8309635758521507
 /**
  * 名片详情 small/BusinessCard/info
  * @param {int} type require 1:自己 2:他人

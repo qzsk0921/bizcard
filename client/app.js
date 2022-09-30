@@ -38,7 +38,7 @@ App({
     // 版本更新
     this.update()
     // 定位授权
-    this.getLocation()
+    // this.getLocation()
     // 先查询一下用户是否授权了 "scope.*" addPhoneContact
     this.getSetting(['addPhoneContact'])
   },
@@ -203,7 +203,8 @@ App({
   getLocation() {
     const that = this;
     wx.getLocation({
-      type: 'wgs84',
+      isHighAccuracy: true,
+      type: 'gcj02',
       success: function (res) {
         let latitude = res.latitude
         let longitude = res.longitude

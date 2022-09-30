@@ -17,7 +17,7 @@
           <image src="{{cardstyle.phone_image}}" mode="aspectFill"></image>
           <text style="color:{{tools.parseColor(cardstyle.phone_color)}}">{{carddata.mobile}}</text>
         </view>
-        <view wx:if="{{carddata.address&&tools.parseShow('address', field, cardstyle.tag_list)}}" class="address one-txt-cut">
+        <view wx:if="{{carddata.address&&tools.parseShow('address', field, cardstyle.tag_list)}}" class="address txt-cut">
           <image src="{{cardstyle.address_image}}" mode="aspectFill"></image>
           <text style="color:{{tools.parseColor(cardstyle.address_color)}}">{{carddata.address}}</text>
         </view>
@@ -64,7 +64,7 @@
         <view class="line"></view>
         <view class="phone" style="color:{{tools.parseColor(cardstyle.phone_color)}}">P：13400055366</view>
         <view class="email" style="color:{{tools.parseColor(cardstyle.email_color)}}">E：24546485@fakfl.com</view>
-        <view class="address" style="color:{{tools.parseColor(cardstyle.address_color)}}">A：北京市东城区发几款方法啊的空间的是的阿斯弗312阿的是的阿斯弗 312阿凡121</view>
+        <view class="address one-txt-cut" style="color:{{tools.parseColor(cardstyle.address_color)}}">A：北京市东城区发几款方法啊的空间的是的阿斯弗312阿的是的阿斯弗 312阿凡121</view>
       </view>
     </view>
   </view>

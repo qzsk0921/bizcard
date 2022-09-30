@@ -37,7 +37,8 @@ create(store, {
       // profession_id: '',
       // profession_name: '', //职位名称
       profession: '',
-      style_image_id: ''
+      style_image_id: '',
+      address: ''
     },
 
     userInfo: null,
@@ -67,6 +68,11 @@ create(store, {
   inputProfessionHandle(e) {
     this.setData({
       'cardInfo.profession': e.detail.value
+    })
+  },
+  inputAddressHandle(e) {
+    this.setData({
+      'cardInfo.address': e.detail.value
     })
   },
   getPhoneNumber(e) {

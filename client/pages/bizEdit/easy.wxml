@@ -34,6 +34,10 @@
           <label>职位</label>
           <input name="profession" placeholder="请输入您的职位" placeholder-class="input-placeholder" value="{{formData.profession}}" bindinput="inputProfessionHandle" />
         </view>
+        <view class="form-item form-item-address">
+          <label>公司地址</label>
+          <input name="address" placeholder="请输入公司地址" placeholder-class="input-placeholder" value="{{formData.address}}" bindinput="inputAddressHandle" />
+        </view>
         <view class="form-item form-item-style">
           <label>星片样式</label>
           <!-- <input name="style_id" placeholder="" placeholder-class="input-placeholder" value="{{card.style}}" disabled="true" bindtap="styleHandle" disabled="true" /> -->

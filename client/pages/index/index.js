@@ -39,6 +39,9 @@ const list = [{
     "selectedIconPath": "/assets/images/btn_card_holder_n.png"
   }
 ]
+
+let systemInfoCallbackFlag = 0
+
 // Page({
 create(store, {
 
@@ -46,6 +49,7 @@ create(store, {
    * 页面的初始数据
    */
   data: {
+    isOnload: 1,
     zanHandleFlag: false, //防抖
     tabbarPage: '/pages/index/index',
 
@@ -449,10 +453,10 @@ create(store, {
   // 滚动时触发
   scrollHandle(e) {
     console.log(e.detail.scrollTop)
-    // console.log(this.data.TASrollTop)
+    console.log(this.data.TASrollTop)
 
     // 隐藏显示顶部导航栏
-    if (e.detail.scrollTop > 30) {
+    if (e.detail.scrollTop > 50) {
       if (this.data.navColor != 'transparent') {
         this.setData({
           navColor: 'transparent'
@@ -468,7 +472,7 @@ create(store, {
 
     // 固定定位底部选项列表
     const fixed = this.data.fixed
-    if (this.data.TASrollTop <= e.detail.scrollTop) {
+    if (this.data.TASrollTop - e.detail.scrollTop <= 50) {
       if (!fixed) {
         this.setData({
           fixed: 1,
@@ -483,6 +487,9 @@ create(store, {
         })
       }
     }
+  },
+  scrollEndHandle(e) {
+    console.log(e.detail)
   },
   // // 滑动结束事件
   // scrollHandleEnd(e) {
@@ -1029,6 +1036,7 @@ create(store, {
       temp.type = options.type
     }
 
+    this.data.temp = temp
     this.getCardDetail(temp).then(res => {
       if (res.data.card_info.is_same_wx == 0 && res.data.card_info.status == -1) {
         wx.showToast({
@@ -1139,10 +1147,10 @@ create(store, {
     }).exec();
 
     query.select('.section5').boundingClientRect(function (rect) {
-      console.log(rect.top)
-      console.log(that.store.data.compatibleInfo.navHeight)
+      // console.log(rect.top)
+      // console.log(that.store.data.compatibleInfo.navHeight)
       that.data.TASrollTop = (rect.top - that.store.data.compatibleInfo.navHeight - 1)
-      console.log(that.data.TASrollTop)
+      // console.log(that.data.TASrollTop)
     }).exec()
   },
   // 我的产品-添加
@@ -1184,13 +1192,39 @@ create(store, {
       current: dataset.item.url, // 当前显示图片的http链接
     })
   },
+  tabbarHCallback(tabbarH) {
+    this.setData({
+      tabbarH
+    })
+    this.store.data.compatibleInfo.tabbarH = tabbarH
+    this.store.update()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // this.data.isOnload = 1
+    getApp().globalData.thisIndex = this
     console.log('indexonload')
     console.log(options)
     getApp().setWatcher(this) //设置监听器
+
+    getApp().getSystemInfoCallback = (res => {
+      systemInfoCallbackFlag = 1
+
+      console.log(res)
+      this.setData({
+        compatibleInfo: res,
+      })
+
+      this.store.data.compatibleInfo.systemInfo = res.systemInfo
+      this.store.data.compatibleInfo.navHeight = res.navHeight
+      this.store.data.compatibleInfo.isIphoneX = res.isIphoneX
+      this.store.data.compatibleInfo.isIphone = res.isIphone
+
+      this.update()
+    })
+
     // if (options.scene) {
     //   let temp = {}
 
@@ -1306,26 +1340,31 @@ create(store, {
       })
     }
 
-    // if (!this.data.userInfo) {
-    //   this.setData({
-    //     userInfo: this.store.data.userInfo
-    //   })
-    // }
+    // 切换页面更新浏览数据
+    if (!this.data.isOnload) {
+      this.getCardDetail(this.data.temp).then(res => {
+        const tempSetdata = {
+          card: res.data,
+          'card.data': res.data.card_info,
+          'card.style': res.data.card_style,
+        }
+
+        this.setData(tempSetdata)
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    this.data.isOnload = 0
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
-  },
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

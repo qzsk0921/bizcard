@@ -1,14 +1,15 @@
 {
   "cloudfunctionRoot": "cloud/functions/",
   "miniprogramRoot": "client/",
-  "description": "项目配置文件",
+  "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "packOptions": {
     "ignore": [
       {
-        "type": "file",
-        "value": ".eslintrc.js"
+        "value": ".eslintrc.js",
+        "type": "file"
       }
-    ]
+    ],
+    "include": []
   },
   "setting": {
     "urlCheck": false,
@@ -51,21 +52,13 @@
     "disableUseStrict": false,
     "minifyWXML": true,
     "showES6CompileOption": false,
-    "useCompilerPlugins": false
+    "useCompilerPlugins": false,
+    "useStaticServer": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.19.4",
   "appid": "wxf5b1f23631790e65",
   "projectname": "%E6%99%BA%E8%83%BD%E5%90%8D%E7%89%87",
-  "debugOptions": {
-    "hidedInDevtools": []
-  },
-  "scripts": {},
-  "staticServerOptions": {
-    "baseURL": "",
-    "servePath": ""
-  },
-  "isGameTourist": false,
   "condition": {
     "search": {
       "list": []
@@ -85,5 +78,10 @@
     "miniprogram": {
       "list": []
     }
+  },
+  "srcMiniprogramRoot": "client/",
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
   }
 }

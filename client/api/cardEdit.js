@@ -1,4 +1,5 @@
 import request from '../utils/request'
+// https://www.showdoc.com.cn/1459684149519018/8309635758521507
 /**
  * 名片编辑详情 small/BusinessCard/style_info_page
  * @param {int} sq_business_card_id 名片id
@@ -68,6 +69,7 @@ export function setStyleInfo(data) {
  * @param {int} company require 公司名
  * @param {int} profession_id require 职业id
  * @param {int} style_image_id require 名片图id 通过名片图列表获取
+ * @param {string} address 公司地址
  */
 export function addEasyCard(data) {
   return request({

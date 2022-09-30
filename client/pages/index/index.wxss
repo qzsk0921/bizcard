@@ -166,7 +166,7 @@
 .container .content {
   background: #FFFFFF;
   overflow: scroll;
-  padding-bottom: 60rpx;
+  /* padding-bottom: 60rpx; */
 }
 
 .container-index .section1 {}
@@ -464,6 +464,10 @@
 
 .section5 .product .content {
   /* background: #F2F4F7; */
+}
+
+.section5 .type2 .content {
+  padding-bottom: 60rpx;
 }
 
 .section5 .product .btn-product {

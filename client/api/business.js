@@ -1,5 +1,5 @@
 import request from '../utils/request'
-
+// https://www.showdoc.com.cn/1459684149519018/8309635758521507
 /**
  * 生成二维码 small/UserCardList/q_code
  * @param {int} type require 1:名片详情

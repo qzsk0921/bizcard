@@ -20,7 +20,7 @@
   <view class="fixed">
     <top-navigation bindawakenDialogAuth="awakenDialogAuth" navigationBarTitleText="{{navigationBarTitleText}}" navHeight="{{compatibleInfo.navHeight}}" navTop="{{compatibleInfo.menuButtonObject.top}}" menuButtonHeight="{{compatibleInfo.menuButtonObject.height}}" status="{{navStatus}}" location="{{currentAddress}}" color="{{navColor}}" bgColor="{{(currentId==1||fixed)?'#FFF':'transparent'}}" tabbarPage="{{tabbarPage}}" type="{{type}}" />
   </view>
-  <scroll-view class="content" bindscroll="scrollHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(type==1?compatibleInfo.tabbarH:0)+'px'}};" >
+  <scroll-view class="content" bindscroll="scrollHandle" binddragend="scrollEndHandle" scroll-y="true" enhanced="true" show-scrollbar="{{false}}" style="height: {{compatibleInfo.systemInfo.screenHeight-(type==1?tabbarH:0)+'px'}};">
     <!-- <view class="content"> -->
     <view class="section1 card">
       <card cid="{{cid}}" navbarFixed="1" carddata="{{card.data}}" cardstyle="{{card.style}}" />
@@ -31,7 +31,7 @@
         <view class="avatar_box">
           <image wx:for="{{card.view_user_list}}" wx:key="unique" class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
         </view>
-        <view class="text">{{card.view_user_number}}人浏览</view>
+        <view class="text">{{card.view_user_number}}人次浏览</view>
       </view>
       <view class="right" bindtap="zanHandle">
         <image class="icon_liked" src="/assets/images/card_like.png" mode="aspectFill"></image>
@@ -90,14 +90,14 @@
         <view class="tabs-line" style="transform:translateX({{tabWidth*tabIndex+tabWidth/2+'px'}})translateX(-50%)">
         </view>
       </view>
-      <view class="cont hide-scrollbar" style="height:{{compatibleInfo.systemInfo.screenHeight-(tabHeight+(type==1?compatibleInfo.tabbarH:0)+compatibleInfo.navHeight)+'px'}}">
+      <view class="cont hide-scrollbar {{type==1?'type1':'type2'}}" style="height:{{compatibleInfo.systemInfo.screenHeight-(tabHeight+(type==1?tabbarH:0)+compatibleInfo.navHeight)+'px'}}">
         <view class="no-data" wx:if="{{(tadeOptions[tabIndex].cache.length==0||!tadeOptions[tabIndex].cache)&&tabIndex!=2}}">
           <image mode="aspectFill" src="/assets/images/img_empty.png"></image>
           <view class="text">这里是空的</view>
         </view>
         <view class='ta' wx:else>
-        <!-- 简介 -->
-          <scroll-view wx:if="{{tabIndex===0}}" class="introduce" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
+          <!-- 简介 -->
+          <scroll-view wx:if="{{tabIndex===0}}" class="introduce" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}" lower-threshold="120">
             <!-- <view wx:if="{{tabIndex===0}}" class="introduce"> -->
             <view class="sec1">
               <text wx:if="{{card.card_info.introduce_myself}}" class="des" space="nbsp">{{card.card_info.introduce_myself}}</text>
@@ -126,18 +126,11 @@
             <!-- </view> -->
           </scroll-view>
           <!-- 产品 -->
-          <scroll-view wx:if="{{tabIndex===2}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" bindscrolltolower="scrollToLower" bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
-            <!-- <view class="items">
-              <view class="item" wx:for="{{tadeOptions[tabIndex].cache}}" wx:key="unique" data-id="{{item.id}}">
-                <image class="good-img left" src="{{item.cover}}" mode="aspectFill"></image>
-                <view class="right">
-                  <view class="row1">{{item.name}}</view>
-                  <view class="row2">
-                    {{item.price_str}}
-                  </view>
-                </view>
-              </view>
-            </view> -->
+          <scroll-view wx:if="{{tabIndex===2}}" class="scroll-box product" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{triggered}}" 
+          binddragend="sec5scrollEndHandle"
+          bindscrolltolower="scrollToLower" 
+          bindrefresherrefresh="scrollToRefresherrefresh" bindrefresherpulling="scrollToRefresherPull" bindrefresherrestore="scrollToRefresherStore" bindrefresherabort="scrollToRefresherAbort" scroll-y="{{scrollY}}" enhanced="true" show-scrollbar="{{false}}">
+            <!-- {{compatibleInfo.systemInfo.screenHeight+' '+tabHeight+' '+tabbarH+' '+compatibleInfo.navHeight}} -->
             <view class="content">
               <view wx:if="{{type==1}}" class="btn btn-product" bindtap="addProHandle">+添加我的产品</view>
 
@@ -173,7 +166,9 @@
                   <view wx:if="{{card.card_info.address}}" class="row2">{{card.card_info.address}}</view>
                 </view>
               </view>
-              <text wx:if="{{card.card_info.company_introduce}}" class="sec2" space="nbsp">{{card.card_info.company_introduce}}<!-- 展开 --></text>
+              <text wx:if="{{card.card_info.company_introduce}}" class="sec2" space="nbsp">{{card.card_info.company_introduce}}
+                <!-- 展开 -->
+              </text>
               <view wx:if="{{card.card_info.company_introduce_image_arr.length}}" class="sec3">
                 <view class="image-box hide-scrollbar">
                   <image wx:for="{{card.card_info.company_introduce_image_arr}}" wx:key="unique" src="{{item.url}}" mode="aspectFill" data-urls="{{card.card_info.company_introduce_image_arr}}" data-item="{{item}}" bindtap="previewImg"></image>

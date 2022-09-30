@@ -6,9 +6,7 @@ create({
   /**
    * 组件的属性列表
    */
-  properties: {
-
-  },
+  properties: {},
 
   /**
    * 组件的初始数据
@@ -18,7 +16,25 @@ create({
     color: "#888888",
     selectedColor: "#4980F9",
   },
-
+  observers: {
+    'list': function (val) {
+      if (val.length) {
+        setTimeout(() => {
+          const query = wx.createSelectorQuery().in(this);
+          // 在组件实例进入页面节点树时执行
+          query.select('.tab-bar').boundingClientRect(function (rect) {
+            if (rect.height) {
+              store.data.compatibleInfo.tabbarH = rect.height
+              store.update()
+              if (getApp().globalData.thisIndex.tabbarHCallback) {
+                getApp().globalData.thisIndex.tabbarHCallback(rect.height)
+              }
+            }
+          }).exec();
+        }, 0)
+      }
+    }
+  },
   /**
    * 组件的方法列表
    */
@@ -36,18 +52,18 @@ create({
       // 在组件在视图层布局完成后执行
     },
     attached: function () {
-      const query = wx.createSelectorQuery().in(this);
+      // const query = wx.createSelectorQuery().in(this);
 
-      setTimeout(()=>{
-        // 在组件实例进入页面节点树时执行
-        query.select('.tab-bar').boundingClientRect(function (rect) {
-          if (rect.height) {
-            store.data.compatibleInfo.tabbarH = rect.height
-            store.update()
-          }
-        }).exec();
-      },2500)
-      
+      // setTimeout(() => {
+      //   // 在组件实例进入页面节点树时执行
+      //   query.select('.tab-bar').boundingClientRect(function (rect) {
+      //     if (rect.height) {
+      //       console.log(rect.height)
+      //       store.data.compatibleInfo.tabbarH = rect.height
+      //       store.update()
+      //     }
+      //   }).exec();
+      // }, 2500)
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
